@@ -1,0 +1,24 @@
+{
+  "name": "deltago",
+  "version": "0.0.0",
+  "authors": [
+    "ainesmile <ainesmile@gmail.com>"
+  ],
+  "description": "A Django E-commerce Website",
+  "keywords": [
+    "django",
+    "E-commerce",
+    "deltago"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "bootstrap": "~3.3.7"
+  }
+}
