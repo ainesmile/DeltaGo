@@ -7,16 +7,16 @@ class Commodity(models.Model):
     BABY = 'B'
     FOOD = 'F'
     HEALTH = 'H'
+    BEAUTY = 'Y'
     SPECIAL = 'S'
     CATEGORY = (
         (BABY, 'Baby')
         (FOOD, 'Food'),
         (HEALTH, 'Health'),
+        (BEAUTY, 'Beauty'),
         (SPECIAL, 'Special'),
     )
 
-    number = models.IntegerField(
-        unique=True)
     name = models.CharField(
         max_length=128,
         unique=True)
