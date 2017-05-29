@@ -7,14 +7,14 @@ from deltago.models.nutrition import Nutrition
 class Commodity(models.Model):
     BABYCARE = 'B'
     FOOD = 'F'
-    HEALTH = 'H'
+    SUPPLEMENT = 'P'
     BEAUTY = 'U'
     SPECIAL = 'S'
 
     CATEGORY_CHOICES = (
         (BABYCARE, 'BabyCare'),
         (FOOD, 'Food'),
-        (HEALTH, 'Health'),
+        (SUPPLEMENT, 'Supplement'),
         (BEAUTY, 'Beauty'),
         (SPECIAL, 'Special'),
     )
