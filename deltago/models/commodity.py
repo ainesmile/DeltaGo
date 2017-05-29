@@ -32,7 +32,7 @@ class Commodity(models.Model):
     pic_url = models.URLField(
         blank=True,
         null=True)
-    category = models.IntegerField(
+    category = models.CharField(
         choices=CATEGORY
         default=CATEGORY.BABY)
     description = models.TextField(
