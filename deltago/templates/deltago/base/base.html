@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html"; charset="urf-8">
+        <meta name="renderer" content="webkit">
+        <meta name="referrer" content="always">
+        <meta content="代购 daigou" name="description"/>
+        <title>DeltaGo</title>
+        <link rel="shortcut icon" type="image/png" href="{% static 'deltago/img/favicon.png' %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'deltago/libs/bootstrap/dist/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'deltago/libs/theme/freelancer.min.css' %}">
+        <link href="{% static 'deltago/libs/theme/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    </head>
+    <body id="page-top" class="index">
+        {% include './nav.html' %}
+
+        <div>{% block main %}{% endblock %}</div>
+
+        {% include './about.html' %}
+        {% include './footer.html' %}
+    </body>
+</html>
