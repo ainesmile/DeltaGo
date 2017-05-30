@@ -1,3 +1,10 @@
 .navbar-custom {
     padding: 5px;
+    text-transform: none;
+}
+
+.nav-contaioner {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
 }
