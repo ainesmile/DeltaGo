@@ -1,10 +1,35 @@
+/*nav*/
 .navbar-custom {
     padding: 5px;
     text-transform: none;
 }
+
 
 .nav-contaioner {
     margin-left: 0;
     margin-right: 0;
     width: 100%;
 }
+
+/*footer*/
+
+footer .footer-above {
+    padding-top: 10px;
+}
+
+
+footer .footer-below {
+    padding: 0px;
+}
+ul.footer-nav > li {
+    display: inline-block;
+}
+ul.footer-nav > li > a {
+    color: white;
+    padding: 10px 15px;
+}
+ul.footer-nav li a:hover {
+    background-color: transparent;
+    color: #18BC9C;
+}
+
