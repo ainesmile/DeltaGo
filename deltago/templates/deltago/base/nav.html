@@ -30,6 +30,24 @@
                     <a href="">特价专区</a>
                 </li>
             </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="page-scroll">
+                    <a href="">购物车</a>
+                </li>
+                <li class="page-scroll">
+                    <a href="">我的帐号</a>
+                </li>
+                {% if user.is_authenticated %}
+                    <li class="page-scroll">
+                        <a href="">退出帐号</a>
+                    </li>
+                {% else %}
+                    <li class="page-scroll">
+                        <a href="">登录</a>
+                    </li>
+                {% endif %}
+            </ul>
         </div>
     </div>
 </nav>
