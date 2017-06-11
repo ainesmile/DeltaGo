@@ -22,15 +22,30 @@ class Commodity(models.Model):
     name = models.CharField(
         max_length = 128,
         unique=True)
-    brand = models.CharField(max_length=128)
+    brand = models.CharField(
+        max_length=128,
+        blank = True,
+        null = True)
     origin = models.CharField(
         max_length = 128,
         null = True,
         blank = True)
-    price = models.IntegerField()
-    discount = models.IntegerField(
-        blank = True,
-        null = True)
+    volume_size = models.CharField(
+        max_length = 128,)
+    price = models.CharField(
+        max_length = 128,)
+    cup_price = models.CharField(
+        max_length = 128,
+        null = True,
+        blank = True)
+    was_price = models.CharField(
+        max_length = 128,
+        null = True,
+        blank = True)
+    special_price = models.CharField(
+        max_length = 128,
+        null = True,
+        blank = True)
     pic_url = models.URLField(
         blank = True,
         null = True)
@@ -39,13 +54,15 @@ class Commodity(models.Model):
         choices = CATEGORY_CHOICES,
         default = BABYCARE,)
     description = models.TextField(
-        default = name)
+        default = name,
+        null = True,
+        blank = True)
     online_date = models.DateTimeField(
         default = timezone.now)
 
     class Meta:
         abstract = True
-        ordering = ['brand', 'name']
+        ordering = ['name']
 
     def __str__(self):
         return self.name
@@ -59,6 +76,8 @@ class BabyCare(Commodity):
     FOOD_9M = 'F9'
     FOOD_12M = 'F12'
     MEDICINAL = 'M'
+    TOILETRY = 'T'
+    NAPPY = 'N'
     SUB_CATEGORY = (
         (FOOD, 'Other Baby Foods'),
         (FOOD_4M, 'Baby Food From 4 Mths'),
@@ -66,16 +85,23 @@ class BabyCare(Commodity):
         (FOOD_9M, 'Baby Food From 9 Mths'),
         (FOOD_12M, 'Baby Food From 12 Mths'),
         (MEDICINAL, 'Medicinal Needs'),
+        (TOILETRY, 'toiletries'),
+        (NAPPY, 'nappies and liners'),
     )
-
-    weight = models.CharField(
-        max_length = 128,)
-    cup_price = models.IntegerField()
-    ingredient = models.TextField()
-    claim = models.TextField()
-    endorsement = models.TextField()
-    nutrition = models.ForeignKey(Nutrition)
-
+    
+    ingredient = models.TextField(
+        null = True,
+        blank = True)
+    claim = models.TextField(
+        null = True,
+        blank = True)
+    endorsement = models.TextField(
+        null = True,
+        blank = True)
+    nutrition = models.ForeignKey(
+        Nutrition,
+        null = True,
+        blank = True)
     sub_category = models.CharField(
         max_length = 3,
         choices = SUB_CATEGORY,
