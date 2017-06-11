@@ -1,0 +1,52 @@
+{
+    "countdown": {
+        "B": {
+            "F4": "https://shop.countdown.co.nz/Shop/Browse/baby-care/baby-food-from-4-mths",
+            "F6": "https://shop.countdown.co.nz/Shop/Browse/baby-care/baby-food-from-6-mths",
+            "F9": "https://shop.countdown.co.nz/Shop/Browse/baby-care/baby-food-from-9-mths",
+            "F12": "https://shop.countdown.co.nz/Shop/Browse/baby-care/baby-food-one-year-",
+            "F": "https://shop.countdown.co.nz/Shop/Browse/baby-care/other-baby-foods",
+            "T": "https://shop.countdown.co.nz/Shop/Browse/baby-care/baby-toiletries",
+            "M": "https://shop.countdown.co.nz/Shop/Browse/baby-care/medicinal-needs",
+            "N": "https://shop.countdown.co.nz/Shop/Browse/baby-care/nappies-liners"
+        },
+        "P": {
+            "A": "https://shop.countdown.co.nz/Shop/Browse/health-wellness/supplements-antioxidants",
+            "C": "https://shop.countdown.co.nz/Shop/Browse/health-wellness/supplements-cold-flu",
+            "D": "https://shop.countdown.co.nz/Shop/Browse/health-wellness/supplements-digestion",
+            "E": "https://shop.countdown.co.nz/Shop/Browse/health-wellness/supplements-energy",
+            "J": "https://shop.countdown.co.nz/Shop/Browse/health-wellness/supplements-joints",
+            "MEO": "https://shop.countdown.co.nz/Shop/Browse/health-wellness/supplements-memory",
+            "MEN": "https://shop.countdown.co.nz/Shop/Browse/health-wellness/supplements-mens",
+            "V": "https://shop.countdown.co.nz/Shop/Browse/health-wellness/supplements-multi-vitamins",
+            "NO": "https://shop.countdown.co.nz/Shop/Browse/health-wellness/supplements-nutritional-oils",
+            "S": "https://shop.countdown.co.nz/Shop/Browse/health-wellness/supplements-sleep-anxiety",
+            "ST": "https://shop.countdown.co.nz/Shop/Browse/health-wellness/supplements-stress",
+            "WE": "https://shop.countdown.co.nz/Shop/Browse/health-wellness/supplements-wellbeing",
+            "WO": "https://shop.countdown.co.nz/Shop/Browse/health-wellness/supplements-women"
+        }
+    },
+    "fields": {
+        "name": {
+            "ele": ".//span[@class=\"description span12 mspan8 \"]/text()",
+            "need_process": 0
+        },
+        "volume_size": {
+            "ele": ".//span[@class=\"volume-size\"]/text()",
+            "need_process": 0
+        },
+        "price": {
+            "ele": ".//span[@class=\"price din-medium\"]/text()[1]",
+            "need_process": 1
+        },
+        "special_price": {
+            "ele": ".//span[@class=\"price special-price din-medium savings-text\"]/text()[1]",
+            "need_process": 1
+        },
+        "was_price": {
+            "ele": ".//span[@class=\"was-price hidden-phone\"]/text()[1]",
+            "need_process": 1
+        }
+    },
+    "stamp": "//div[@class=\"product-stamp product-stamp-grid \"]"
+}
