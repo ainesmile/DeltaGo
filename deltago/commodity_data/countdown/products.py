@@ -24,7 +24,7 @@ def field(product_element, field_name, field_details):
     return {field_name: value}
 
 def product(product_element, fields, category_field):
-    product_item = category_field
+    product_item = category_field.copy()
     for field_name in fields:
         field_details = fields[field_name]
         field_item = field(product_element, field_name, field_details)
@@ -34,9 +34,9 @@ def product(product_element, fields, category_field):
 def product_list(url, fields, category_field, stamp):
     products = []
     elements = product_elements(url, stamp)
-    for product_element in elements:
-        product_item = product(product_element, fields, category_field)
-        products.append(product_item)
+    for element in elements:
+        item = product(element, fields, category_field)
+        products.append(item)
     return products
 
 def sub(category_name, category_data, fields, stamp):
@@ -63,6 +63,6 @@ def fetch(file):
 def save(input_file, output_file):
     data = fetch(input_file)
     with open(output_file, 'a') as outfile:
-        json.dump(data, outfile)
+        json.dump(data, outfile, indent=4)
 
 # save('deltago/commodity_data/countdown/countdown.json', 'deltago/commodity_data/countdown/babycare.json')

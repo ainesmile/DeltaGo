@@ -38,7 +38,8 @@ class ProductTest(TestCase):
             "sub_category": "F6"
         }
         self.stamp = "//div[@class=\"product-stamp product-stamp-grid \"]"
-        self.product_element = self.tree.xpath(self.stamp)[0]
+        self.product_elements = self.tree.xpath(self.stamp)
+        self.product_element = self.product_elements[0]
 
     def test_replace(self):
         string = "    $2.49"
@@ -67,3 +68,10 @@ class ProductTest(TestCase):
         expected.update(self.category_field)
         product = products.product(self.product_element, self.fields, self.category_field)
         self.assertEqual(product, expected)
+
+    # def test_save(self):
+    #     products.save('deltago/commodity_data/countdown/countdown.json', 'deltago/commodity_data/countdown/babycare.json')
+
+
+
+
