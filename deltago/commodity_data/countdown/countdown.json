@@ -28,7 +28,7 @@
     },
     "fields": {
         "name": {
-            "ele": ".//span[@class=\"description span12 mspan8 \"]/text()",
+            "ele": ".//span[@class=\"span12 text-center mspan4 product-stamp-thumbnail\"]/img/@alt",
             "need_process": 0
         },
         "volume_size": {
@@ -46,6 +46,10 @@
         "was_price": {
             "ele": ".//span[@class=\"was-price hidden-phone\"]/text()[1]",
             "need_process": 1
+        },
+        "href": {
+            "ele": ".//h3/a[@title=\"click for more details\"][@class=\"_jumpTop\"]/@href",
+             "need_process": 0
         }
     },
     "stamp": "//div[@class=\"product-stamp product-stamp-grid \"]"

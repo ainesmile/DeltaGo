@@ -4,7 +4,7 @@ import re
 import json
 
 def replace(string):
-    return re.sub('\s+', '', string)
+    return re.sub('\s+\$', '', string)
 
 def product_elements(url, stamp):
     page = requests.get(url)
@@ -62,7 +62,7 @@ def fetch(file):
 
 def save(input_file, output_file):
     data = fetch(input_file)
-    with open(output_file, 'a') as outfile:
+    with open(output_file, 'w') as outfile:
         json.dump(data, outfile, indent=4)
 
 # save('deltago/commodity_data/countdown/countdown.json', 'deltago/commodity_data/countdown/babycare.json')
