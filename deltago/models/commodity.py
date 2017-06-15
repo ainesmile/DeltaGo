@@ -11,54 +11,21 @@ class Commodity(models.Model):
     BEAUTY = 'U'
     SPECIAL = 'S'
 
-    CATEGORY_CHOICES = (
+    CATEGORY = (
         (BABYCARE, 'BabyCare'),
         (FOOD, 'Food'),
         (SUPPLEMENT, 'Supplement'),
         (BEAUTY, 'Beauty'),
         (SPECIAL, 'Special'),
     )
-
-    name = models.CharField(
-        max_length = 128,
-        unique=True)
-    brand = models.CharField(
-        max_length=128,
-        blank = True,
-        null = True)
-    origin = models.CharField(
-        max_length = 128,
-        null = True,
-        blank = True)
-    volume_size = models.CharField(
-        max_length = 128,)
-    price = models.CharField(
-        max_length = 128,)
-    cup_price = models.CharField(
-        max_length = 128,
-        null = True,
-        blank = True)
-    was_price = models.CharField(
-        max_length = 128,
-        null = True,
-        blank = True)
-    special_price = models.CharField(
-        max_length = 128,
-        null = True,
-        blank = True)
-    pic_url = models.URLField(
-        blank = True,
-        null = True)
-    category = models.CharField(
-        max_length = 2,
-        choices = CATEGORY_CHOICES,
-        default = BABYCARE,)
-    description = models.TextField(
-        default = name,
-        null = True,
-        blank = True)
-    online_date = models.DateTimeField(
-        default = timezone.now)
+    name = models.CharField(max_length = 128)
+    volume_size = models.CharField(max_length = 128,)
+    price = models.CharField(max_length = 128,)
+    was_price = models.CharField(max_length = 128, null = True, blank = True)
+    special_price = models.CharField(max_length = 128, null = True, blank = True)
+    category = models.CharField(max_length = 2, choices = CATEGORY, default = BABYCARE,)
+    
+    online_date = models.DateTimeField(default = timezone.now)
 
     class Meta:
         abstract = True
@@ -66,7 +33,6 @@ class Commodity(models.Model):
 
     def __str__(self):
         return self.name
-
 
 
 class BabyCare(Commodity):
@@ -88,21 +54,36 @@ class BabyCare(Commodity):
         (TOILETRY, 'toiletries'),
         (NAPPY, 'nappies and liners'),
     )
-    
-    ingredient = models.TextField(
-        null = True,
-        blank = True)
-    claim = models.TextField(
-        null = True,
-        blank = True)
-    endorsement = models.TextField(
-        null = True,
-        blank = True)
-    nutrition = models.ForeignKey(
-        Nutrition,
-        null = True,
-        blank = True)
+
     sub_category = models.CharField(
         max_length = 3,
         choices = SUB_CATEGORY,
         default = FOOD)
+
+class Details(models.Model):
+    brand = models.CharField(max_length=128, blank = True, null = True)
+    origin = models.CharField(max_length = 128, null = True, blank = True)
+    description = models.TextField(null = True, blank = True)
+    pic_url = models.URLField(blank = True, null = True)
+    class Meta:
+        abstract = True
+
+
+class BabyCareDetails(Details):
+    babycare = models.ForeignKey(BabyCare)
+    nutrition = models.ForeignKey(Nutrition, null = True, blank = True)
+    ingredient = models.TextField(null = True, blank = True)
+    claim = models.TextField(null = True, blank = True)
+    endorsement = models.TextField(null = True, blank = True)
+    
+
+        
+
+
+
+
+
+
+
+
+
