@@ -2,9 +2,26 @@ from lxml import html
 import requests
 import re
 import json
+import math
 
 def replace(string):
-    return re.sub('\s+\$', '', string)
+    result = re.search(r'\d+\.\d+', string)
+    return result.group()
+
+def get_tree(url):
+    page = requests.get(url)
+    tree = html.fromstring(page.content)
+    return tree
+
+def page_number(tree, element, per_page):
+    item_text = tree.xpath(element)[0]
+    result = re.search(r'\d+', item_text)
+    item_number = result.group()
+    if item_number:
+        page = int(math.ceil(float(item_number)/per_page))
+    else:
+        page = 1
+    return page
 
 def product_elements(url, stamp):
     page = requests.get(url)

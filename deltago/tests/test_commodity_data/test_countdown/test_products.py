@@ -14,6 +14,9 @@ class ProductTest(TestCase):
         with open('deltago/fixtures/commodity/countdown.py', 'r') as countdown:
             self.tree = html.fromstring(countdown.read())
 
+        with open('deltago/fixtures/commodity/babycare.py', 'r') as babycare:
+            self.intact_tree = html.fromstring(babycare.read())
+
         with open('deltago/commodity_data/countdown/countdown.json', 'r') as data_file:
             data = json.load(data_file)
             self.fields = data["fields"]
@@ -27,10 +30,25 @@ class ProductTest(TestCase):
         self.product_element = self.product_elements[0]
 
     def test_replace(self):
-        string = "    $2.49"
-        s_expected = "2.49"
-        s_replaced = products.replace(string)
-        self.assertEqual(s_replaced, s_expected)
+        data = [
+            ('    $2.49', '2.49'),
+            ('was    $1.2', '1.2'),
+            ('was    $1.00', '1.00')
+        ]
+        for str, result in data:
+            self.assertEqual(products.replace(str), result)
+
+    def test_page_number(self):
+        element = ".//div[@class=\"paging-description hidden-tablet \"]/text()"
+        data = [
+            (2, 14),
+            (3, 10),
+            (4, 7),
+        ]
+        for per, page_expected in data:
+            page = products.page_number(self.intact_tree, element, per)
+            self.assertEqual(page_expected, page)
+
 
     def test_field(self):
         data = [
