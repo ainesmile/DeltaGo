@@ -52,5 +52,7 @@
              "need_process": 0
         }
     },
-    "stamp": "//div[@class=\"product-stamp product-stamp-grid \"]"
+    "stamp": ".//div[@class=\"product-stamp product-stamp-grid \"]",
+    "items_number_element": ".//div[@class=\"paging-description hidden-tablet \"]/text()",
+    "per_page": "24"
 }

@@ -38,7 +38,7 @@ class ProductTest(TestCase):
         for str, result in data:
             self.assertEqual(products.replace(str), result)
 
-    def test_page_number(self):
+    def test_get_page_number(self):
         element = ".//div[@class=\"paging-description hidden-tablet \"]/text()"
         data = [
             (2, 14),
@@ -46,9 +46,8 @@ class ProductTest(TestCase):
             (4, 7),
         ]
         for per, page_expected in data:
-            page = products.page_number(self.intact_tree, element, per)
+            page = products.get_page_number(self.intact_tree, element, per)
             self.assertEqual(page_expected, page)
-
 
     def test_field(self):
         data = [
@@ -65,7 +64,7 @@ class ProductTest(TestCase):
             "href": "/Shop/ProductDetails?stockcode=790503&amp;name=heinz-brekky-to-go-kids-meal-banana-oats-cinnamon",
             "was_price": "null",
             "special_price": "null",
-            "price": "$2.49",
+            "price": "2.49",
             "volume_size": "squeeze pouch 150g",
             "name": "Heinz Brekky To Go Kids Meal Banana Oats Cinnamon"
         }
@@ -79,10 +78,14 @@ class ProductTest(TestCase):
         )
 
         self.assertEqual(product["href"], expected_href)
+        self.assertEqual(product["price"], expected["price"])
         self.assertEqual(product["was_price"], expected["was_price"])
         self.assertEqual(product["special_price"], expected["special_price"])
         self.assertEqual(product["volume_size"], expected["volume_size"])
         self.assertEqual(product["name"], expected["name"])
+
+    def test_page_product(self):
+        ps = products.page_product(self.tree, self.fields, self.category_field, self.stamp)
 
     # def test_save(self):
     #     products.save('deltago/commodity_data/countdown/countdown.json', 'deltago/commodity_data/countdown/babycare.json')

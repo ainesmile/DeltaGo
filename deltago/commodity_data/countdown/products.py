@@ -3,6 +3,7 @@ import requests
 import re
 import json
 import math
+import time
 
 def replace(string):
     result = re.search(r'\d+\.\d+', string)
@@ -13,20 +14,16 @@ def get_tree(url):
     tree = html.fromstring(page.content)
     return tree
 
-def page_number(tree, element, per_page):
+def get_page_number(tree, element, per_page):
+    per = int(per_page)
     item_text = tree.xpath(element)[0]
     result = re.search(r'\d+', item_text)
     item_number = result.group()
     if item_number:
-        page = int(math.ceil(float(item_number)/per_page))
+        page = int(math.ceil(float(item_number)/per))
     else:
         page = 1
     return page
-
-def product_elements(url, stamp):
-    page = requests.get(url)
-    tree = html.fromstring(page.content)
-    return tree.xpath(stamp)
 
 def field(product_element, field_name, field_details):
     ele = field_details["ele"]
@@ -48,25 +45,41 @@ def product(product_element, fields, category_field):
         product_item.update(field_item)
     return product_item
 
-def product_list(url, fields, category_field, stamp):
+def page_product(tree, fields, category_field, stamp):
     products = []
-    elements = product_elements(url, stamp)
+    elements = tree.xpath(stamp)
     for element in elements:
         item = product(element, fields, category_field)
         products.append(item)
     return products
 
-def sub(category_name, category_data, fields, stamp):
-    sub = []
+def sub_product(base_url, items_number_element, per_page, fields, category_field, stamp):
+    products = []
+    base_tree = get_tree(base_url)
+    base_produces = page_product(base_tree, fields, category_field, stamp)
+    products.extend(base_produces)
+
+    page_number = get_page_number(base_tree, items_number_element, per_page)
+    if page_number > 1:
+        for number in range(page_number-1):
+            next_url = base_url + '?page=' + str(number+2)
+            next_tree = get_tree(next_url)
+            next_produces = page_product(next_tree, fields, category_field, stamp)
+            products.extend(next_produces)
+    return products
+
+def sub(category_name, category_data, fields, stamp, items_number_element, per_page):
+    subs = []
     for sub_category_name in category_data:
         category_field = {
             "category": category_name,
             "sub_category": sub_category_name
         }
-        url = category_data[sub_category_name]
-        products = product_list(url, fields, category_field, stamp)
-        sub.extend(products)
-    return sub
+        base_url = category_data[sub_category_name]
+        products = sub_product(base_url, items_number_element, per_page, fields, category_field, stamp)
+       
+        subs.extend(products)
+    return subs
 
 def fetch(file):
     with open(file, 'r') as data_file:
@@ -74,7 +87,9 @@ def fetch(file):
     babycare = commodity["countdown"]["B"]
     fields = commodity["fields"]
     stamp = commodity["stamp"]
-    babycare_product_list = sub("B", babycare, fields, stamp)
+    items_number_element = commodity["items_number_element"]
+    per_page = commodity["per_page"]
+    babycare_product_list = sub("B", babycare, fields, stamp, items_number_element, per_page)
     return babycare_product_list
 
 def save(input_file, output_file):
