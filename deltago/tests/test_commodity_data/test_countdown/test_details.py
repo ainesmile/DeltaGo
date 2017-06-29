@@ -60,6 +60,11 @@ class DetailsTest(TestCase):
         text = details.get_ingredient_text(self.details_item)
         self.assertEqual(text, expected)
 
+    def test_get_ingredient_note(self):
+        expected = "1 Organic"
+        note = details.get_ingredient_note(element)
+        self.assertEqual(note, expected)
+
     def test_get_origin(self):
         expected = "Made in Australia from imported and local ingredients"
         origin = details.get_origin(self.tree)
