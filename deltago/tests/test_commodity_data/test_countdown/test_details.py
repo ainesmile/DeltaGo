@@ -5,6 +5,8 @@ from deltago.commodity_data.countdown import details
 
 class DetailsTest(TestCase):
     def setUp(self):
+        with open('deltago/fixtures/commodity/details.py', 'r') as data_file:
+            self.tree = html.fromstring(data_file.read())
 
         self.base_url = 'https://shop.countdown.co.nz'
         self.products = [
@@ -49,8 +51,14 @@ class DetailsTest(TestCase):
                 "name": "Natureland Baby Food Vanilla Custard"
             }
         ]
-
         self.element = ".//div[@class=\"product-details-description\"]"
+        self.field_name = ".//div[@class=\"navigation-toggle-children\"]/p/text()"
+        self.details_item = self.tree.xpath(self.element)[0]
+
+    def test_get_origin(self):
+        expected = "Made in Australia from imported and local ingredients"
+        origin = details.get_origin(self.tree)
+        self.assertEqual(origin, expected)
 
     def test_get_urls(self):
         expected = {
@@ -62,4 +70,3 @@ class DetailsTest(TestCase):
 
         urls = details.get_urls(self.base_url, self.products)
         self.assertEqual(urls, expected)
-
