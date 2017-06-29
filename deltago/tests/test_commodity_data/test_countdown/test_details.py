@@ -53,16 +53,16 @@ class DetailsTest(TestCase):
         ]
         self.element = ".//div[@class=\"product-details-description\"]"
         self.field_name = ".//div[@class=\"navigation-toggle-children\"]/p/text()"
-        self.details_item = self.tree.xpath(self.element)[0]
+        self.ingredients = self.tree.xpath(self.element)[0]
 
     def test_get_ingredient_text(self):
         expected = "Apples1 (89%), Raspberries (7%), Blackberries (4%)"
-        text = details.get_ingredient_text(self.details_item)
+        text = details.get_ingredient_text(self.ingredients)
         self.assertEqual(text, expected)
 
     def test_get_ingredient_note(self):
         expected = "1 Organic"
-        note = details.get_ingredient_note(element)
+        note = details.get_ingredient_note(self.ingredients)
         self.assertEqual(note, expected)
 
     def test_get_origin(self):
