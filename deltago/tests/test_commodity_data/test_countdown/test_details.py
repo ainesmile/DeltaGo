@@ -51,9 +51,10 @@ class DetailsTest(TestCase):
                 "name": "Natureland Baby Food Vanilla Custard"
             }
         ]
-        self.element = ".//div[@class=\"product-details-description\"]"
+        self.element_name = ".//div[@class=\"product-details-description\"]"
         self.field_name = ".//div[@class=\"navigation-toggle-children\"]/p/text()"
-        self.ingredients = self.tree.xpath(self.element)[0]
+        self.ingredients = self.tree.xpath(self.element_name)[0]
+        self.claims = self.tree.xpath(self.element_name)[2]
 
     def test_get_ingredient_text(self):
         expected = "Apples1 (89%), Raspberries (7%), Blackberries (4%)"
@@ -64,6 +65,11 @@ class DetailsTest(TestCase):
         expected = "1 Organic"
         note = details.get_ingredient_note(self.ingredients)
         self.assertEqual(note, expected)
+
+    def test_get_field(self):
+        expected = "No Added Colours or Flavours, No Preservatives, No Added Sugar"
+        claims = details.get_field(self.claims)
+        self.assertEqual(claims, expected)
 
     def test_get_origin(self):
         expected = "Made in Australia from imported and local ingredients"
