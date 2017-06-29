@@ -55,6 +55,11 @@ class DetailsTest(TestCase):
         self.field_name = ".//div[@class=\"navigation-toggle-children\"]/p/text()"
         self.details_item = self.tree.xpath(self.element)[0]
 
+    def test_get_ingredient_text(self):
+        expected = "Apples1 (89%), Raspberries (7%), Blackberries (4%)"
+        text = details.get_ingredient_text(self.details_item)
+        self.assertEqual(text, expected)
+
     def test_get_origin(self):
         expected = "Made in Australia from imported and local ingredients"
         origin = details.get_origin(self.tree)

@@ -1,6 +1,18 @@
 
 
 ORIGIN_FIELD = ".//div[@id=\"product-details-rating\"]/p/text()[1]"
+INGREDIENT_FIELD = ".//div[@class=\"navigation-toggle-children\"]/p/text()"
+
+def combine_text(field):
+    str = ''
+    for f in field:
+        str += f
+    return str
+
+def get_ingredient_text(element):
+    field = element.xpath(INGREDIENT_FIELD)
+    text = combine_text(field)
+    return text
 
 def get_urls(base_url, products):
     urls = {}
