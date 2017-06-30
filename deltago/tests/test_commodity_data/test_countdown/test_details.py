@@ -54,7 +54,9 @@ class DetailsTest(TestCase):
         self.element_name = ".//div[@class=\"product-details-description\"]"
         self.field_name = ".//div[@class=\"navigation-toggle-children\"]/p/text()"
         self.ingredients = self.tree.xpath(self.element_name)[0]
+        self.nutritional = self.tree.xpath(self.element_name)[1]
         self.claims = self.tree.xpath(self.element_name)[2]
+
 
     def test_get_ingredient_text(self):
         expected = "Apples1 (89%), Raspberries (7%), Blackberries (4%)"
@@ -70,6 +72,12 @@ class DetailsTest(TestCase):
         expected = "No Added Colours or Flavours, No Preservatives, No Added Sugar"
         claims = details.get_field(self.claims)
         self.assertEqual(claims, expected)
+
+    def test_get_nutritional(self):
+        expected = ['335kJ', '280kJ', '0.6g', '0.5g', '0.2g', '0.2g', '17.3g', '14.4g', '16.9g', '14.1g', '3mg', '2mg']
+        nutritional = details.get_nutritional(self.nutritional)
+        self.assertEqual(nutritional, expected)
+
 
     def test_get_origin(self):
         expected = "Made in Australia from imported and local ingredients"

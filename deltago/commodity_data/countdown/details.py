@@ -1,9 +1,10 @@
-
+import re
 
 ORIGIN_FIELD = ".//div[@id=\"product-details-rating\"]/p/text()[1]"
 FIELD = ".//div[@class=\"navigation-toggle-children\"]/p/text()"
 INGREDIENT_TEXT_FIELD = ".//div[@class=\"navigation-toggle-children\"]/p/text()"
 INGREDIENT_NOTE_FIELD = ".//div[@class=\"navigation-toggle-children\"]/div/text()"
+NUTRITIONAL_TABLE_TR = ".//div[@class=\"nutritionInfo-table\"]/table/tbody/tr/td/text()"
 
 def first(list):
     try:
@@ -20,6 +21,16 @@ def get_ingredient_note(element):
 
 def get_field(element):
     return first(element.xpath(FIELD))
+
+def get_nutritional(element):
+    nutritional = []
+    table = element.xpath(NUTRITIONAL_TABLE_TR)
+    for t in table:
+        if re.search(r'\d', t):
+            nutritional.append(t)
+    return nutritional
+
+
 
 def get_urls(base_url, products):
     urls = {}
