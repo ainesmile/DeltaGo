@@ -11,7 +11,7 @@ NUTRITIONAL_TABLE_TR = ".//div[@class=\"nutritionInfo-table\"]/table/tbody/tr/td
 PIC_URL = ".//img[@class=\"product-image\"]/@src"
 
 
-def get_origin(tree):
+def get_descriptions(tree):
     return get_node_value(tree, ORIGIN_FIELD)
 
 def get_node_value(tree, node_name):
@@ -36,17 +36,17 @@ def get_nutritions(element):
             nutritions.append(t)
     return nutritions
 
-def get_descriptions(tree):
-    descriptions = {}
+def get_nutrition_info(tree):
+    nutrition_info = {}
     elements = tree.xpath(ELEMENT)
     if len(elements):
-        descriptions["ingredient"] = get_ingredient(elements[0])
-        descriptions["nutritions"] = get_nutritions(elements[1])
-        descriptions["claims"] = get_node_value(elements[2], FIELD)
-        descriptions["endorsements"] = get_node_value(elements[3], FIELD)
+        nutrition_info["ingredient"] = get_ingredient(elements[0])
+        nutrition_info["nutritions"] = get_nutritions(elements[1])
+        nutrition_info["claims"] = get_node_value(elements[2], FIELD)
+        nutrition_info["endorsements"] = get_node_value(elements[3], FIELD)
     else:
-        descriptions = None
-    return descriptions
+        nutrition_info = None
+    return nutrition_info
 
 def get_pic_url(base_url, tree):
     return base_url + get_node_value(tree, PIC_URL)
@@ -55,13 +55,13 @@ def get_details(base_url, product):
     url = base_url + product["href"]
     tree = products.get_tree(url)
     name = product["name"]
-    origin = get_origin(tree)
     descriptions = get_descriptions(tree)
+    nutrition_info = get_nutrition_info(tree)
     pic_url = get_pic_url(base_url, tree)
     return {
         "name": name,
-        "origin": origin,
         "descriptions": descriptions,
+        "nutrition_info": nutrition_info,
         "pic_url": pic_url
     }
 

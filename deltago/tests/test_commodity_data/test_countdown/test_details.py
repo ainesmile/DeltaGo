@@ -69,8 +69,8 @@ class DetailsTest(TestCase):
             "note": "1 Organic"
         }
         self.expected_endorsements = "Australian Certified Organic"
-        self.expected_origin = "Made in Australia from imported and local ingredients"
-        self.expected_descriptions = {
+        self.expected_descriptions = "Made in Australia from imported and local ingredients"
+        self.expected_nutritions_info = {
             "ingredient": self.expected_ingredient,
             "nutritions": self.expected_nutritions,
             "claims": self.expected_claims,
@@ -78,9 +78,9 @@ class DetailsTest(TestCase):
         }
         self.expected_pic_url = 'https://shop.countdown.co.nz/Content/ProductImages/large/9300657162047.jpg/Heinz-Organic-Baby-Food-Apple-raspbry-Blackbry.jpg'
 
-    def test_get_origin(self):
-        origin = details.get_origin(self.tree)
-        self.assertEqual(origin, self.expected_origin)
+    def test_get_descriptions(self):
+        descriptions = details.get_descriptions(self.tree)
+        self.assertEqual(descriptions, self.expected_origin)
 
     def test_get_node_value(self):
         node_value = details.get_node_value(self.claims, self.field_name)
@@ -95,10 +95,10 @@ class DetailsTest(TestCase):
         self.assertEqual(nutritions, self.expected_nutritions)
 
     def test_get_descriptions(self):
-        descriptions = details.get_descriptions(self.tree)
-        self.assertEqual(descriptions, self.expected_descriptions)
-        descriptions_nappy = details.get_descriptions(self.tree_nappy)
-        self.assertEqual(descriptions_nappy, None)
+        nutrition_info = details.get_nutrition_info(self.tree)
+        self.assertEqual(nutrition_info, self.expected_nutritions_info)
+        nutrition_info_nappy = details.get_nutrition_info(self.tree_nappy)
+        self.assertEqual(nutrition_info_nappy, None)
 
     def test_get_pic_url(self):
         pic_url = details.get_pic_url(self.base_url, self.tree)
