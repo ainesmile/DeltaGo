@@ -1,5 +1,6 @@
 from django.test import TestCase
 from lxml import html
+import requests
 from deltago.commodity_data.countdown import details
 
 
@@ -57,40 +58,41 @@ class DetailsTest(TestCase):
         self.nutritional = self.tree.xpath(self.element_name)[1]
         self.claims = self.tree.xpath(self.element_name)[2]
 
-
-    def test_get_ingredient_text(self):
-        expected = "Apples1 (89%), Raspberries (7%), Blackberries (4%)"
-        text = details.get_ingredient_text(self.ingredients)
-        self.assertEqual(text, expected)
-
-    def test_get_ingredient_note(self):
-        expected = "1 Organic"
-        note = details.get_ingredient_note(self.ingredients)
-        self.assertEqual(note, expected)
-
-    def test_get_field(self):
-        expected = "No Added Colours or Flavours, No Preservatives, No Added Sugar"
-        claims = details.get_field(self.claims)
-        self.assertEqual(claims, expected)
-
-    def test_get_nutritional(self):
-        expected = ['335kJ', '280kJ', '0.6g', '0.5g', '0.2g', '0.2g', '17.3g', '14.4g', '16.9g', '14.1g', '3mg', '2mg']
-        nutritional = details.get_nutritional(self.nutritional)
-        self.assertEqual(nutritional, expected)
-
-
-    def test_get_origin(self):
-        expected = "Made in Australia from imported and local ingredients"
-        origin = details.get_origin(self.tree)
-        self.assertEqual(origin, expected)
-
-    def test_get_urls(self):
-        expected = {
-            "Heinz Organic Baby Food Apple, Banana Avocado": "https://shop.countdown.co.nz/Shop/ProductDetails?stockcode=757788&name=heinz-organic-baby-food-apple-banana-avocado",
-            "Heinz Organic Baby Food Apple,raspbry, Blackbry": "https://shop.countdown.co.nz/Shop/ProductDetails?stockcode=757815&name=heinz-organic-baby-food-appleraspbry-blackbry",
-            "Natureland Baby Food Sherperds Pie & Mash": "https://shop.countdown.co.nz/Shop/ProductDetails?stockcode=341710&name=natureland-baby-food-sherperds-pie-mash",
-            "Natureland Baby Food Vanilla Custard": "https://shop.countdown.co.nz/Shop/ProductDetails?stockcode=341713&name=natureland-baby-food-vanilla-custard"
+        self.expected_claims = "No Added Colours or Flavours, No Preservatives, No Added Sugar"
+        self.expected_nutritions = ['335kJ', '280kJ', '0.6g', '0.5g', '0.2g', '0.2g', '17.3g', '14.4g', '16.9g', '14.1g', '3mg', '2mg']
+        self.expected_ingredient = {
+            "text": "Apples1 (89%), Raspberries (7%), Blackberries (4%)",
+            "note": "1 Organic"
+        }
+        self.expected_endorsements = "Australian Certified Organic"
+        self.expected_origin = "Made in Australia from imported and local ingredients"
+        self.expected_descriptions = {
+            "ingredient": self.expected_ingredient,
+            "nutritions": self.expected_nutritions,
+            "claims": self.expected_claims,
+            "endorsements": self.expected_endorsements
         }
 
-        urls = details.get_urls(self.base_url, self.products)
-        self.assertEqual(urls, expected)
+    def test_get_origin(self):
+        origin = details.get_origin(self.tree)
+        self.assertEqual(origin, self.expected_origin)
+
+    def test_get_node_value(self):
+        node_value = details.get_node_value(self.claims, self.field_name)
+        self.assertEqual(node_value, self.expected_claims)
+
+    def test_get_ingredient(self):
+        ingredient = details.get_ingredient(self.ingredients)
+        self.assertEqual(ingredient, self.expected_ingredient)
+
+    def test_get_nutritions(self):
+        nutritions = details.get_nutritions(self.nutritional)
+        self.assertEqual(nutritions, self.expected_nutritions)
+
+    def test_get_descriptions(self):
+        descriptions = details.get_descriptions(self.tree)
+        self.assertEqual(descriptions, self.expected_descriptions)
+
+    # def test_get_details(self):
+    #     product_details = details.get_details(self.base_url, self.product)
+    #     self.assertEqual(product_details, self.expected_details)
