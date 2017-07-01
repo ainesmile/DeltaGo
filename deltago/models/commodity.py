@@ -34,6 +34,17 @@ class Commodity(models.Model):
     def __str__(self):
         return self.name
 
+class Details(models.Model):
+    description = models.TextField(null = True, blank = True)
+    pic_url = models.URLField(blank = True, null = True)
+    class Meta:
+        abstract = True
+
+class BabyCareDetails(Details):
+    nutrition = models.TextField(Nutrition, null = True, blank = True)
+    ingredient = models.CharField(max_length = 128, null = True, blank = True)
+    claim = models.CharField(max_length = 128, null = True, blank = True)
+    endorsement = models.CharField(max_length = 128, null = True, blank = True)
 
 class BabyCare(Commodity):
     FOOD = 'F'
@@ -59,22 +70,12 @@ class BabyCare(Commodity):
         max_length = 3,
         choices = SUB_CATEGORY,
         default = FOOD)
-
-class Details(models.Model):
-    brand = models.CharField(max_length=128, blank = True, null = True)
-    origin = models.CharField(max_length = 128, null = True, blank = True)
-    description = models.TextField(null = True, blank = True)
-    pic_url = models.URLField(blank = True, null = True)
-    class Meta:
-        abstract = True
+    details = models.ForeignKey(BabyCareDetails, null = True, blank = True)
 
 
-class BabyCareDetails(Details):
-    babycare = models.ForeignKey(BabyCare)
-    nutrition = models.ForeignKey(Nutrition, null = True, blank = True)
-    ingredient = models.TextField(null = True, blank = True)
-    claim = models.TextField(null = True, blank = True)
-    endorsement = models.TextField(null = True, blank = True)
+
+
+
     
 
         
