@@ -54,3 +54,9 @@ def get_details(base_url, product):
         "origin": origin,
         "descriptions": descriptions
     }
+
+def fetch(base_url, products):
+    details = []
+    for product in products:
+        details.extend(get_details(base_url, product))
+    return details
