@@ -39,10 +39,13 @@ def get_nutritions(element):
 def get_descriptions(tree):
     descriptions = {}
     elements = tree.xpath(ELEMENT)
-    descriptions["ingredient"] = get_ingredient(elements[0])
-    descriptions["nutritions"] = get_nutritions(elements[1])
-    descriptions["claims"] = get_node_value(elements[2], FIELD)
-    descriptions["endorsements"] = get_node_value(elements[3], FIELD)
+    if len(elements):
+        descriptions["ingredient"] = get_ingredient(elements[0])
+        descriptions["nutritions"] = get_nutritions(elements[1])
+        descriptions["claims"] = get_node_value(elements[2], FIELD)
+        descriptions["endorsements"] = get_node_value(elements[3], FIELD)
+    else:
+        descriptions = None
     return descriptions
 
 def get_pic_url(base_url, tree):
@@ -61,8 +64,6 @@ def get_details(base_url, product):
         "descriptions": descriptions,
         "pic_url": pic_url
     }
-
-
 
 def fetch(base_url, products):
     details = []

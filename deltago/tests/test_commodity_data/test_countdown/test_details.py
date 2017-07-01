@@ -9,6 +9,10 @@ class DetailsTest(TestCase):
         with open('deltago/fixtures/commodity/details.py', 'r') as data_file:
             self.tree = html.fromstring(data_file.read())
 
+        with open('deltago/fixtures/commodity/details_nappy.py', 'r') as nappy_file:
+            self.tree_nappy = html.fromstring(nappy_file.read())
+
+
         self.base_url = 'https://shop.countdown.co.nz'
         self.products = [
             {
@@ -93,6 +97,8 @@ class DetailsTest(TestCase):
     def test_get_descriptions(self):
         descriptions = details.get_descriptions(self.tree)
         self.assertEqual(descriptions, self.expected_descriptions)
+        descriptions_nappy = details.get_descriptions(self.tree_nappy)
+        self.assertEqual(descriptions_nappy, None)
 
     def test_get_pic_url(self):
         pic_url = details.get_pic_url(self.base_url, self.tree)
