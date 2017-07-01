@@ -8,6 +8,8 @@ FIELD = ".//div[@class=\"navigation-toggle-children\"]/p/text()"
 INGREDIENT_TEXT_FIELD = ".//div[@class=\"navigation-toggle-children\"]/p/text()"
 INGREDIENT_NOTE_FIELD = ".//div[@class=\"navigation-toggle-children\"]/div/text()"
 NUTRITIONAL_TABLE_TR = ".//div[@class=\"nutritionInfo-table\"]/table/tbody/tr/td/text()"
+PIC_URL = ".//img[@class=\"product-image\"]/@src"
+
 
 def get_origin(tree):
     return get_node_value(tree, ORIGIN_FIELD)
@@ -43,17 +45,24 @@ def get_descriptions(tree):
     descriptions["endorsements"] = get_node_value(elements[3], FIELD)
     return descriptions
 
+def get_pic_url(base_url, tree):
+    return base_url + get_node_value(tree, PIC_URL)
+
 def get_details(base_url, product):
     url = base_url + product["href"]
     tree = products.get_tree(url)
     name = product["name"]
     origin = get_origin(tree)
     descriptions = get_descriptions(tree)
+    pic_url = get_pic_url(base_url, tree)
     return {
         "name": name,
         "origin": origin,
-        "descriptions": descriptions
+        "descriptions": descriptions,
+        "pic_url": pic_url
     }
+
+
 
 def fetch(base_url, products):
     details = []

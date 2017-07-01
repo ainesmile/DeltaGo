@@ -72,6 +72,7 @@ class DetailsTest(TestCase):
             "claims": self.expected_claims,
             "endorsements": self.expected_endorsements
         }
+        self.expected_pic_url = 'https://shop.countdown.co.nz/Content/ProductImages/large/9300657162047.jpg/Heinz-Organic-Baby-Food-Apple-raspbry-Blackbry.jpg'
 
     def test_get_origin(self):
         origin = details.get_origin(self.tree)
@@ -93,6 +94,6 @@ class DetailsTest(TestCase):
         descriptions = details.get_descriptions(self.tree)
         self.assertEqual(descriptions, self.expected_descriptions)
 
-    # def test_get_details(self):
-    #     product_details = details.get_details(self.base_url, self.product)
-    #     self.assertEqual(product_details, self.expected_details)
+    def test_get_pic_url(self):
+        pic_url = details.get_pic_url(self.base_url, self.tree)
+        self.assertEqual(pic_url, self.expected_pic_url)
