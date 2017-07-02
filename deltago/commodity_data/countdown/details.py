@@ -86,6 +86,7 @@ def get_details(base_url, product):
 def fetch(base_url, products):
     details = []
     for product in products:
+        time.sleep(1)
         product_details = get_details(base_url, product)
         details.append(product_details)
     return details
