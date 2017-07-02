@@ -80,7 +80,7 @@ class DetailsTest(TestCase):
 
     def test_get_descriptions(self):
         descriptions = details.get_descriptions(self.tree)
-        self.assertEqual(descriptions, self.expected_origin)
+        self.assertEqual(descriptions, self.expected_descriptions)
 
     def test_get_node_value(self):
         node_value = details.get_node_value(self.claims, self.field_name)
@@ -94,7 +94,7 @@ class DetailsTest(TestCase):
         nutritions = details.get_nutritions(self.nutritional)
         self.assertEqual(nutritions, self.expected_nutritions)
 
-    def test_get_descriptions(self):
+    def test_get_nutrition_info(self):
         nutrition_info = details.get_nutrition_info(self.tree)
         self.assertEqual(nutrition_info, self.expected_nutritions_info)
         nutrition_info_nappy = details.get_nutrition_info(self.tree_nappy)

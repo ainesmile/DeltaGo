@@ -1,9 +1,10 @@
 import re
+import time
 from deltago.commodity_data.countdown import products
 
 ELEMENT = ".//div[@class=\"product-details-description\"]"
 
-ORIGIN_FIELD = ".//div[@id=\"product-details-rating\"]/p/text()[1]"
+DESCRIPTION_FIELD = ".//div[@id=\"product-details-rating\"]/p/text()[1]"
 FIELD = ".//div[@class=\"navigation-toggle-children\"]/p/text()"
 INGREDIENT_TEXT_FIELD = ".//div[@class=\"navigation-toggle-children\"]/p/text()"
 INGREDIENT_NOTE_FIELD = ".//div[@class=\"navigation-toggle-children\"]/div/text()"
@@ -12,7 +13,7 @@ PIC_URL = ".//img[@class=\"product-image\"]/@src"
 
 
 def get_descriptions(tree):
-    return get_node_value(tree, ORIGIN_FIELD)
+    return get_node_value(tree, DESCRIPTION_FIELD)
 
 def get_node_value(tree, node_name):
     try:
@@ -37,19 +38,36 @@ def get_nutritions(element):
     return nutritions
 
 def get_nutrition_info(tree):
-    nutrition_info = {}
+    nutrition_info = {
+        "ingredient": None,
+        "nutritions": None,
+        "claims": None,
+        "endorsements": None,
+    }
     elements = tree.xpath(ELEMENT)
-    if len(elements):
-        nutrition_info["ingredient"] = get_ingredient(elements[0])
-        nutrition_info["nutritions"] = get_nutritions(elements[1])
-        nutrition_info["claims"] = get_node_value(elements[2], FIELD)
-        nutrition_info["endorsements"] = get_node_value(elements[3], FIELD)
+    length = len(elements)
+    if length > 0:
+        for i in range(length):
+            if i == 0:
+                nutrition_info["ingredient"] = get_ingredient(elements[0])
+            elif i == 1:
+                nutrition_info["nutritions"] = get_nutritions(elements[1])
+            elif i == 2:
+                nutrition_info["claims"] = get_node_value(elements[2], FIELD)
+            elif i == 3:
+                nutrition_info["endorsements"] = get_node_value(elements[3], FIELD)
+            else:
+                pass
     else:
         nutrition_info = None
     return nutrition_info
 
 def get_pic_url(base_url, tree):
-    return base_url + get_node_value(tree, PIC_URL)
+    url = get_node_value(tree, PIC_URL)
+    if url:
+        return base_url + url
+    else:
+        return None
 
 def get_details(base_url, product):
     url = base_url + product["href"]
@@ -68,5 +86,6 @@ def get_details(base_url, product):
 def fetch(base_url, products):
     details = []
     for product in products:
-        details.extend(get_details(base_url, product))
+        product_details = get_details(base_url, product)
+        details.append(product_details)
     return details
