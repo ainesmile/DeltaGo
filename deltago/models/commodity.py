@@ -35,6 +35,7 @@ class Commodity(models.Model):
         return self.name
 
 class Details(models.Model):
+    name = models.CharField(max_length = 128, null = True, blank = True)
     description = models.TextField(null = True, blank = True)
     pic_url = models.URLField(blank = True, null = True)
     class Meta:
