@@ -18,8 +18,8 @@ class Commodity(models.Model):
         (BEAUTY, 'Beauty'),
         (SPECIAL, 'Special'),
     )
-    name = models.CharField(max_length = 128, unique = True)
     stockcode = models.CharField(max_length = 128, unique = True, null = True, blank = True)
+    name = models.CharField(max_length = 128)
     volume_size = models.CharField(max_length = 128,)
     price = models.CharField(max_length = 128,)
     was_price = models.CharField(max_length = 128, null = True, blank = True)
@@ -37,6 +37,7 @@ class Commodity(models.Model):
 
 class Details(models.Model):
     stockcode = models.CharField(max_length = 128, unique = True, null = True, blank = True)
+    name = models.CharField(max_length = 128, null = True, blank = True)
     description = models.TextField(null = True, blank = True)
     pic_url = models.URLField(blank = True, null = True)
     class Meta:
