@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.utils import timezone
-from deltago.models.nutrition import Nutrition
 
 class Commodity(models.Model):
     BABYCARE = 'B'
@@ -44,7 +43,7 @@ class Details(models.Model):
         abstract = True
 
 class BabyCareDetails(Details):
-    nutrition = models.TextField(Nutrition, null = True, blank = True)
+    nutrition = models.TextField(max_length = 128, null = True, blank = True)
     ingredient = models.CharField(max_length = 128, null = True, blank = True)
     claim = models.CharField(max_length = 128, null = True, blank = True)
     endorsement = models.CharField(max_length = 128, null = True, blank = True)
@@ -74,20 +73,3 @@ class BabyCare(Commodity):
         choices = SUB_CATEGORY,
         default = FOOD)
     details = models.ForeignKey(BabyCareDetails, null = True, blank = True)
-
-
-
-
-
-    
-
-        
-
-
-
-
-
-
-
-
-
