@@ -9,16 +9,13 @@
         <title>DeltaGo</title>
         <link rel="shortcut icon" type="image/png" href="{% static 'deltago/img/favicon.png' %}"/>
         <link rel="stylesheet" type="text/css" href="{% static 'deltago/libs/bootstrap/dist/css/bootstrap.min.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'deltago/libs/theme/freelancer.min.css' %}">
-        <link href="{% static 'deltago/libs/theme/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
         <link rel="stylesheet" type="text/css" href="{% static 'deltago/css/main.css' %}">
     </head>
-    <body id="page-top" class="index">
+    <body>
         {% include './nav.html' %}
 
         <div>{% block main %}{% endblock %}</div>
 
-        {% include './about.html' %}
         {% include './footer.html' %}
     </body>
 </html>
