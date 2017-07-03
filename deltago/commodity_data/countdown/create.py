@@ -26,12 +26,20 @@ def create_babycare_details(item):
     )
     details.save()
 
-def create_babycare(item):
-    name = item["name"]
+def save_details(items):
+    for item in items:
+        create_babycare_details(item)
+
+def filter_details(stockcode):
     try:
-        details = BabyCareDetails.objects.filter(name=name)[0]
+        details = BabyCareDetails.objects.filter(stockcode=stockcode)[0]
+        return details
     except IndexError:
         return None
+
+def create_babycare(item):
+    stockcode = item["stockcode"]
+    details = filter_details(stockcode)
     babycare = BabyCare(
         name = item["name"],
         volume_size = item["volume_size"],
@@ -42,3 +50,7 @@ def create_babycare(item):
         details = details
     )
     babycare.save()
+
+def save_babycare(items):
+    for item in items:
+        create_babycare(item)
