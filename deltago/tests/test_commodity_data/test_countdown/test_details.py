@@ -78,6 +78,12 @@ class DetailsTest(TestCase):
         }
         self.expected_pic_url = 'https://shop.countdown.co.nz/Content/ProductImages/large/9300657162047.jpg/Heinz-Organic-Baby-Food-Apple-raspbry-Blackbry.jpg'
 
+    def test_get_stockcode(self):
+        expected = "757788"
+        href = "/Shop/ProductDetails?stockcode=757788&name=heinz-organic-baby-food-apple-banana-avocado"
+        stockcode = create.get_stockcode(href)
+        self.assertEqual(stockcode, expected)
+
     def test_get_descriptions(self):
         descriptions = details.get_descriptions(self.tree)
         self.assertEqual(descriptions, self.expected_descriptions)

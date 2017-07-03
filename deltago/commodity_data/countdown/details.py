@@ -11,6 +11,14 @@ INGREDIENT_NOTE_FIELD = ".//div[@class=\"navigation-toggle-children\"]/div/text(
 NUTRITIONAL_TABLE_TR = ".//div[@class=\"nutritionInfo-table\"]/table/tbody/tr/td/text()"
 PIC_URL = ".//img[@class=\"product-image\"]/@src"
 
+def get_stockcode(href):
+    try:
+        params = href.split("?")[1]
+        stock = params.split("&")[0]
+        code = stock.split("=")[1]
+        return code
+    except IndexError:
+        return None
 
 def get_descriptions(tree):
     return get_node_value(tree, DESCRIPTION_FIELD)
@@ -70,13 +78,16 @@ def get_pic_url(base_url, tree):
         return None
 
 def get_details(base_url, product):
-    url = base_url + product["href"]
+    href = product["href"]
+    url = base_url + href
+    stockcode = get_stockcode(href)
     tree = products.get_tree(url)
     name = product["name"]
     descriptions = get_descriptions(tree)
     nutrition_info = get_nutrition_info(tree)
     pic_url = get_pic_url(base_url, tree)
     return {
+        "stockcode": stockcode,
         "name": name,
         "descriptions": descriptions,
         "nutrition_info": nutrition_info,

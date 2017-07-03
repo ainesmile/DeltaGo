@@ -15,6 +15,7 @@ def create_babycare_details(item):
         endorsement = None
 
     details = BabyCareDetails(
+        stockcode = item["stockcode"],
         name = item["name"],
         description = item["descriptions"],
         pic_url = item["pic_url"],
@@ -41,21 +42,3 @@ def create_babycare(item):
         details = details
     )
     babycare.save()
-
-
-
-
-# def babycare(babycare_data):
-#     map(lambda item: create_babycare(item), babycare_data)
-
-# babycare(babycare_data)
-
-# print len(babycare_data)
-# babycare(babycare_data)
-# babys = commodity.BabyCare.objects.all()
-# print len(babys)
-
-# if __name__ == '__main__' and __package__ is None:
-#     from os import sys, path
-#     sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
-
