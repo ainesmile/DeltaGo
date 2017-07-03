@@ -1,15 +1,7 @@
-/*nav*/
-.navbar-custom {
-    padding: 5px;
-    text-transform: none;
+body {
+    font-family: Georgia, "Times New Roman", "KaiTi";
 }
 
-
-.nav-contaioner {
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
-}
 
 /*footer*/
 

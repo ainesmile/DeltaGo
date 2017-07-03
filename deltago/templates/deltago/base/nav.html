@@ -1,53 +1,23 @@
-<nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom affix-top">
-    <div class="container nav-contaioner">
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                Menu
-                <i class="fa fa-bars"></i>
-            </button>
-            <a class="navbar-brand" href="{% url 'index' %}">DeltaGo</a>
-        </div>
-
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-left">
-                <li class="page-scroll">
-                    <a href="{% url 'index' %}">首页</a>
-                </li>
-                <li class="page-scroll">
-                    <a href="{% url 'babycare' %}">婴幼儿专区</a>
-                </li>
-                <li class="page-scroll">
-                    <a href="">保健品</a>
-                </li>
-                <li class="page-scroll">
-                    <a href="">护肤</a>
-                </li>
-                <li class="page-scroll">
-                    <a href="">食品</a>
-                </li>
-                <li class="page-scroll">
-                    <a href="">特价专区</a>
-                </li>
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-                <li class="page-scroll">
-                    <a href="">购物车</a>
-                </li>
-                <li class="page-scroll">
-                    <a href="">我的帐号</a>
-                </li>
-                {% if user.is_authenticated %}
-                    <li class="page-scroll">
-                        <a href="">退出帐号</a>
-                    </li>
-                {% else %}
-                    <li class="page-scroll">
-                        <a href="">登录</a>
-                    </li>
-                {% endif %}
-            </ul>
-        </div>
+<nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+    <div class="navbar-header page-scroll">
+        <a class="navbar-brand" href="{% url 'index' %}">DeltaGo</a>
     </div>
+    <ul class="nav navbar-nav navbar-left">
+        <li><a href="{% url 'index' %}">首页</a></li>
+        <li><a href="{% url 'babycare' %}">婴幼儿专区</a></li>
+        <li><a href="">保健品</a></li>
+        <li><a href="">护肤</a></li>
+        <li><a href="">食品</a></li>
+        <li><a href="">特价专区</a></li>
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="">购物车</a></li>
+        <li><a href="">我的帐号</a></li>
+        {% if user.is_authenticated %}
+            <li><a href="">退出帐号</a></li>
+        {% else %}
+            <li><a href="">登录</a></li>
+        {% endif %}
+    </ul>
 </nav>
