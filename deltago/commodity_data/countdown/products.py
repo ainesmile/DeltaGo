@@ -80,21 +80,3 @@ def sub(category_name, category_data, fields, stamp, items_number_element, per_p
        
         subs.extend(products)
     return subs
-
-def fetch(file):
-    with open(file, 'r') as data_file:
-        commodity = json.load(data_file)
-    babycare = commodity["countdown"]["B"]
-    fields = commodity["fields"]
-    stamp = commodity["stamp"]
-    items_number_element = commodity["items_number_element"]
-    per_page = commodity["per_page"]
-    babycare_product_list = sub("B", babycare, fields, stamp, items_number_element, per_page)
-    return babycare_product_list
-
-def save(input_file, output_file):
-    data = fetch(input_file)
-    with open(output_file, 'w') as outfile:
-        json.dump(data, outfile, indent=4)
-
-# save('deltago/commodity_data/countdown/countdown.json', 'deltago/commodity_data/countdown/babycare.json')
