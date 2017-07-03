@@ -1,30 +1,15 @@
 {% extends 'deltago/base/base.html' %}
 
 {% block main %}
- <header>
-     <div class="container" tabindex="-1">
-        <ul class="nav nav-pills" role="navigation">
-            <li>食品</li>
-            <li>医疗</li>
-            <li>护肤</li>
-            <li>纸尿布</li>
-        </ul>
-    </div>
-</header>
+    {% include './babycare/sub_nav.html' %}
 
 <section>
     <div class="container">
-    {% for babycare in babycares %}
-        <div class="col-md-3 card-container">
-            <div class="card">
-                <img src="" alt="404">
-                <p>{{babycare.name}}</p>
-                <span>NZD {{babycare.price}}</span>
-            </div>
-        </div>
-    {% endfor %}
+        <p>Baby Care</p>
     </div>
-    {% include './share/pagination.html' %}
+    <div class="container">
+        {% include './share/pagination.html' %}
+    </div>
 </section>
 
 {% endblock %}
