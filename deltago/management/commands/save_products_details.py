@@ -1,6 +1,6 @@
 from django.core.management import BaseCommand
 import json
-from deltago.commodity_data.countdown import save_to_db
+from deltago.commodity_data.countdown import create
 
 class Command(BaseCommand):
     help = 'Save commodity data to datebase'
@@ -13,8 +13,7 @@ class Command(BaseCommand):
 
         with open('deltago/commodity_data/countdown/babycare_details.json') as data_file:
             data = json.load(data_file)
-            # save_to_db.create_babycare_details(data[0])
 
             for d in data:
-                save_to_db.create_babycare_details(d)
+                create.create_babycare_details(d)
 
