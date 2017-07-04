@@ -4,7 +4,14 @@
             <a href="">{{product.name}}</span></a>
         </p>
         <p>
-            <span>NZD ${{product.price}}</span>
+            {% if product.price != "null" %}
+                <span>NZD ${{product.price}}</span>
+            {% elif product.special_price != "null" %}
+                <span>特价: NZD ${{product.special_price}}</span>
+                <span>原价: NZD ${{product.was_price}}</span>
+            {% else %}
+                <span>暂无价格</span>
+            {% endif %}
             <span>{{product.volume_size}}</span>
         </p>
     </li>
