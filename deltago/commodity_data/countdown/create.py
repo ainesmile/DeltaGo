@@ -45,6 +45,7 @@ def create_babycare(item):
         volume_size = item["volume_size"],
         price = item["price"],
         was_price = item["was_price"],
+        special_price = item["special_price"],
         category = item["category"],
         sub_category = item["sub_category"],
         details = details
