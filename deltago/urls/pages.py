@@ -1,7 +1,7 @@
 from django.conf.urls import url
-from deltago.views import pages
+from deltago.views import pages, babycare
 
 urlpatterns = [
     url(r'^$', pages.index, name='index'),
-    url(r'^babycare$', pages.babycare, name='babycare'),
+    url(r'^babycare$', babycare.index, name='babycare'),
 ]

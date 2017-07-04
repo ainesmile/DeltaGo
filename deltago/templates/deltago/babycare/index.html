@@ -1,14 +1,14 @@
 {% extends 'deltago/base/base.html' %}
 
 {% block main %}
-    {% include './babycare/sub_nav.html' %}
+    {% include './sub_nav.html' %}
 
 <section>
     <div class="container">
-        <p>Baby Care</p>
+        {% include 'deltago/share/products.html' %}
     </div>
     <div class="container">
-        {% include './share/pagination.html' %}
+        {% include 'deltago/share/pagination.html' %}
     </div>
 </section>
 
