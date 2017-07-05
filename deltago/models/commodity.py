@@ -26,19 +26,21 @@ class Commodity(models.Model):
     category = models.CharField(max_length = 2, choices = CATEGORY, default = BABYCARE,)
     
     online_date = models.DateTimeField(default = timezone.now)
-
+    def __str__(self):
+        return self.name
     class Meta:
         abstract = True
         ordering = ['name']
 
-    def __str__(self):
-        return self.name
+    
 
 class Details(models.Model):
     stockcode = models.CharField(max_length = 128, unique = True, null = True, blank = True)
     name = models.CharField(max_length = 128, null = True, blank = True)
     description = models.TextField(null = True, blank = True)
     pic_url = models.URLField(blank = True, null = True)
+    def __str__(self):
+        return self.name
     class Meta:
         abstract = True
 
@@ -47,6 +49,7 @@ class BabyCareDetails(Details):
     ingredient = models.CharField(max_length = 128, null = True, blank = True)
     claim = models.CharField(max_length = 128, null = True, blank = True)
     endorsement = models.CharField(max_length = 128, null = True, blank = True)
+
 
 class BabyCare(Commodity):
     FOOD = 'F'
