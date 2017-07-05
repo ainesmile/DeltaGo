@@ -41,6 +41,7 @@ def create_babycare(item):
     stockcode = item["stockcode"]
     details = filter_details(stockcode)
     babycare = BabyCare(
+        stockcode = stockcode,
         name = item["name"],
         volume_size = item["volume_size"],
         price = item["price"],
