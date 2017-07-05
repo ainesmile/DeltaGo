@@ -13,3 +13,15 @@ def medicinal(request):
     page = request.GET.get('page', 1)
     data = render_data(condition, page, 20)
     return render(request, 'deltago/babycare/base.html', data)
+
+def skincare(request):
+    condition = {"sub_category": "T"}
+    page = request.GET.get('page', 1)
+    data = render_data(condition, page, 20)
+    return render(request, 'deltago/babycare/base.html', data)
+
+def nappy(request):
+    condition = {"sub_category": "N"}
+    page = request.GET.get('page', 1)
+    data = render_data(condition, page, 20)
+    return render(request, 'deltago/babycare/base.html', data)
