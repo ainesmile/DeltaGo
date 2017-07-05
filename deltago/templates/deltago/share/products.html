@@ -1,17 +1,14 @@
 {% for product in products %}
     <li class="list-unstyled">
         <p>
-            <a href="">{{product.name}}</span></a>
+            {% if product.stockcode %}
+                <a href="{% url 'details' product.stockcode %}">{{product.name}}</span></a>
+            {% else %}
+                <a href="">{{product.name}}</span></a>
+            {% endif %}
         </p>
         <p>
-            {% if product.price != "null" %}
-                <span>NZD ${{product.price}}</span>
-            {% elif product.special_price != "null" %}
-                <span>特价: NZD ${{product.special_price}}</span>
-                <span>原价: NZD ${{product.was_price}}</span>
-            {% else %}
-                <span>暂无价格</span>
-            {% endif %}
+            {% include './price.html' %}
             <span>{{product.volume_size}}</span>
         </p>
     </li>
