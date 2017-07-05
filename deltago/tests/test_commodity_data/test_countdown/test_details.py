@@ -81,7 +81,7 @@ class DetailsTest(TestCase):
     def test_get_stockcode(self):
         expected = "757788"
         href = "/Shop/ProductDetails?stockcode=757788&name=heinz-organic-baby-food-apple-banana-avocado"
-        stockcode = create.get_stockcode(href)
+        stockcode = details.get_stockcode(href)
         self.assertEqual(stockcode, expected)
 
     def test_get_descriptions(self):
