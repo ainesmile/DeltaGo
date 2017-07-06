@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json
 from deltago.models import BabyCare, BabyCareDetails
 from .share import pagination
@@ -54,4 +55,11 @@ def details_render_data(stockcode):
         "info": info
     }
     
-
+def month_category(month):
+    category = {
+        "4": "F4",
+        "6": "F6",
+        "9": "F9",
+        "12": "F12"
+    }
+    return category[str(month)]

@@ -4,7 +4,7 @@
     </div>
     <ul class="nav navbar-nav navbar-left">
         <li><a href="{% url 'index' %}">首页</a></li>
-        <li><a href="{% url 'babycare' %}">婴幼儿专区</a></li>
+        <li><a href="{% url 'food' 4 %}">婴幼儿专区</a></li>
         <li><a href="">保健品</a></li>
         <li><a href="">护肤</a></li>
         <li><a href="">食品</a></li>
@@ -13,8 +13,8 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li><a href="">购物车</a></li>
-        <li><a href="">我的帐号</a></li>
         {% if user.is_authenticated %}
+            <li><a href="">我的帐号</a></li>
             <li><a href="">退出帐号</a></li>
         {% else %}
             <li><a href="">登录</a></li>

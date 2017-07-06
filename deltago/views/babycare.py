@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from services.babycare import render_data, details_render_data
+from services.babycare import render_data, details_render_data, month_category
 from deltago.models import BabyCare, BabyCareDetails
 
-def index(request):
-    condition = {"sub_category": "F4"}
+def food(request, month):
+    sub_category = month_category(month)
+    condition = {"sub_category": sub_category}
     page = request.GET.get('page', 1)
     data = render_data(condition, page, 20)
     return render(request, 'deltago/babycare/base.html', data)

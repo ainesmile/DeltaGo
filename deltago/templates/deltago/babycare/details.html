@@ -1,16 +1,17 @@
 {% extends 'deltago/base/base.html' %}
 
 {% block main %}
-    {% include './sub_nav.html' %}
+
+{% include './sub_nav.html' %}
 
 <section>
     <div class="container">
-        <div class="col-md-5">
+        <div class="col-md-4">
             {% if details.pic_url %}
                 <img src="{{details.pic_url}}" alt="{{details.pic_url}}">
             {% endif %}
         </div>
-        <div class="col-md-7">
+        <div class="col-md-6">
             <h2>{{product.name}}</h2>
             {% include 'deltago/share/price.html' %}
             {% if details.description %}
