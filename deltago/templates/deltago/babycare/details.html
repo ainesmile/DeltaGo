@@ -1,0 +1,56 @@
+{% extends 'deltago/base/base.html' %}
+
+{% block main %}
+    {% include './sub_nav.html' %}
+
+<section>
+    <div class="container">
+        <div class="col-md-5">
+            {% if details.pic_url %}
+                <img src="{{details.pic_url}}" alt="{{details.pic_url}}">
+            {% endif %}
+        </div>
+        <div class="col-md-7">
+            <h2>{{product.name}}</h2>
+            {% include 'deltago/share/price.html' %}
+            {% if details.description %}
+                <p>{{details.description}}</p>
+            {% endif %}
+        
+            {% if info %}
+                <ul class="list-unstyled">
+                    <li>
+                        配料: {{info.ingredient}}
+                    </li>
+                    <li>
+                        营养成分表
+                        <p>Serving/pack: 1 Serving size: 120g</p>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nutrient</th>
+                                    <th>Per Serving</th>
+                                    <th>Per 100g</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for nutrition in info.nutritions %}
+                                <tr>
+                                    <th scope="row">{{nutrition.key}}</th>
+                                    <td>{{nutrition.serving}}</td>
+                                    <td>{{nutrition.gram}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </li>
+                    <li>申明: {{details.claim}}</li>
+                    <li>背书: {{details.endorsement}}</li>
+                </ul>
+            {% endif %}
+        </div>
+    
+    </div>
+    <hr class="star-light">
+</section>
+{% endblock %}

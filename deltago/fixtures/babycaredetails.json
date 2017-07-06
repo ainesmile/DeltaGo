@@ -1,0 +1,16 @@
+[
+{
+    "model": "deltago.BabyCareDetails",
+    "pk": 1,
+    "fields": {
+        "stockcode": "720986",
+        "name": "Heinz Organic Baby Food Pear, Banana & Blueberry",
+        "description": "Made in Australia",
+        "pic_url": "https://shop.countdown.co.nz/Content/ProductImages/large/9300657161750.jpg/Heinz-Organic-Baby-Food-Pear-Banana-Blueberry.jpg",
+        "nutrition": "[\"335kJ\", \"280kJ\", \"0.6g\", \"0.5g\", \"0.2g\", \"0.2g\", \"17.3g\", \"14.4g\", \"16.9g\", \"14.1g\", \"3mg\", \"2mg\"]",
+        "ingredient": "{\"note\": \"1 Organic\", \"text\": \"Pear1 (79%), Banana (14%), Blueberries (6%), Fruit Fibre, Vitamin C\"}",
+        "claim": "No Added Colours or Flavours, No Preservatives, No Added Sugar",
+        "endorsement": "Australian Certified Organic"
+    }
+}
+]
