@@ -1,5 +1,6 @@
 import json
 from deltago.models.commodity import BabyCare, BabyCareDetails
+from deltago.models.search import Search
 
 def create_babycare_details(item):
     nutrition_info = item["nutrition_info"]
@@ -56,3 +57,26 @@ def create_babycare(item):
 def save_babycare(items):
     for item in items:
         create_babycare(item)
+
+def get_model_name(category):
+    model_names = {
+        'B': 'BabyCare',
+        'F': 'Food',
+        'P': 'Supplement',
+        'U': 'Beauty',
+        'S': 'Special'
+    }
+    return model_names[category]
+
+def create_search(item):
+    model_name = get_model_name(item["category"])
+    new_search = Search(
+        name = item["name"],
+        stockcode = item["stockcode"],
+        model_name = model_name)
+    new_search.save()
+
+def save_search(items):
+    for item in items:
+        create_search(item)
+
