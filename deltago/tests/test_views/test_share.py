@@ -13,7 +13,7 @@ class PagesViewTest(TestCase):
     def test_search(self):
         content = "Banana Avocado"
         expected = [2469]
-        results = share.search(content)
+        results = share.search_results(content)
         pks = []
         for r in results:
             pks.append(r.pk)
