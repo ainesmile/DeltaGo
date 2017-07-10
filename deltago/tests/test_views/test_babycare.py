@@ -18,13 +18,14 @@ class BabyCareViewTest(TestCase):
 
         self.expected_ingredient = "Pear1 (79%), Banana (14%), Blueberries (6%), Fruit Fibre, Vitamin C"
         self.expected_nutritions = [
-            {'key': 'Energy', 'serving': '335kJ', 'gram': '280kJ'},
-            {'key': 'Protein', 'serving': '0.6g', 'gram': '0.5g'},
-            {'key': 'Fat - Total', 'serving': '0.2g', 'gram': '0.2g'},
-            {'key': 'Carbohydrate', 'serving': '17.3g', 'gram': '14.4g'},
-            {'key': 'Sugars', 'serving': '16.9g', 'gram': '14.1g'},
-            {'key': 'Sodium', 'serving': '3mg', 'gram': '2mg'},
+            {'key': 'Energy', 'serving': '320kJ', 'gram': '265kJ'},
+            {'key': 'Protein', 'serving': '2g', 'gram': '1.7g'},
+            {'key': 'Fat - Total', 'serving': '0.1g', 'gram': '0.1g'},
+            {'key': 'Carbohydrate', 'serving': '15.7g', 'gram': '13.1g'},
+            {'key': 'Sugars', 'serving': '10.9g', 'gram': '9.1g'},
+            {'key': 'Sodium', 'serving': '2mg', 'gram': '1mg'},
         ]
+
 
     def test_render_data(self):
         condition =  condition = {"sub_category": "F4"}
@@ -34,7 +35,7 @@ class BabyCareViewTest(TestCase):
         self.assertTrue(isinstance(data["paginations"], Page))
 
     def test_get_nutritions(self):
-        nutrition = u'["335kJ", "280kJ", "0.6g", "0.5g", "0.2g", "0.2g", "17.3g", "14.4g", "16.9g", "14.1g", "3mg", "2mg"]'
+        nutrition = "[\"320kJ\", \"265kJ\", \"2g\", \"1.7g\", \"0.1g\", \"0.1g\", \"15.7g\", \"13.1g\", \"10.9g\", \"9.1g\", \"2mg\", \"1mg\", \"8mg\", \"25%\", \"7mg\"]"
         nutritions = get_nutritions(nutrition)
         self.assertEqual(nutritions, self.expected_nutritions)
 
