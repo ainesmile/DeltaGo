@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render, redirect
 from services.share import pagination, search_results
 from deltago.forms import SearchForm
@@ -16,9 +17,11 @@ def search(request):
             page = request.GET.get('page', 1)
             per_page = 20
             data = pagination(results, page, per_page)
-            return render(request, 'deltago/share/search_result.html', {
+            empty_tips = "暂无相应的商品，请尝试其他关键词。"
+            return render(request, 'deltago/share/base.html', {
                 "products": data,
-                "paginations": data
+                "paginations": data,
+                "empty_tips": empty_tips
                 })
     return redirect('index')
         

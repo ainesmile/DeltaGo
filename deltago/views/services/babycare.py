@@ -7,9 +7,11 @@ def render_data(condition, page, per_page):
     kwargs = condition.copy()
     products = BabyCare.objects.filter(**kwargs)
     result = pagination(products, page, per_page)
+    empty_tips = "暂无商品，待上架。"
     return {
         "products": result,
-        "paginations": result
+        "paginations": result,
+        "empty_tips": empty_tips
     }
 
 def get_nutritions(nutrition):
