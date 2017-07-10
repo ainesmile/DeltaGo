@@ -2,14 +2,14 @@
 
 {% block main %}
     
-{% include './sub_nav.html' %}
 <section>
     <div class="container">
-        <div class="col-md-10">
+        {% if products|length %}
             {% include 'deltago/share/products.html' %}
             {% include 'deltago/share/pagination.html' %}
-        </div>
+        {% else %}
+            <p>暂无相应的商品，请尝试其他关键词。</p>
+        {% endif %}
     </div>
 </section>
-
 {% endblock %}
