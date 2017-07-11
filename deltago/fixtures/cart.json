@@ -1,0 +1,20 @@
+[
+{
+  "model": "deltago.cart",
+  "pk": 1,
+  "fields": {
+    "stockcode": "757788",
+    "model_name": "BabyCare",
+    "quantity": "1"
+  }
+},
+{
+  "model": "deltago.cart",
+  "pk": 2,
+  "fields": {
+    "stockcode": "757815",
+    "model_name": "BabyCare",
+    "quantity": "1"
+  }
+}
+]

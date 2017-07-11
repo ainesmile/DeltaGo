@@ -1,16 +1,13 @@
 {% for product in products %}
     <li class="list-unstyled">
         <p>
-            {% if product.stockcode %}
-                <a href="{% url 'details' product.stockcode %}">{{product.name}}</span></a>
-            {% else %}
-                <a href="">{{product.name}}</span></a>
-            {% endif %}
+            <a href="{% url 'details' product.stockcode %}">{{product.name}}</a>
         </p>
         <p>
             {% include './price.html' %}
             <span>{{product.volume_size}}</span>
         </p>
+        {% include 'deltago/share/add_to_cart.html' %}
     </li>
     <hr class="star-light">
 {% empty %}
