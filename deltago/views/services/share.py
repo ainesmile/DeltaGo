@@ -25,3 +25,15 @@ def search_results(content):
             if len(list) != 0:
                 results.append(list[0])
     return results
+
+def get_model(category):
+    BABYCARE = 'B'
+    FOOD = 'F'
+    SUPPLEMENT = 'P'
+    BEAUTY = 'U'
+    SPECIAL = 'S'
+    model_dict =  {
+        BABYCARE: 'BabyCare'
+    }
+    model_name = model_dict[category]
+    return apps.get_model(app_label='deltago', model_name=model_name)
