@@ -4,7 +4,7 @@ from deltago.models import BabyCare
 
 from deltago.views.services import share
 
-class PagesViewTest(TestCase):
+class ShareSerivcesTest(TestCase):
     fixtures = [
         'deltago/fixtures/search.json',
         'deltago/fixtures/babycare.json',
