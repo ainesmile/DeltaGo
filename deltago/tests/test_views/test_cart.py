@@ -19,12 +19,10 @@ class CartServicesTest(TestCase):
 
     def test_add_to_cart(self):
         data = [
-            ("720986", 'B', 1, 1),
-            ("757788", 'B', 2, 3)
+            ("1", 'B', 1, 2),
+            ("3", 'B', 2, 2)
         ]
         for stockcode, category, increament, expected in data:
             cart.add_to_cart(stockcode, category, increament)
             new_cart = Cart.objects.get(stockcode=stockcode)
             self.assertEqual(new_cart.quantity, expected)
-
-

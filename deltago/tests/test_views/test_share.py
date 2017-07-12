@@ -13,7 +13,7 @@ class ShareSerivcesTest(TestCase):
 
     def test_search_results(self):
         content = "Banana Avocado"
-        expected = [2469]
+        expected = [1]
         results = share.search_results(content)
         pks = []
         for r in results:

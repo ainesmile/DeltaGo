@@ -14,18 +14,18 @@ class BabyCareViewTest(TestCase):
         client = Client()
         response = client.get('babycare')
         self.request = response.wsgi_request
-        self.details = BabyCareDetails.objects.get(stockcode="720986")
-
-        self.expected_ingredient = "Pear1 (79%), Banana (14%), Blueberries (6%), Fruit Fibre, Vitamin C"
+        self.details = BabyCareDetails.objects.get(pk=1)
+        self.expected_ingredient = "Apples1 (81%), Banana (13.7%), Avocado (5%), Vitamin C"
         self.expected_nutritions = [
-            {'key': 'Energy', 'serving': '320kJ', 'gram': '265kJ'},
-            {'key': 'Protein', 'serving': '2g', 'gram': '1.7g'},
-            {'key': 'Fat - Total', 'serving': '0.1g', 'gram': '0.1g'},
-            {'key': 'Carbohydrate', 'serving': '15.7g', 'gram': '13.1g'},
-            {'key': 'Sugars', 'serving': '10.9g', 'gram': '9.1g'},
-            {'key': 'Sodium', 'serving': '2mg', 'gram': '1mg'},
+            {'key': 'Energy', 'serving': '385kJ', 'gram': '320kJ'},
+            {'key': 'Protein', 'serving': '0.7g', 'gram': '0.6g'},
+            {'key': 'Fat - Total', 'serving': '1.4g', 'gram': '1.2g'},
+            {'key': 'Carbohydrate', 'serving': '17.8g', 'gram': '14.8g'},
+            {'key': 'Sugars', 'serving': '16.9g', 'gram': '14.1g'},
+            {'key': 'Sodium', 'serving': '3mg', 'gram': '2mg'},
         ]
-
+        self.nutrition = u'[\"385kJ\", \"320kJ\", \"0.7g\", \"0.6g\", \"1.4g\", \"1.2g\", \"17.8g\", \"14.8g\", \"16.9g\", \"14.1g\", \"3mg\", \"2mg\"]'
+        self.ingredient = u'{\"note\": \"1 Organic\", \"text\": \"Apples1 (81%), Banana (13.7%), Avocado (5%), Vitamin C\"}'
 
     def test_render_data(self):
         condition =  condition = {"sub_category": "F4"}
@@ -35,13 +35,11 @@ class BabyCareViewTest(TestCase):
         self.assertTrue(isinstance(data["paginations"], Page))
 
     def test_get_nutritions(self):
-        nutrition = "[\"320kJ\", \"265kJ\", \"2g\", \"1.7g\", \"0.1g\", \"0.1g\", \"15.7g\", \"13.1g\", \"10.9g\", \"9.1g\", \"2mg\", \"1mg\", \"8mg\", \"25%\", \"7mg\"]"
-        nutritions = get_nutritions(nutrition)
+        nutritions = get_nutritions(self.nutrition)
         self.assertEqual(nutritions, self.expected_nutritions)
 
     def test_get_ingredient(self):
-        ingredient = u'{"note": "1 Organic", "text": "Pear1 (79%), Banana (14%), Blueberries (6%), Fruit Fibre, Vitamin C"}'
-        text = get_ingredient(ingredient)
+        text = get_ingredient(self.ingredient)
         self.assertEqual(text, self.expected_ingredient)
 
     def test_get_info(self):
