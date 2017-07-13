@@ -1,0 +1,19 @@
+{% extends 'deltago/base/base.html' %}
+
+{% block main %}
+    {% for product in products %}
+        <li class="list-unstyled">
+            <p>
+                <a href="{% url 'details' product.stockcode %}">{{product.name}}</a>
+            </p>
+            <p>
+                {% include 'deltago/share/price.html' %}
+                <span>{{product.volume_size}}</span>
+                <input type="number" min="1" name="quantity" value="{{product.quantity}}" style="width:2em;">
+            </p>
+        </li>
+        <hr class="star-light">
+    {% empty %}
+        <p>{{empty_tips}}</p>
+    {% endfor %}
+{% endblock%}

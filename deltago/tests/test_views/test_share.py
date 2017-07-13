@@ -20,7 +20,10 @@ class ShareSerivcesTest(TestCase):
             pks.append(r.pk)
         self.assertEqual(pks, expected)
 
+    def test_get_model_name(self):
+        self.assertEqual(share.get_model_name('B'), 'BabyCare')
+
     def test_get_model(self):
         category = 'B'
-        model_name = share.get_model(category)
-        self.assertEqual(model_name, BabyCare)
+        model = share.get_model(category)
+        self.assertEqual(model, BabyCare)

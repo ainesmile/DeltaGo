@@ -1,6 +1,10 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import get_object_or_404
-from .share import get_model
-from deltago.models import Cart
+from django.apps import apps
+import copy
+from .share import get_model_name, pagination
+from deltago.models.cart import Cart
+from deltago.models.commodity import BabyCare
 
 def create_cart(item):
     new_cart = Cart(
@@ -26,7 +30,7 @@ def add_to_cart(stockcode, category, quantity):
         cart = cart_list[0]
         update(cart, quantity)
     else:
-        model_name = get_model(category)
+        model_name = get_model_name(category)
         item = {
             "stockcode": stockcode,
             "model_name": model_name,
@@ -34,5 +38,29 @@ def add_to_cart(stockcode, category, quantity):
         }
         create_cart(item)
     
-    
-    
+
+def get_product(cart):
+    stockcode = cart.stockcode
+    model_name = cart.model_name
+    model = apps.get_model(app_label='deltago', model_name=model_name)
+    return model.objects.get(stockcode=stockcode)
+
+def get_cart_item(cart):
+    product = get_product(cart)
+    item = copy.copy(product)
+    item.quantity = cart.quantity
+    return item
+
+def cart_list(page, per_page):
+    carts = []
+    list = Cart.objects.all()
+    for item in list:
+        cart_item = get_cart_item(item)
+        carts.append(cart_item)
+    result = pagination(carts, page, per_page)
+    empty_tips = "购物车暂无商品"
+    return {
+        "products": result,
+        "paginations": result,
+        "empty_tips": empty_tips
+    }

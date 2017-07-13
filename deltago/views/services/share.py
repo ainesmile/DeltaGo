@@ -26,7 +26,7 @@ def search_results(content):
                 results.append(list[0])
     return results
 
-def get_model(category):
+def get_model_name(category):
     BABYCARE = 'B'
     FOOD = 'F'
     SUPPLEMENT = 'P'
@@ -35,5 +35,8 @@ def get_model(category):
     model_dict =  {
         BABYCARE: 'BabyCare'
     }
-    model_name = model_dict[category]
+    return model_dict[category]
+
+def get_model(category):
+    model_name = get_model_name(category)
     return apps.get_model(app_label='deltago', model_name=model_name)
