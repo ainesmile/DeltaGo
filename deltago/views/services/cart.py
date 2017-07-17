@@ -8,7 +8,7 @@ from deltago.models.commodity import BabyCare
 
 def create_cart(item):
     new_cart = Cart(
-        stockcode = item["stockcode"],
+        commodity_id = item["commodity_id"],
         model_name = item["model_name"],
         quantity = item["quantity"]
         )
@@ -23,8 +23,8 @@ def update(cart, increment):
     cart.quantity = new_quantity
     cart.save()
 
-def add_to_cart(stockcode, category, quantity):
-    cart_list = Cart.objects.filter(stockcode=stockcode)
+def add_to_cart(commodity_id, category, quantity):
+    cart_list = Cart.objects.filter(commodity_id=commodity_id)
 
     if len(cart_list) > 0:
         cart = cart_list[0]
@@ -32,7 +32,7 @@ def add_to_cart(stockcode, category, quantity):
     else:
         model_name = get_model_name(category)
         item = {
-            "stockcode": stockcode,
+            "commodity_id": commodity_id,
             "model_name": model_name,
             "quantity": quantity
         }
@@ -40,10 +40,10 @@ def add_to_cart(stockcode, category, quantity):
     
 
 def get_product(cart):
-    stockcode = cart.stockcode
+    commodity_id = cart.commodity_id
     model_name = cart.model_name
     model = apps.get_model(app_label='deltago', model_name=model_name)
-    return model.objects.get(stockcode=stockcode)
+    return model.objects.get(pk=commodity_id)
 
 def get_cart_item(cart):
     product = get_product(cart)

@@ -1,4 +1,4 @@
-<form action="{% url 'addcart' product.category product.stockcode %}" method="POST">
+<form action="{% url 'addcart' product.category product.pk %}" method="POST">
     <span>数量</span>
     <select name="quantity" autocomplete="off" id="quantity" tabindex="-1" class="a-native-dropdown">
         <option value="1"selected="selected">1</option>

@@ -3,7 +3,7 @@
   "model": "deltago.cart",
   "pk": 1,
   "fields": {
-    "stockcode": "1",
+    "commodity_id": "1",
     "model_name": "BabyCare",
     "quantity": "1"
   }
@@ -12,7 +12,7 @@
   "model": "deltago.cart",
   "pk": 2,
   "fields": {
-    "stockcode": "2",
+    "commodity_id": "2",
     "model_name": "BabyCare",
     "quantity": "1"
   }

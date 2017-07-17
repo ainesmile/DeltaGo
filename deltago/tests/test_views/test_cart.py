@@ -26,9 +26,9 @@ class CartServicesTest(TestCase):
             ("1", 'B', 1, 2),
             ("3", 'B', 2, 2)
         ]
-        for stockcode, category, increament, expected in data:
-            cart.add_to_cart(stockcode, category, increament)
-            updated_cart = Cart.objects.get(stockcode=stockcode)
+        for commodity_id, category, increament, expected in data:
+            cart.add_to_cart(commodity_id, category, increament)
+            updated_cart = Cart.objects.get(pk=commodity_id)
             self.assertEqual(updated_cart.quantity, expected)
 
     def test_get_product(self):

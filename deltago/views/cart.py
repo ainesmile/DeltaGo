@@ -11,8 +11,8 @@ def cart(request):
     return render(request, 'deltago/cart/cart.html', data)
 
 
-def addcart(request, category, stockcode):
+def addcart(request, category, commodity_id):
     if request.method == 'POST':
-        quantity = int(request.GET['quantity'])
-        add_to_cart(stockcode, category, quantity)
+        quantity = int(request.POST['quantity'])
+        add_to_cart(commodity_id, category, quantity)
     return redirect('cart')
