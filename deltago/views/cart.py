@@ -12,7 +12,7 @@ def cart(request):
 
 
 def addcart(request, category, stockcode):
-    if request.method == 'GET':
+    if request.method == 'POST':
         quantity = int(request.GET['quantity'])
         add_to_cart(stockcode, category, quantity)
     return redirect('cart')
