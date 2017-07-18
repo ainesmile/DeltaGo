@@ -27,6 +27,6 @@ def nappy(request):
     data = render_data(condition, page, 20)
     return render(request, 'deltago/babycare/base.html', data)
 
-def details(request, stockcode):
-    data = details_render_data(stockcode)
+def details(request, commodity_id):
+    data = details_render_data(commodity_id)
     return render(request, 'deltago/babycare/details.html', data)

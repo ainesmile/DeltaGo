@@ -4,7 +4,7 @@
   "pk": 1,
   "fields": {
     "name": "Heinz Organic Baby Food Apple, Banana Avocado",
-    "stockcode": "1",
+    "commodity_id": 1,
     "model_name": "BabyCare"
   }
 },
@@ -13,7 +13,7 @@
   "pk": 2,
   "fields": {
     "name": "Heinz Organic Baby Food Apple,raspbry, Blackbry",
-    "stockcode": "2",
+    "commodity_id": 2,
     "model_name": "BabyCare"
   }
 },
@@ -22,7 +22,7 @@
   "pk": 3,
   "fields": {
     "name": "Farex Breakfast On The Go Baby Food Apple Oatmeal 6month",
-    "stockcode": "3",
+    "commodity_id": 3,
     "model_name": "BabyCare"
   }
 },
@@ -31,7 +31,7 @@
   "pk": 4,
   "fields": {
     "name": "Watties Stage 2 Baby Food Vanilla Custard",
-    "stockcode": "4",
+    "commodity_id": 4,
     "model_name": "BabyCare"
   }
 },
@@ -40,7 +40,7 @@
   "pk": 5,
   "fields": {
     "name": "Little Bellies Baby Biscuits Animals 12 Month+",
-    "stockcode": "5",
+    "commodity_id": 5,
     "model_name": "BabyCare"
   }
 },
@@ -49,7 +49,7 @@
   "pk": 6,
   "fields": {
     "name": "Watties Stage 3 Baby Food Creamy Tuna & Veg Pasta",
-    "stockcode": "6",
+    "commodity_id": 6,
     "model_name": "BabyCare"
   }
 },
@@ -58,7 +58,7 @@
   "pk": 7,
   "fields": {
     "name": "Betadine Antiseptic Ointment",
-    "stockcode": "7",
+    "commodity_id": 7,
     "model_name": "BabyCare"
   }
 },
@@ -67,7 +67,7 @@
   "pk": 8,
   "fields": {
     "name": "Baby U Nappy Bags Sacks",
-    "stockcode": "8",
+    "commodity_id": 8,
     "model_name": "BabyCare"
   }
 },
@@ -76,7 +76,7 @@
   "pk": 9,
   "fields": {
     "name": "Johnsons Baby Talcum Powder",
-    "stockcode": "9",
+    "commodity_id": 9,
     "model_name": "BabyCare"
   }
 },
@@ -85,7 +85,7 @@
   "pk": 10,
   "fields": {
     "name": "Watties Little Kids Stage 4 Toddler Food Spaghetti Bolognese",
-    "stockcode": "10",
+    "commodity_id": 10,
     "model_name": "BabyCare"
   }
 }

@@ -11,7 +11,7 @@ class Command(BaseCommand):
             
         with open('deltago/commodity_data/countdown/babycare.json') as babycare_data_file:
             babycare = json.load(babycare_data_file)
-
-        save_details(babycare_details)
+        
         save_babycare(babycare)
-        save_search(babycare)
+        save_details(babycare_details)
+        save_search('BabyCare')

@@ -6,6 +6,7 @@ from deltago.models import BabyCareDetails
 class BabyCareViewTest(TestCase):
 
     fixtures = [
+        'deltago/fixtures/babycare.json',
         'deltago/fixtures/babycaredetails.json',
     ]
 

@@ -18,10 +18,10 @@ def search_results(content):
     if content:
         search_filters = Search.objects.filter(name__contains=content)
         for item in search_filters:
-            stockcode = item.stockcode
+            commodity_id = item.commodity_id
             model_name = item.model_name
             app_model = apps.get_model(app_label='deltago', model_name=model_name)
-            list = app_model.objects.filter(stockcode=stockcode)
+            list = app_model.objects.filter(pk=commodity_id)
             if len(list) != 0:
                 results.append(list[0])
     return results

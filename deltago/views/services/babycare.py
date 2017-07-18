@@ -47,12 +47,12 @@ def get_info(details):
     else:
         return None
 
-def details_render_data(stockcode):
-    product = BabyCare.objects.get(stockcode=stockcode)
-    details = BabyCareDetails.objects.get(stockcode=stockcode)
+def details_render_data(commodity_id):
+    babycare = BabyCare.objects.get(pk=commodity_id)
+    details = BabyCareDetails.objects.get(babycare=babycare)
     info = get_info(details)
     return {
-        "product": product,
+        "product": babycare,
         "details": details,
         "info": info
     }

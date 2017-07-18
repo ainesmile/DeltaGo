@@ -11,8 +11,7 @@
     "special_price": "null",
     "category": "B",
     "online_date": "2017-07-09T08:58:10.898Z",
-    "sub_category": "F4",
-    "details": 1
+    "sub_category": "F4"
   }
 },
 {
@@ -27,8 +26,7 @@
     "special_price": "null",
     "category": "B",
     "online_date": "2017-07-09T08:58:10.901Z",
-    "sub_category": "F4",
-    "details": 2
+    "sub_category": "F4"
   }
 },
 {
@@ -43,8 +41,7 @@
     "special_price": "null",
     "category": "B",
     "online_date": "2017-07-09T08:58:10.983Z",
-    "sub_category": "F6",
-    "details": 3
+    "sub_category": "F6"
   }
 },
 {
@@ -59,8 +56,7 @@
     "special_price": "null",
     "category": "B",
     "online_date": "2017-07-09T08:58:11.124Z",
-    "sub_category": "F6",
-    "details": 4
+    "sub_category": "F6"
   }
 },
 {
@@ -75,8 +71,7 @@
     "special_price": "null",
     "category": "B",
     "online_date": "2017-07-09T08:58:11.127Z",
-    "sub_category": "F",
-    "details": 5
+    "sub_category": "F"
   }
 },
 {
@@ -91,8 +86,7 @@
     "special_price": "null",
     "category": "B",
     "online_date": "2017-07-09T08:58:11.275Z",
-    "sub_category": "F9",
-    "details": 6
+    "sub_category": "F9"
   }
 },
 {
@@ -107,8 +101,7 @@
     "special_price": "5.00",
     "category": "B",
     "online_date": "2017-07-09T08:58:11.279Z",
-    "sub_category": "M",
-    "details": 7
+    "sub_category": "M"
   }
 },
 {
@@ -123,8 +116,7 @@
     "special_price": "null",
     "category": "B",
     "online_date": "2017-07-09T08:58:11.323Z",
-    "sub_category": "N",
-    "details": 8
+    "sub_category": "N"
   }
 },
 {
@@ -139,8 +131,7 @@
     "special_price": "null",
     "category": "B",
     "online_date": "2017-07-09T08:58:11.880Z",
-    "sub_category": "T",
-    "details": 9
+    "sub_category": "T"
   }
 },
 {
@@ -155,8 +146,7 @@
     "special_price": "null",
     "category": "B",
     "online_date": "2017-07-09T08:58:11.950Z",
-    "sub_category": "F12",
-    "details": 10
+    "sub_category": "F12"
   }
 }
 ]

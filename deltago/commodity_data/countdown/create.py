@@ -1,8 +1,27 @@
 import json
+from django.apps import apps
 from deltago.models.commodity import BabyCare, BabyCareDetails
 from deltago.models.search import Search
 
-def create_babycare_details(item):
+def create_babycare(item):
+    babycare = BabyCare(
+        stockcode = item["stockcode"],
+        name = item["name"],
+        volume_size = item["volume_size"],
+        price = item["price"],
+        was_price = item["was_price"],
+        special_price = item["special_price"],
+        category = item["category"],
+        sub_category = item["sub_category"],
+    )
+    babycare.save()
+
+def save_babycare(items):
+    for item in items:
+        create_babycare(item)
+
+
+def create_babycare_details(item, babycare):
     nutrition_info = item["nutrition_info"]
     if nutrition_info:
         nutrition = nutrition_info["nutritions"]
@@ -16,7 +35,7 @@ def create_babycare_details(item):
         endorsement = None
 
     details = BabyCareDetails(
-        stockcode = item["stockcode"],
+        babycare = babycare,
         name = item["name"],
         description = item["descriptions"],
         pic_url = item["pic_url"],
@@ -28,55 +47,25 @@ def create_babycare_details(item):
     details.save()
 
 def save_details(items):
-    for item in items:
-        create_babycare_details(item)
+    babycares = BabyCare.objects.all()
+    for index, babycare in enumerate(babycares):
+        stockcode = babycare.stockcode
+        item =items[index]
+        if item["stockcode"] == stockcode:
+            create_babycare_details(item, babycare)
+        else:
+            print item["stockcode"], stockcode
+            print 'BabyCare and BabyCareDetails do not match'
 
-def filter_details(stockcode):
-    try:
-        details = BabyCareDetails.objects.filter(stockcode=stockcode)[0]
-        return details
-    except IndexError:
-        return None
-
-def create_babycare(item):
-    stockcode = item["stockcode"]
-    details = filter_details(stockcode)
-    babycare = BabyCare(
-        stockcode = stockcode,
-        name = item["name"],
-        volume_size = item["volume_size"],
-        price = item["price"],
-        was_price = item["was_price"],
-        special_price = item["special_price"],
-        category = item["category"],
-        sub_category = item["sub_category"],
-        details = details
-    )
-    babycare.save()
-
-def save_babycare(items):
-    for item in items:
-        create_babycare(item)
-
-def get_model_name(category):
-    model_names = {
-        'B': 'BabyCare',
-        'F': 'Food',
-        'P': 'Supplement',
-        'U': 'Beauty',
-        'S': 'Special'
-    }
-    return model_names[category]
-
-def create_search(item):
-    model_name = get_model_name(item["category"])
+def create_search(name, pk, model_name):
     new_search = Search(
-        name = item["name"],
-        stockcode = item["stockcode"],
+        name = name,
+        commodity_id = pk,
         model_name = model_name)
     new_search.save()
 
-def save_search(items):
-    for item in items:
-        create_search(item)
-
+def save_search(model_name):
+    model = apps.get_model(app_label='deltago', model_name=model_name)
+    objects = model.objects.all()
+    for object in objects:
+        create_search(object.name, object.pk, model_name)

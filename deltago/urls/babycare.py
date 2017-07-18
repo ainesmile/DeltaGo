@@ -6,5 +6,5 @@ urlpatterns = [
     url(r'^babycare/medicinal$', babycare.medicinal, name='medicinal'),
     url(r'^babycare/skincare$', babycare.skincare, name='skincare'),
     url(r'^babycare/nappy$', babycare.nappy, name='nappy'),
-    url(r'^babycare/(?P<stockcode>\w+)/$', babycare.details, name='details'),
+    url(r'^babycare/(?P<commodity_id>\w+)/$', babycare.details, name='details'),
 ]
