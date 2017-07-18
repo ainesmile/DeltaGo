@@ -23,8 +23,8 @@ class CartServicesTest(TestCase):
 
     def test_add_to_cart(self):
         data = [
-            ("1", 'B', 1, 2),
-            ("3", 'B', 2, 2)
+            (1, 'B', 1, 2),
+            (3, 'B', 2, 2)
         ]
         for commodity_id, category, increament, expected in data:
             cart.add_to_cart(commodity_id, category, increament)

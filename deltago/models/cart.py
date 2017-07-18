@@ -3,7 +3,4 @@ from django.db import models
 class Cart(models.Model):
     commodity_id = models.IntegerField(unique = True)
     model_name = models.CharField(max_length = 128)
-    quantity = models.IntegerField(default=1)
-
-    def __str__(self):
-        return self.commodity_id
+    quantity = models.IntegerField(default=0)

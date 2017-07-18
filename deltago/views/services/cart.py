@@ -24,19 +24,11 @@ def update(cart, increment):
     cart.save()
 
 def add_to_cart(commodity_id, category, quantity):
-    cart_list = Cart.objects.filter(commodity_id=commodity_id)
-
-    if len(cart_list) > 0:
-        cart = cart_list[0]
-        update(cart, quantity)
-    else:
-        model_name = get_model_name(category)
-        item = {
-            "commodity_id": commodity_id,
-            "model_name": model_name,
-            "quantity": quantity
-        }
-        create_cart(item)
+    model_name = get_model_name(category)
+    item = Cart.objects.get_or_create(commodity_id=commodity_id)[0]
+    item.quantity += quantity
+    item.model_name = model_name
+    item.save()
     
 
 def get_product(cart):
