@@ -25,10 +25,10 @@ class Order(models.Model):
     quantities = models.CharField(max_length=250)
     state = models.CharField(max_length=2, choices=STATES, default=UNPAID)
     
-    payment_method = models.CharField(max_length=128)
-    ship_address = models.CharField(max_length=200)
+    payment_method = models.CharField(max_length=128, null=True, blank=True)
+    ship_address = models.CharField(max_length=200, null=True, blank=True)
     
-    exchange_rate = models.IntegerField()
+    exchange_rate = models.IntegerField(null=True, blank=True)
     subtotal = models.IntegerField()
     total = models.IntegerField()
     
