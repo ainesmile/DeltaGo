@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'', include('deltago.urls.pages')),
     url(r'', include('deltago.urls.babycare')),
     url(r'', include('deltago.urls.cart')),
+    url(r'', include('deltago.urls.order')),
 ]
