@@ -6,7 +6,7 @@ from django.utils import timezone
 class Commodity(models.Model):
     name = models.CharField(max_length = 128)
     volume_size = models.CharField(max_length = 128,)
-    price = models.CharField(max_length = 128,)
+    price = models.CharField(max_length = 128, null = True, blank = True)
     was_price = models.CharField(max_length = 128, null = True, blank = True)
     special_price = models.CharField(max_length = 128, null = True, blank = True)
     category = models.CharField(max_length = 20)
