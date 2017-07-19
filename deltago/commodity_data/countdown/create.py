@@ -15,3 +15,7 @@ def create(item, fields, model):
     kwargs = set_kwargs(item, fields)
     new_record = model(**kwargs)
     new_record.save()
+
+def save(items, fields, model):
+    for item in items:
+        create(item, fields, model)

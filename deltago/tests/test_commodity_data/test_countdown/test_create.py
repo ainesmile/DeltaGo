@@ -34,3 +34,11 @@ class CreateTest(TestCase):
         create.create(self.item, self.fields, Commodity)
         new_commodity = Commodity.objects.get(stockcode="11")
         self.assertEqual(new_commodity.name, "commodity 11")
+
+    def test_save(self):
+        create.save(self.items, self.fields, Commodity)
+        new_commodity_11 = Commodity.objects.get(stockcode="11")
+        new_commodity_12 = Commodity.objects.get(stockcode="12")
+        self.assertEqual(new_commodity_11.name, "commodity 11")
+        self.assertEqual(new_commodity_12.name, "commodity 12")
+        self.assertEqual(Commodity.objects.count(), 2)
