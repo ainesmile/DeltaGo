@@ -10,3 +10,8 @@ def set_kwargs(item, fields):
         else:
             kwargs[field] = item[field]
     return kwargs
+
+def create(item, fields, model):
+    kwargs = set_kwargs(item, fields)
+    new_record = model(**kwargs)
+    new_record.save()

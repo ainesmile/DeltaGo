@@ -5,6 +5,7 @@ from deltago.commodity_data.countdown import create
 
 class CreateTest(TestCase):
 
+
     def setUp(self):
         with open('deltago/fixtures/commodity/commodity.json', 'r') as data_file:
             commodity_data = json.load(data_file)
@@ -14,7 +15,7 @@ class CreateTest(TestCase):
         self.fields = ["name", "volume_size", "price", "was_price", "special_price",
         "category", "sub_category", "stockcode"]
         self.expected_kwargs ={
-            "name": "commodity 1",
+            "name": "commodity 11",
             "volume_size": "pouch 120g",
             "price": "2.09",
             "was_price": None,
@@ -28,3 +29,8 @@ class CreateTest(TestCase):
     def test_set_kwargs(self):
         kwargs = create.set_kwargs(self.item, self.fields)
         self.assertEqual(kwargs, self.expected_kwargs)
+
+    def test_create(self):
+        create.create(self.item, self.fields, Commodity)
+        new_commodity = Commodity.objects.get(stockcode="11")
+        self.assertEqual(new_commodity.name, "commodity 11")
