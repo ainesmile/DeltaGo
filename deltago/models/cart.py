@@ -1,6 +1,6 @@
 from django.db import models
+from deltago.models import Commodity
 
 class Cart(models.Model):
-    commodity_id = models.IntegerField(unique = True)
-    model_name = models.CharField(max_length = 128)
+    commodity = models.ForeignKey('Commodity', on_delete=models.CASCADE)
     quantity = models.IntegerField(default=0)

@@ -56,7 +56,7 @@ class Ship(models.Model):
         (DELIVERED, 'Delivered')
     )
 
-    order = models.ForeignKey(Order)
+    order = models.ForeignKey('Order')
     number = models.CharField(max_length=128)
     express = models.CharField(max_length=128)
     linker = models.URLField()
@@ -73,7 +73,7 @@ class Ship(models.Model):
 
 
 class Payment(models.Model):
-    order = models.ForeignKey(Order)
+    order = models.ForeignKey('Order')
     name = models.CharField(max_length=128)
     number = models.CharField(max_length=200)
     method = models.CharField(max_length=128)
