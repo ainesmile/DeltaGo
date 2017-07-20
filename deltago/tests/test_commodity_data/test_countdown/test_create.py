@@ -30,6 +30,7 @@ class CreateTest(TestCase):
             "stockcode": "11",
         }
 
+        self.details_items = details_data
         self.details_item = details_data[0]
         self.nutrition_info = self.details_item["nutrition_info"]
         self.e_nutrition_details = (
@@ -76,4 +77,7 @@ class CreateTest(TestCase):
     def test_get_details_item(self):
         item = create.get_details_item(self.details_item, self.commodity)
         self.assertEqual(item, self.e_details_item)
-        
+
+    def test_get_details_items(self):
+        items = create.get_details_items(self.details_items)
+        self.assertEqual(items, [self.e_details_item, None, None])

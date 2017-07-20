@@ -1,5 +1,6 @@
 import json
 from django.apps import apps
+from django.core.exceptions import ObjectDoesNotExist
 from deltago.models import Commodity, Details, Search
 
 def set_kwargs(item, fields):
@@ -45,3 +46,15 @@ def get_details_item(item, commodity):
     data["nutrition"], data["endorsement"], \
         data["ingredient"], data["claim"] = get_nutrition_details(nutrition_info)
     return data
+
+def get_details_items(items):
+    new_items = []
+    for item in items:
+        try:
+            commodity = Commodity.objects.get(stockcode=item["stockcode"])
+            new_item = get_details_item(item, commodity)
+        except ObjectDoesNotExist:
+            new_item = None
+        if new_item:
+            new_items.append(new_item)
+    return new_items
