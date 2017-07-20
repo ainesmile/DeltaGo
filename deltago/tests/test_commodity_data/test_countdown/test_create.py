@@ -5,10 +5,15 @@ from deltago.commodity_data.countdown import create
 
 class CreateTest(TestCase):
 
+    fixtures = [
+        'deltago/fixtures/commodity.json',
+    ]
 
     def setUp(self):
-        with open('deltago/fixtures/commodity/commodity.json', 'r') as data_file:
-            commodity_data = json.load(data_file)
+        with open('deltago/fixtures/commodity/commodity.json', 'r') as commodify_file:
+            commodity_data = json.load(commodify_file)
+        with open('deltago/fixtures/commodity/details.json', 'r') as details_file:
+            details_data = json.load(details_file)
 
         self.items = commodity_data
         self.item = commodity_data[0]
@@ -24,6 +29,17 @@ class CreateTest(TestCase):
             "sub_category": "F4",
             "stockcode": "11",
         }
+
+        self.details_item = details_data[0]
+        self.nutrition_info = self.details_item["nutrition_info"]
+        self.e_nutrition_details = (
+            self.nutrition_info["nutritions"],
+            self.nutrition_info["endorsements"],
+            self.nutrition_info["ingredient"],
+            self.nutrition_info["claims"]
+        )
+
+        self.commodity = Commodity.objects.get(pk=1)
 
 
     def test_set_kwargs(self):
@@ -41,4 +57,9 @@ class CreateTest(TestCase):
         new_commodity_12 = Commodity.objects.get(stockcode="12")
         self.assertEqual(new_commodity_11.name, "commodity 11")
         self.assertEqual(new_commodity_12.name, "commodity 12")
-        self.assertEqual(Commodity.objects.count(), 2)
+        self.assertEqual(Commodity.objects.count(), 12)
+
+    def test_get_nutrition_details(self):
+        results = create.get_nutrition_details(self.nutrition_info)
+        self.assertEqual(results, self.e_nutrition_details)
+        

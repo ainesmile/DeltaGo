@@ -25,11 +25,13 @@ def commodity(items):
         "category", "sub_category", "stockcode"]
     save(items, fields, Commodity)
 
-def details(items):
-    fields = ["commodity", "pic_url", "description",
-        "nutrition", "ingredient", "claim", "endorsement"]
-    save(items, fields, Details)
-
-def search(items):
-    fields = ["name", "commodity"]
-    save(items, fields, Search)
+def get_nutrition_details(nutrition_info):
+    if nutrition_info:
+        return (
+            nutrition_info["nutritions"],
+            nutrition_info["endorsements"],
+            nutrition_info["ingredient"],
+            nutrition_info["claims"]
+        )
+    else:
+        return (None, None, None, None)
