@@ -64,3 +64,13 @@ def details(items):
         "nutrition", "ingredient", "claim", "endorsement"]
     new_items = get_details_items(items)
     save(new_items, fields, Details)
+
+def search():
+    commodities = Commodity.objects.all()
+    for commodity in commodities:
+        kwargs = {
+            "name": commodity.name,
+            "commodity": commodity,
+        }
+        new_search = Search(**kwargs)
+        new_search.save()

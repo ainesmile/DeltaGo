@@ -1,6 +1,6 @@
 from django.test import TestCase
 import json
-from deltago.models import Commodity, Details
+from deltago.models import Commodity, Details, Search
 from deltago.commodity_data.countdown import create
 
 class CreateTest(TestCase):
@@ -85,4 +85,14 @@ class CreateTest(TestCase):
     def test_details(self):
         create.details(self.details_items)
         self.assertEqual(Details.objects.count(), 1)
+
+    def test_search(self):
+        create.search()
+        searches = Search.objects.all()
+        commodities = Commodity.objects.all()
+        for index, search in enumerate(searches):
+            commodity = commodities[index]
+            self.assertEqual(search.name, commodity.name)
+            self.assertEqual(search.commodity, commodity)
+
 
