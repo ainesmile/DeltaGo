@@ -35,3 +35,13 @@ def get_nutrition_details(nutrition_info):
         )
     else:
         return (None, None, None, None)
+
+def get_details_item(item, commodity):
+    data = {}
+    data["commodity"] = commodity
+    data["description"] = item["descriptions"] or None
+    data["pic_url"] = item["pic_url"] or None
+    nutrition_info = item["nutrition_info"]
+    data["nutrition"], data["endorsement"], \
+        data["ingredient"], data["claim"] = get_nutrition_details(nutrition_info)
+    return data

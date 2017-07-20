@@ -41,6 +41,16 @@ class CreateTest(TestCase):
 
         self.commodity = Commodity.objects.get(pk=1)
 
+        self.e_details_item = {
+            "commodity": self.commodity,
+            "description": self.details_item["descriptions"],
+            "pic_url": self.details_item["pic_url"],
+            "ingredient": self.details_item["nutrition_info"]["ingredient"],
+            "claim": self.details_item["nutrition_info"]["claims"],
+            "endorsement": self.details_item["nutrition_info"]["endorsements"],
+            "nutrition": self.details_item["nutrition_info"]["nutritions"]
+        }
+
 
     def test_set_kwargs(self):
         kwargs = create.set_kwargs(self.item, self.fields)
@@ -62,4 +72,8 @@ class CreateTest(TestCase):
     def test_get_nutrition_details(self):
         results = create.get_nutrition_details(self.nutrition_info)
         self.assertEqual(results, self.e_nutrition_details)
+
+    def test_get_details_item(self):
+        item = create.get_details_item(self.details_item, self.commodity)
+        self.assertEqual(item, self.e_details_item)
         
