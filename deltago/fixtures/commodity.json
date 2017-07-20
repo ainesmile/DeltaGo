@@ -1,21 +1,21 @@
 [
 {
-  "model": "deltago.babycare",
+  "model": "deltago.commodity",
   "pk": 1,
   "fields": {
-    "stockcode": "1",
-    "name": "Heinz Organic Baby Food Apple, Banana Avocado",
-    "volume_size": "pouch 120g",
-    "price": "2.09",
-    "was_price": "null",
-    "special_price": "null",
-    "category": "B",
-    "online_date": "2017-07-09T08:58:10.898Z",
-    "sub_category": "F4"
+      "name": "Heinz Organic Baby Food Apple, Banana Avocado",
+      "volume_size": "pouch 120g",
+      "price": "2.09",
+      "was_price": "null",
+      "special_price": "null",
+      "category": "B",
+      "sub_category": "F4",
+      "stockcode": "1",
+      "online_date": "2017-07-09T08:58:10.898Z"
   }
 },
 {
-  "model": "deltago.babycare",
+  "model": "deltago.commodity",
   "pk": 2,
   "fields": {
     "stockcode": "2",
@@ -25,12 +25,12 @@
     "was_price": "null",
     "special_price": "null",
     "category": "B",
-    "online_date": "2017-07-09T08:58:10.901Z",
-    "sub_category": "F4"
+    "sub_category": "F4",
+    "online_date": "2017-07-09T08:58:10.901Z"
   }
 },
 {
-  "model": "deltago.babycare",
+  "model": "deltago.commodity",
   "pk": 3,
   "fields": {
     "stockcode": "3",
@@ -45,7 +45,7 @@
   }
 },
 {
-  "model": "deltago.babycare",
+  "model": "deltago.commodity",
   "pk": 4,
   "fields": {
     "stockcode": "4",
@@ -60,7 +60,7 @@
   }
 },
 {
-  "model": "deltago.babycare",
+  "model": "deltago.commodity",
   "pk": 5,
   "fields": {
     "stockcode": "5",
@@ -75,7 +75,7 @@
   }
 },
 {
-  "model": "deltago.babycare",
+  "model": "deltago.commodity",
   "pk": 6,
   "fields": {
     "stockcode": "6",
@@ -90,7 +90,7 @@
   }
 },
 {
-  "model": "deltago.babycare",
+  "model": "deltago.commodity",
   "pk": 7,
   "fields": {
     "stockcode": "7",
@@ -105,7 +105,7 @@
   }
 },
 {
-  "model": "deltago.babycare",
+  "model": "deltago.commodity",
   "pk": 8,
   "fields": {
     "stockcode": "8",
@@ -120,7 +120,7 @@
   }
 },
 {
-  "model": "deltago.babycare",
+  "model": "deltago.commodity",
   "pk": 9,
   "fields": {
     "stockcode": "9",
@@ -135,7 +135,7 @@
   }
 },
 {
-  "model": "deltago.babycare",
+  "model": "deltago.commodity",
   "pk": 10,
   "fields": {
     "stockcode": "10",
