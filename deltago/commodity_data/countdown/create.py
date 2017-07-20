@@ -58,3 +58,9 @@ def get_details_items(items):
         if new_item:
             new_items.append(new_item)
     return new_items
+
+def details(items):
+    fields = ["commodity", "pic_url", "description",
+        "nutrition", "ingredient", "claim", "endorsement"]
+    new_items = get_details_items(items)
+    save(new_items, fields, Details)

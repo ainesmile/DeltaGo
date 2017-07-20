@@ -1,6 +1,6 @@
 from django.test import TestCase
 import json
-from deltago.models import Commodity
+from deltago.models import Commodity, Details
 from deltago.commodity_data.countdown import create
 
 class CreateTest(TestCase):
@@ -80,4 +80,9 @@ class CreateTest(TestCase):
 
     def test_get_details_items(self):
         items = create.get_details_items(self.details_items)
-        self.assertEqual(items, [self.e_details_item, None, None])
+        self.assertEqual(items, [self.e_details_item])
+
+    def test_details(self):
+        create.details(self.details_items)
+        self.assertEqual(Details.objects.count(), 1)
+
