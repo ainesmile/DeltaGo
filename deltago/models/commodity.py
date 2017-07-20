@@ -5,13 +5,13 @@ from django.utils import timezone
 
 class Commodity(models.Model):
     name = models.CharField(max_length = 128)
-    volume_size = models.CharField(max_length = 128,)
+    volume_size = models.CharField(max_length = 128, null = True, blank = True)
     price = models.CharField(max_length = 128, null = True, blank = True)
     was_price = models.CharField(max_length = 128, null = True, blank = True)
     special_price = models.CharField(max_length = 128, null = True, blank = True)
     category = models.CharField(max_length = 20)
     sub_category = models.CharField(max_length = 20)
-    stockcode = models.CharField(max_length = 20, null = True, blank = True)
+    stockcode = models.CharField(max_length = 20, unique=True)
     online_date = models.DateTimeField(default = timezone.now)
 
     def __str__(self):
