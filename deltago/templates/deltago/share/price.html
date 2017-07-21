@@ -1,7 +1,7 @@
 <span>
-    {% if product.price != "null" %}
+    {% if product.price %}
         <span>NZD ${{product.price}}</span>
-    {% elif product.special_price != "null" %}
+    {% elif product.special_price %}
         <span>特价: NZD ${{product.special_price}}</span>
         <span>原价: NZD ${{product.was_price}}</span>
     {% else %}

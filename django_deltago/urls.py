@@ -19,7 +19,5 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('deltago.urls.pages')),
-    url(r'', include('deltago.urls.babycare')),
-    url(r'', include('deltago.urls.cart')),
-    url(r'', include('deltago.urls.order')),
+    url(r'^products/', include('deltago.urls.products')),
 ]

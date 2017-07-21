@@ -1,4 +1,4 @@
-<form action="{% url 'addcart' product.category product.pk %}" method="POST">
+<form method="POST">
     {% csrf_token %}
     <span>数量</span>
     <select name="quantity" autocomplete="off" tabindex="-1" class="a-native-dropdown">
