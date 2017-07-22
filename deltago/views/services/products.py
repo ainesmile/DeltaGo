@@ -3,31 +3,46 @@ from deltago.models import Commodity
 
 from .share import pagination
 
-def get_sub_nav(categ_name):
-    sub_navs = {
-        "B": {
-            "F4": "辅食・4月+",
-            "F6": "辅食・6月+",
-            "F9": "辅食・9月+",
-            "F12": "辅食・12月+",
-            "F": "辅食・其他",
-            "M": "医疗",
-            "N": "纸尿布"
-        },
-        "P": {}
+def get_categ(categ_name):
+    categs = {
+        "babycare": "B",
+        "food": "F",
+        "supplement": "P",
+        "beauty": "U"
     }
-    return sub_navs[categ_name]
-    
+    return categs[categ_name]
 
-def sub(condition, page, per_page):
+def get_sub_categ(categ_name, sub_categ_name):
+    sub_categs = {
+        'babycare': {
+            'baby-food-from-4-mths': 'F4',
+            'baby-food-from-6-mths': 'F6',
+            'baby-food-from-9-mths': 'F9',
+            'baby-food-from-12-mths': 'F12',
+            'other-baby-foods': 'F',
+            'medicinal-needs': 'M',
+            'nappies-liners': 'N'
+        },
+        'supplement': {}
+    }
+    return sub_categs[categ_name][sub_categ_name]
+
+def get_categs(categ_name, sub_categ_name):
+    categ = get_categ(categ_name)
+    sub_categ = get_sub_categ(categ_name, sub_categ_name)
+    return (categ, sub_categ)
+
+def sub(categ_name, sub_categ_name, page, per_page):
+    categ, sub_categ = get_categs(categ_name, sub_categ_name)
+    condition = {
+        'category': categ,
+        'sub_category': sub_categ
+    }
     data = Commodity.objects.filter(**condition)
     products = pagination(data, page, per_page)
     empty_tips = "暂无商品，待上架。"
-    sub_nav = get_sub_nav(condition["category"])
-
     return {
         "paginations": products,
         "products": products,
-        "empty_tips": empty_tips,
-        "sub_nav": sub_nav
+        "empty_tips": empty_tips
     }
