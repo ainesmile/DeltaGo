@@ -1,25 +1,9 @@
 <div class="col-md-2">
     <ul class="list-unstyled">
-        <li>
-            <a href="">辅食・4月+</a>
-        </li>
-        <li>
-            <a href="">辅食・6月+</a>
-        </li>
-        <li>
-            <a href="">辅食・9月+</a>
-        </li>
-        <li>
-            <a href="">辅食・12月+</a>
-        </li>
-        <li>
-            <a href="">医疗</a>
-        </li>
-        <li>
-            <a href="">护肤</a>
-        </li>
-        <li>
-            <a href="">纸尿布</a>
-        </li>
+        {% for nav in sub_navs %}
+            <li>
+                <a href="{% url 'sub_category' categ_name nav.name %}">{{nav.text}}</a>
+            </li>
+        {% endfor %}
     </ul>
 </div>

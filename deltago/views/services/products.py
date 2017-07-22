@@ -32,6 +32,41 @@ def get_categs(categ_name, sub_categ_name):
     sub_categ = get_sub_categ(categ_name, sub_categ_name)
     return (categ, sub_categ)
 
+def get_sub_navs(categ_name):
+    sub_navs = {
+        "babycare" : [
+            {
+                "name": "baby-food-from-4-mths",
+                "text": "辅食・4月+"
+            },
+            {
+                "name": "baby-food-from-6-mths",
+                "text": "辅食・6月+"
+            },
+            {
+                "name": "baby-food-from-9-mths",
+                "text": "辅食・9月+"
+            },
+            {
+                "name": "baby-food-from-12-mths",
+                "text": "辅食・12月+"
+            },
+            {
+                "name": "other-baby-foods",
+                "text": "辅食・其他"
+            },
+            {
+                "name": "medicinal-needs",
+                "text": "医疗"
+            },
+            {
+                "name": "nappies-liners",
+                "text": "纸尿布"
+            }
+        ]
+    }
+    return sub_navs[categ_name]
+
 def sub(categ_name, sub_categ_name, page, per_page):
     categ, sub_categ = get_categs(categ_name, sub_categ_name)
     condition = {
@@ -41,8 +76,12 @@ def sub(categ_name, sub_categ_name, page, per_page):
     data = Commodity.objects.filter(**condition)
     products = pagination(data, page, per_page)
     empty_tips = "暂无商品，待上架。"
+    sub_navs = get_sub_navs(categ_name)
     return {
         "paginations": products,
         "products": products,
-        "empty_tips": empty_tips
+        "empty_tips": empty_tips,
+        "categ_name": categ_name,
+        "sub_navs": sub_navs
     }
+
