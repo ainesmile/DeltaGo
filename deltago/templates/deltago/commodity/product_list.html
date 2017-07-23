@@ -1,0 +1,15 @@
+{% for product in products %}
+    <li class="list-unstyled">
+        <p>
+            <a href="{% url 'details' product.pk  %}">{{product.name}}</a>
+        </p>
+        <p>
+            {% include 'deltago/share/price.html' %}
+            <span>{{product.volume_size}}</span>
+        </p>
+        {% include 'deltago/share/add_to_cart.html' %}
+    </li>
+    <hr class="star-light">
+{% empty %}
+    <p>{{empty_tips}}</p>
+{% endfor %}
