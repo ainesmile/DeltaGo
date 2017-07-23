@@ -29,9 +29,9 @@ def commodity(items):
 def get_nutrition_details(nutrition_info):
     if nutrition_info:
         return (
-            nutrition_info["nutritions"],
+            json.dumps(nutrition_info["nutritions"]),
             nutrition_info["endorsements"],
-            nutrition_info["ingredient"],
+            json.dumps(nutrition_info["ingredient"]),
             nutrition_info["claims"]
         )
     else:

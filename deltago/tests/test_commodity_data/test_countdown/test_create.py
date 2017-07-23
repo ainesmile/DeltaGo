@@ -34,9 +34,9 @@ class CreateTest(TestCase):
         self.details_item = details_data[0]
         self.nutrition_info = self.details_item["nutrition_info"]
         self.e_nutrition_details = (
-            self.nutrition_info["nutritions"],
+            json.dumps(self.nutrition_info["nutritions"]),
             self.nutrition_info["endorsements"],
-            self.nutrition_info["ingredient"],
+            json.dumps(self.nutrition_info["ingredient"]),
             self.nutrition_info["claims"]
         )
 
@@ -46,10 +46,10 @@ class CreateTest(TestCase):
             "commodity": self.commodity,
             "description": self.details_item["descriptions"],
             "pic_url": self.details_item["pic_url"],
-            "ingredient": self.details_item["nutrition_info"]["ingredient"],
+            "ingredient": json.dumps(self.details_item["nutrition_info"]["ingredient"]),
             "claim": self.details_item["nutrition_info"]["claims"],
             "endorsement": self.details_item["nutrition_info"]["endorsements"],
-            "nutrition": self.details_item["nutrition_info"]["nutritions"]
+            "nutrition": json.dumps(self.details_item["nutrition_info"]["nutritions"])
         }
 
 
