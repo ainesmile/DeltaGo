@@ -1,5 +1,38 @@
-<p>{{details.description}}</p>
-<p>Ingredient: {{details.ingredient}}</p>
-<p>Nutrition: {{details.nutrition}}</p>
-<p>Claims: {{details.claim}}</p>
-<p>Endorsements: {{details.endorsement}}</p>
+{% if details.description %}
+    <p>{{details.description}}</p>
+{% endif %}
+
+{% if ingredients %}
+    <p>
+        <b>Ingredient:</b> {{ingredients.text}} 
+        <small><b>Note:</b> {{ingredients.note}}</small>
+    </p>
+{% endif %}
+
+{% if nutritions %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nutrient</th>
+            <th>Per Serving</th>
+            <th>Per 100g</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for key, serving, gram in nutritions %}
+            <tr>
+                <th scope="row">{{key}}</th>
+                <td>{{serving}}</td>
+                <td>{{gram}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+{% if details.claim %}
+<p><b>Claims:</b> {{details.claim}}</p>
+{% endif %}
+{% if details.endorsement %}
+<p><b>Endorsements:</b> {{details.endorsement}}</p>
+{% endif %}

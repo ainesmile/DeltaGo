@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
+import json
 from deltago.models import Commodity, Details
 
 from .share import pagination
@@ -87,13 +87,37 @@ def sub(categ_name, sub_categ_name, page, per_page):
         "sub_navs": sub_navs
     }
 
+def json_loads(value):
+    try:
+        return json.loads(value)
+    except TypeError:
+        return None
+
+def get_nutritions(nutrition):
+    nutritions = json_loads(nutrition)
+    results = []
+    if nutritions:
+        keys = ["Energy", "Protein", "Fat - Total", "Carbohydrate", "Sugars", "Sodium"]
+        for index, key in enumerate(keys):
+            n_index = index * 2
+            item = (key, nutritions[n_index], nutritions[n_index+1])
+            results.append(item)
+    return results
+
+def get_ingredients(ingredient):
+    return json_loads(ingredient)
+
 def get_details(product_id):
     try:
         product = Commodity.objects.get(pk=product_id)
         details = Details.objects.get(commodity=product)
+        nutritions = get_nutritions(details.nutrition)
+        ingredients = get_ingredients(details.ingredient)
         data = {
             "product": product,
-            "details": details
+            "details": details,
+            "nutritions": nutritions,
+            "ingredients": ingredients
         }
     except ObjectDoesNotExist:
         data = {}
