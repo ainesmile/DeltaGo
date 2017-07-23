@@ -3,8 +3,15 @@ from django.test import TestCase, Client
 from django.core.paginator import Page
 from deltago.views.services import products
 
+from deltago.models import Commodity, Details
+
 
 class ProductsViewTest(TestCase):
+
+    fixtures = [
+        'deltago/fixtures/commodity.json',
+        'deltago/fixtures/details.json',
+    ]
 
     def setUp(self):
         client = Client()
@@ -42,6 +49,9 @@ class ProductsViewTest(TestCase):
             }
         ]
 
+        self.product1 = Commodity.objects.get(pk=1)
+        self.details1 = Details.objects.get(pk=1)
+
     def test_get_categ(self):
         categ = products.get_categ("babycare")
         self.assertEqual(categ, 'B')
@@ -66,6 +76,11 @@ class ProductsViewTest(TestCase):
         self.assertTrue(data["empty_tips"], "暂无商品，待上架。")
         self.assertEqual(data["sub_navs"], self.e_sub_navs)
         self.assertEqual(data["categ_name"], "babycare")
+
+    def test_get_details(self):
+        data = products.get_details(1)
+        self.assertEqual(data["product"], self.product1)
+        self.assertEqual(data["details"], self.details1)
 
     
 

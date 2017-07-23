@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-from deltago.models import Commodity
+from django.shortcuts import get_object_or_404
+from django.core.exceptions import ObjectDoesNotExist
+from deltago.models import Commodity, Details
 
 from .share import pagination
 
@@ -85,3 +87,14 @@ def sub(categ_name, sub_categ_name, page, per_page):
         "sub_navs": sub_navs
     }
 
+def get_details(product_id):
+    try:
+        product = Commodity.objects.get(pk=product_id)
+        details = Details.objects.get(commodity=product)
+        data = {
+            "product": product,
+            "details": details
+        }
+    except ObjectDoesNotExist:
+        data = {}
+    return data

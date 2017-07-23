@@ -19,5 +19,5 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('deltago.urls.pages')),
-    url(r'^products/', include('deltago.urls.products')),
+    url(r'', include('deltago.urls.products')),
 ]
