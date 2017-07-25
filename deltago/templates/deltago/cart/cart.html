@@ -1,26 +1,28 @@
 {% extends 'deltago/base/base.html' %}
 
 {% block main %}
-    {% if products %}
-        <form action="{% url 'checkout' %}" method="post">
+    {% if carts %}
+        <form action="" method="post">
             {% csrf_token %}
-            {% for product in products %}
+            {% for cart in carts %}
                 <li class="list-unstyled">
                     <p>
-                        <a href="{% url 'details' product.pk %}">{{product.name}}</a>
+                        <a href="{% url 'details' cart.commodity.pk %}">{{cart.commodity.name}}</a>
                     </p>
                     <p>
-                        {% include 'deltago/share/price.html' %}
-                        <span>{{product.volume_size}}</span>
-                        <input type="number" min="0" name="quantity" value="{{product.quantity}}" style="width:2em;">
+                        {% include 'deltago/share/price.html' with product=cart.commodity %}
+                        <span>{{cart.commodity.volume_size}}</span>
+                        <input type="number" min="0" name="quantity" value="{{cart.quantity}}" style="width:2em;">
                     </p>
-                    <input id="checkBox-{{product.pk}}" type="checkbox" name="checkbox" value="{{product.pk}}">
+                    <input id="checkBox-{{product.pk}}" type="checkbox" name="checkbox" value="{{cart.commodity.pk}}">
                 </li>
                 <hr class="star-light">
             {% endfor %}
+            {% include 'deltago/share/pagination.html' %}
             <input type="submit" value="确认订单">
         </form>
     {% else %}
         <p>{{empty_tips}}</p>
     {% endif %}
+
 {% endblock%}

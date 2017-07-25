@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.core.exceptions import ObjectDoesNotExist
 
-from deltago.models import Cart
-from deltago.models import Commodity
+from deltago.models import Commodity, Cart
+from deltago.views.services.share import pagination
 
 def create_cart(commodity, quantity):
     new_cart = Cart(
@@ -27,3 +27,14 @@ def add_to_cart(product_id, quantity):
     except ObjectDoesNotExist:
         cart = create_cart(commodity, quantity)
     return cart
+
+
+def cart_list(page, per_page):
+    data = Cart.objects.all()
+    carts = pagination(data, page, per_page)
+    empty_tips = "购物车空啦"
+    return {
+        "carts": carts,
+        "paginations": carts,
+        "empty_tips": empty_tips
+    }

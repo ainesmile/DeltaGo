@@ -14,7 +14,7 @@
     <ul class="nav navbar-nav navbar-right">
 
         <li>
-            <a href="">购物车<span class="glyphicon glyphicon-shopping-cart"></span></a>
+            <a href="{% url 'cart' %}">购物车<span class="glyphicon glyphicon-shopping-cart"></span></a>
         </li>
         {% if user.is_authenticated %}
             <li><a href="">我的帐号</a></li>

@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 
-from services.cart import add_to_cart
-
+from services.cart import add_to_cart, cart_list
 
 def cart(request):
-    return redirect('index')
-
+    page = request.GET.get('page', 1)
+    data = cart_list(page, 20)
+    return render(request, 'deltago/cart/cart.html', data)
 
 def addcart(request, product_id):
     if request.method == 'POST':
@@ -14,5 +14,5 @@ def addcart(request, product_id):
         if not new_cart:
             return render(request, 'deltago/share/product_404.html')
         else:
-            return redirect('index')
+            return redirect('cart')
     

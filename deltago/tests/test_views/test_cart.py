@@ -1,4 +1,5 @@
-from django.test import TestCase
+from django.test import TestCase, Client
+from django.core.paginator import Page
 from deltago.models import Commodity, Cart
 
 from deltago.views.services import cart
@@ -10,6 +11,10 @@ class CartViewTest(TestCase):
     ]
 
     def setUp(self):
+        client = Client()
+        response = client.get('cart')
+        request = response.wsgi_request
+        self.page = request.GET.get('page', 1)
         self.cart1 = Cart.objects.get(pk=1)
         self.cart2 = Cart.objects.get(pk=2)
         self.commodity3 = Commodity.objects.get(pk=3)
@@ -24,7 +29,6 @@ class CartViewTest(TestCase):
         self.assertEqual(self.cart1.quantity, 3)
 
     def test_add_to_cart(self):
-
         data = [
             (1, 1, 2),
             (3, 1, 1),
@@ -38,3 +42,6 @@ class CartViewTest(TestCase):
                 result = None
             self.assertEqual(result, e_result)
 
+    def test_cart_list(self):
+        result = cart.cart_list(self.page, 20)
+        self.assertTrue(isinstance(result["carts"], Page))
