@@ -3,18 +3,16 @@
   "model": "deltago.cart",
   "pk": 1,
   "fields": {
-    "commodity_id": 1,
-    "model_name": "BabyCare",
-    "quantity": "1"
+    "commodity": 1,
+    "quantity": 1
   }
 },
 {
   "model": "deltago.cart",
   "pk": 2,
   "fields": {
-    "commodity_id": 2,
-    "model_name": "BabyCare",
-    "quantity": "1"
+    "commodity": 2,
+    "quantity": 2
   }
 }
 ]

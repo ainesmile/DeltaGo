@@ -1,58 +1,29 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import get_object_or_404
-from django.apps import apps
-import copy
-from .share import get_model_name, pagination
-from deltago.models.cart import Cart
-from deltago.models.commodity import BabyCare
+from django.core.exceptions import ObjectDoesNotExist
 
-def create_cart(item):
+from deltago.models import Cart
+from deltago.models import Commodity
+
+def create_cart(commodity, quantity):
     new_cart = Cart(
-        commodity_id = item["commodity_id"],
-        model_name = item["model_name"],
-        quantity = item["quantity"]
+        commodity = commodity,
+        quantity = quantity
         )
     new_cart.save()
+    return new_cart
 
-def create_carts(items):
-    for item in items:
-        create_cart(item)
-
-def update(cart, increment):
-    new_quantity = cart.quantity + increment
-    cart.quantity = new_quantity
+def update_cart(cart, quantity):
+    cart.quantity += quantity
     cart.save()
 
-def add_to_cart(commodity_id, category, quantity):
-    model_name = get_model_name(category)
-    item = Cart.objects.get_or_create(commodity_id=commodity_id)[0]
-    item.quantity += quantity
-    item.model_name = model_name
-    item.save()
-    
-
-def get_product(cart):
-    commodity_id = cart.commodity_id
-    model_name = cart.model_name
-    model = apps.get_model(app_label='deltago', model_name=model_name)
-    return model.objects.get(pk=commodity_id)
-
-def get_cart_item(cart):
-    product = get_product(cart)
-    item = copy.copy(product)
-    item.quantity = cart.quantity
-    return item
-
-def cart_list(page, per_page):
-    carts = []
-    list = Cart.objects.all()
-    for item in list:
-        cart_item = get_cart_item(item)
-        carts.append(cart_item)
-    result = pagination(carts, page, per_page)
-    empty_tips = "购物车暂无商品"
-    return {
-        "products": result,
-        "paginations": result,
-        "empty_tips": empty_tips
-    }
+def add_to_cart(product_id, quantity):
+    try:
+        commodity = Commodity.objects.get(pk=product_id)
+    except ObjectDoesNotExist:
+        return None
+    try:
+        cart = Cart.objects.get(commodity=commodity)
+        update_cart(cart, quantity)
+    except ObjectDoesNotExist:
+        cart = create_cart(commodity, quantity)
+    return cart

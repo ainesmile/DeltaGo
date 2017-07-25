@@ -1,18 +1,18 @@
 from django.shortcuts import render, redirect
-from deltago.models.cart import Cart
 
-from services.cart import add_to_cart, cart_list
-
+from services.cart import add_to_cart
 
 
 def cart(request):
-    page = request.GET.get('page', 1)
-    data = cart_list(page, 20)
-    return render(request, 'deltago/cart/cart.html', data)
+    return redirect('index')
 
 
-def addcart(request, category, commodity_id):
+def addcart(request, product_id):
     if request.method == 'POST':
         quantity = int(request.POST['quantity'])
-        add_to_cart(commodity_id, category, quantity)
-    return redirect('cart')
+        new_cart = add_to_cart(product_id, quantity)
+        if not new_cart:
+            return render(request, 'deltago/share/product_404.html')
+        else:
+            return redirect('index')
+    

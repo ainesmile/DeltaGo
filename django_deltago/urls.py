@@ -20,4 +20,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('deltago.urls.pages')),
     url(r'', include('deltago.urls.products')),
+    url(r'', include('deltago.urls.cart')),
 ]

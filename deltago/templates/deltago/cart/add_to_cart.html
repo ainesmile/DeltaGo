@@ -1,10 +1,9 @@
-<form method="POST">
+<form action="{% url 'addcart' product.pk %}" method="post">
     {% csrf_token %}
-    <span>数量</span>
     <select name="quantity" autocomplete="off" tabindex="-1" class="a-native-dropdown">
         <option value="1"selected="selected">1</option>
-        <option value="2" selected="">2</option>
+        <option value="2">2</option>
     </select>
     <input type="submit" value="加入购物车">
-    <span class="glyphicon glyphicon-shopping-cart">12</span>
+    <span class="glyphicon glyphicon-shopping-cart">3</span>
 </form>
