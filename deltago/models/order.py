@@ -4,7 +4,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 
-
+from deltago.models import Cart
 
 class Order(models.Model):
     UNPAID = 'U'
@@ -19,16 +19,25 @@ class Order(models.Model):
         (CANCELING, 'Canceling'),
         (FINISHED, 'Finished')
     )
-
-    commodities = models.CharField(max_length=500)
-    prices = models.CharField(max_length=500)
-    quantities = models.CharField(max_length=250)
+    
+    cart = models.ForeignKey(Cart)
     state = models.CharField(max_length=2, choices=STATES, default=UNPAID)
     
-    payment_method = models.CharField(max_length=128, null=True, blank=True)
-    ship_address = models.CharField(max_length=200, null=True, blank=True)
+    payment_method = models.CharField(
+        max_length=128,
+        default = None,
+        null=True,
+        blank=True)
+    ship_address = models.CharField(
+        max_length=200,
+        default = None,
+        null=True,
+        blank=True)
     
-    exchange_rate = models.IntegerField(null=True, blank=True)
+    exchange_rate = models.IntegerField(
+        default=500,
+        null=True,
+        blank=True,)
     subtotal = models.IntegerField()
     total = models.IntegerField()
     
@@ -36,11 +45,11 @@ class Order(models.Model):
     
 
     # unpaind_time is order's created_time
-    unpaind_time = models.DateField(default=timezone.now)
-    archived_time = models.DateField(null = True, blank = True)
-    processing_time = models.DateField(null = True, blank = True)
-    canceling_time = models.DateField(null = True, blank = True)
-    finished_time = models.DateField(null = True, blank = True)
+    unpaind_time = models.DateTimeField(default=timezone.now)
+    archived_time = models.DateTimeField(null = True, blank = True)
+    processing_time = models.DateTimeField(null = True, blank = True)
+    canceling_time = models.DateTimeField(null = True, blank = True)
+    finished_time = models.DateTimeField(null = True, blank = True)
 
     class Meta:
         ordering = ['-unpaind_time']
@@ -65,9 +74,9 @@ class Ship(models.Model):
     receiver = models.CharField(max_length=128)
     signer = models.CharField(max_length=128)
 
-    send_time = models.DateField(default=timezone.now)
-    processing_time = models.DateField(default=timezone.now)
-    delivered_time = models.DateField(default=timezone.now)
+    send_time = models.DateTimeField(default=timezone.now)
+    processing_time = models.DateTimeField(default=timezone.now)
+    delivered_time = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.number
 
@@ -81,6 +90,6 @@ class Payment(models.Model):
     subtotal = models.IntegerField()
     currency_unit = models.CharField(max_length=128)
     exchange_rate = models.IntegerField()
-    created_time = models.DateField(default=timezone.now)
+    created_time = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.order
