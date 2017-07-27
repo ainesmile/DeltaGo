@@ -3,5 +3,5 @@ from deltago.views import cart
 
 urlpatterns = [
     url(r'^carts/$', cart.cart, name="cart"),
-    url(r'^addcart/(?P<product_id>\w+)$', cart.addcart, name="addcart")
+    url(r'^cart/add/(?P<product_id>\w+)$', cart.addcart, name="addcart"),
 ]

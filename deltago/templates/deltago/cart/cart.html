@@ -1,20 +1,20 @@
 {% extends 'deltago/base/base.html' %}
 
 {% block main %}
-    {% if carts %}
-        <form action="" method="post">
+    {% if cartshipes %}
+        <form action="{% url 'checkout' %}" method="post">
             {% csrf_token %}
-            {% for cart in carts %}
+            {% for cartship in cartshipes %}
                 <li class="list-unstyled">
                     <p>
-                        <a href="{% url 'details' cart.commodity.pk %}">{{cart.commodity.name}}</a>
+                        <a href="{% url 'details' cartship.commodity.pk %}">{{cartship.commodity.name}}</a>
                     </p>
                     <p>
-                        {% include 'deltago/share/price.html' with product=cart.commodity %}
-                        <span>{{cart.commodity.volume_size}}</span>
-                        <input type="number" min="0" name="quantity" value="{{cart.quantity}}" style="width:2em;">
+                        {% include 'deltago/share/price.html' with product=cartship.commodity %}
+                        <span>{{cartship.commodity.volume_size}}</span>
                     </p>
-                    <input id="checkBox-{{product.pk}}" type="checkbox" name="checkbox" value="{{cart.commodity.pk}}">
+                    <input type="number" min="0" name="quantity" value="{{cartship.quantity}}" style="width:2em;">
+                    <input id="checkBox-{{product.pk}}" type="checkbox" name="checkbox" value="{{cartship.pk}}">
                 </li>
                 <hr class="star-light">
             {% endfor %}
@@ -24,5 +24,4 @@
     {% else %}
         <p>{{empty_tips}}</p>
     {% endif %}
-
 {% endblock%}

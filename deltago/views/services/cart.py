@@ -1,40 +1,62 @@
 # -*- coding: utf-8 -*-
 from django.core.exceptions import ObjectDoesNotExist
+from django.utils import timezone
 
-from deltago.models import Commodity, Cart
+from deltago.models import Commodity, Cart, Cartship
 from deltago.views.services.share import pagination
 
-def create_cart(commodity, quantity):
-    new_cart = Cart(
-        commodity = commodity,
-        quantity = quantity
-        )
-    new_cart.save()
-    return new_cart
-
-def update_cart(cart, quantity):
-    cart.quantity += quantity
-    cart.save()
-
-def add_to_cart(product_id, quantity):
+def get_user_cart(user):
     try:
-        commodity = Commodity.objects.get(pk=product_id)
+        cart = Cart.objects.get(user=user)
     except ObjectDoesNotExist:
-        return None
-    try:
-        cart = Cart.objects.get(commodity=commodity)
-        update_cart(cart, quantity)
-    except ObjectDoesNotExist:
-        cart = create_cart(commodity, quantity)
+        cart = Cart(user=user)
+        cart.save()
     return cart
 
+def get_commodity(product_id):
+    try:
+        commodity = Commodity.objects.get(pk=product_id)
+        return commodity
+    except ObjectDoesNotExist:
+        return None
 
-def cart_list(page, per_page):
-    data = Cart.objects.all()
-    carts = pagination(data, page, per_page)
+def create_cartship(commodity, cart, quantity):
+    new_cartship = Cartship(
+        commodity=commodity,
+        cart=cart,
+        quantity=quantity)
+    new_cartship.save()
+    return new_cartship
+
+def update_cartship_quantity(cartship, quantity):
+    cartship.quantity += quantity
+    cartship.updated_date = timezone.now()
+    cartship.save()
+    return cartship
+
+def update_or_create_cartship(cart, commodity, quantity):
+    try:
+        cartship = Cartship.objects.get(cart=cart, commodity=commodity)
+        return update_cartship_quantity(cartship, quantity)
+    except ObjectDoesNotExist:
+        return create_cartship(commodity, cart, quantity)
+
+def add_to_cart(user, product_id, quantity):
+    cart = get_user_cart(user)
+    commodity = get_commodity(product_id)
+    if not commodity:
+        return None
+    else:
+        return update_or_create_cartship(cart, commodity, quantity)
+
+
+def cartship_list(user, page, per_page):
+    cart = get_user_cart(user)
+    data = Cartship.objects.filter(cart=cart)
+    cartshipes = pagination(data, page, per_page)
     empty_tips = "购物车空啦"
     return {
-        "carts": carts,
-        "paginations": carts,
+        "cartshipes": cartshipes,
+        "paginations": cartshipes,
         "empty_tips": empty_tips
     }
