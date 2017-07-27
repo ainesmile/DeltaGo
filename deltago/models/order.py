@@ -69,7 +69,7 @@ class Ship(models.Model):
     number = models.CharField(max_length=128)
     express = models.CharField(max_length=128)
     linker = models.URLField()
-    fee = models.IntegerField()
+    fee = models.IntegerField(default=500)
     address = models.CharField(max_length=128)
     receiver = models.CharField(max_length=128)
     signer = models.CharField(max_length=128)
