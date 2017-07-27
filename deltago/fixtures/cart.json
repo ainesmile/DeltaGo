@@ -3,16 +3,9 @@
   "model": "deltago.cart",
   "pk": 1,
   "fields": {
-    "commodity": 1,
-    "quantity": 1
-  }
-},
-{
-  "model": "deltago.cart",
-  "pk": 2,
-  "fields": {
-    "commodity": 2,
-    "quantity": 2
+    "user": 1,
+    "is_archived": false,
+    "created_date": "2017-07-27T05:07:04.494Z"
   }
 }
 ]

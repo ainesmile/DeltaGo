@@ -1,0 +1,26 @@
+[
+{
+  "model": "deltago.cartship",
+  "pk": 1,
+  "fields": {
+    "commodity": 1,
+    "cart": 1,
+    "quantity": 1,
+    "is_choosed": false,
+    "created_date": "2017-07-27T05:07:19.638Z",
+    "updated_date": "2017-07-27T05:07:19.638Z"
+  }
+},
+{
+  "model": "deltago.cartship",
+  "pk": 2,
+  "fields": {
+    "commodity": 2,
+    "cart": 1,
+    "quantity": 2,
+    "is_choosed": false,
+    "created_date": "2017-07-27T05:07:32.657Z",
+    "updated_date": "2017-07-27T05:07:32.657Z"
+  }
+}
+]
