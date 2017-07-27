@@ -1,7 +1,4 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.apps import apps
-from deltago.models.search import Search
-from deltago.models.commodity import BabyCare
 
 def pagination(items, page, paginate_by):
     paginator = Paginator(items, paginate_by)
@@ -12,31 +9,3 @@ def pagination(items, page, paginate_by):
     except EmptyPage:
         text = paginator.page(paginator.num_pages)
     return text
-
-def search_results(content):
-    results = []
-    if content:
-        search_filters = Search.objects.filter(name__contains=content)
-        for item in search_filters:
-            commodity_id = item.commodity_id
-            model_name = item.model_name
-            app_model = apps.get_model(app_label='deltago', model_name=model_name)
-            list = app_model.objects.filter(pk=commodity_id)
-            if len(list) != 0:
-                results.append(list[0])
-    return results
-
-def get_model_name(category):
-    BABYCARE = 'B'
-    FOOD = 'F'
-    SUPPLEMENT = 'P'
-    BEAUTY = 'U'
-    SPECIAL = 'S'
-    model_dict =  {
-        BABYCARE: 'BabyCare'
-    }
-    return model_dict[category]
-
-def get_model(category):
-    model_name = get_model_name(category)
-    return apps.get_model(app_label='deltago', model_name=model_name)
