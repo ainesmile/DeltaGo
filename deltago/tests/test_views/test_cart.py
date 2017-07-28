@@ -28,8 +28,8 @@ class CartViewTest(TestCase):
         self.page = request.GET.get('page', 1)
         
 
-    def test_get_user_cart(self):
-        user_cart = cart.get_user_cart(self.admin)
+    def test_get_user_current_cart(self):
+        user_cart = cart.get_user_current_cart(self.admin)
         self.assertEqual(user_cart.user, self.admin)
 
     def test_get_commodity(self):
