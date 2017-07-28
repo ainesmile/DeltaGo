@@ -1,27 +1,33 @@
 {% extends 'deltago/base/base.html' %}
 
 {% block main %}
-    {% if cartshipes %}
-        <form action="{% url 'checkout' %}" method="post">
-            {% csrf_token %}
-            {% for cartship in cartshipes %}
-                <li class="list-unstyled">
-                    <p>
-                        <a href="{% url 'details' cartship.commodity.pk %}">{{cartship.commodity.name}}</a>
-                    </p>
-                    <p>
-                        {% include 'deltago/share/price.html' with product=cartship.commodity %}
-                        <span>{{cartship.commodity.volume_size}}</span>
-                    </p>
-                    <input type="number" min="0" name="quantity" value="{{cartship.quantity}}" style="width:2em;">
-                    <input id="checkBox-{{product.pk}}" type="checkbox" name="checkbox" value="{{cartship.pk}}">
-                </li>
-                <hr class="star-light">
-            {% endfor %}
-            {% include 'deltago/share/pagination.html' %}
-            <input type="submit" value="确认订单">
-        </form>
-    {% else %}
-        <p>{{empty_tips}}</p>
-    {% endif %}
+    <section>
+        <div class="container">
+            <div class="col-md-12">
+                {% if cartshipes %}
+                    <form action="{% url 'checkout' %}" method="post">
+                        {% csrf_token %}
+                        {% for cartship in cartshipes %}
+                            <li class="list-unstyled">
+                                <p>
+                                    <a href="{% url 'details' cartship.commodity.pk %}">{{cartship.commodity.name}}</a>
+                                </p>
+                                <p>
+                                    {% include 'deltago/share/price.html' with product=cartship.commodity %}
+                                    <span>{{cartship.commodity.volume_size}}</span>
+                                </p>
+                                <input type="number" min="0" name="quantity" value="{{cartship.quantity}}" style="width:2em;">
+                                <input id="checkBox-{{product.pk}}" type="checkbox" name="checkbox" value="{{cartship.pk}}">
+                            </li>
+                            <hr class="star-light">
+                        {% endfor %}
+                        {% include 'deltago/share/pagination.html' %}
+                        <input type="submit" value="确认订单">
+                    </form>
+                {% else %}
+                    <p>{{empty_tips}}</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
 {% endblock%}
