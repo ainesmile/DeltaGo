@@ -1,27 +1,100 @@
-from django.apps import apps
-from deltago.models import Order, Cart
+from django.core.exceptions import ObjectDoesNotExist
+from django.utils import timezone
+from django.contrib.auth.models import User
 
-# def create(item):
-#     fields = [
-#         "commodities", "prices", "quantities", "state", "payment_method",
-#         "ship_address", "exchange_rate", "subtotal", "total", "user",
-#         "unpaind_time", "archived_time", "processing_time", "canceling_time", "finished_time"
-#     ]
-#     for f in fields:
-#         kwargs[f] = item[f]
-#     new_order = Order.objects.create(**kwargs)
+from deltago.exceptions import errors
 
-# def get_commodity(cart_id):
-#     cart = Cart.objects.get(pk=cart_id)
-#     model_name = cart.model_name
-#     commodity_id = cart.commodity_id
-#     model = apps.get_model('deltago', model_name=model_name)
-#     return model.objects.get(pk=commodity_id)
+from deltago.models import Order, Cart, Cartship
 
+from deltago.views.services.cart import user_current_cart
 
-# def get_commodities(checkboxes):
-#     commodities = []
-#     for checkbox in checkboxes:
-#         commodity = get_commodity(checkbox)
-#         commodities.append(commodity)
-#     return commodities
+SHIP_FEE = 500
+
+def undelete_cartship(cartship):
+    if cartship.is_deleted:
+        cartship.is_deleted = False
+        cartship.save()
+
+def choose_cartship(cartship):
+    cartship.is_chosen = True
+    cartship.save()
+
+def get_chosen_cartshipes(checkboxes):
+    chosens = []
+    for checkbox in checkboxes:
+        cartship = Cartship.objects.get(pk=checkbox)
+        undelete_cartship(cartship)
+        choose_cartship(cartship)
+        chosens.append(cartship)
+    return chosens
+
+def get_unchosen_cartshipes(all_cartshipes, chosens):
+    return list(set(all_cartshipes) - set(chosens))
+
+def update_quantities(all_cartshipes, quantities):
+    for index, cartship in enumerate(all_cartshipes):
+        quantity = quantities[index]
+        cartship.quantity = quantity
+        cartship.updated_date = timezone.now()
+        cartship.save()
+
+def archive_cart(cart):
+    cart.is_archived = True
+    cart.save()
+
+def new_cart_with_unchosens(user, unchosens):
+    new_cart = Cart(user=user)
+    new_cart.save()
+    for cartship in unchosens:
+        cartship.cart = new_cart
+        cartship.created_date = timezone.now()
+        cartship.updated_date = timezone.now()
+        cartship.save()
+
+def get_price(commodity):
+    price = commodity.price or commodity.was_price
+    return float(price) * 100
+
+def get_commodity_total(cartship):
+    commodity = cartship.commodity
+    price = get_price(commodity)
+    quantity = cartship.quantity
+    return price * quantity
+
+def get_subtotal(cartshipes):
+    subtotal = 0
+    for cartship in cartshipes:
+        subtotal += get_commodity_total(cartship)
+    return subtotal
+
+def init_order(cart, subtotal, total):
+    user = cart.user
+    new_order = Order(
+        user=user,
+        cart=cart,
+        subtotal=subtotal,
+        total=total)
+    new_order.save()
+
+def create_order_by_chosen(current_cart, chosens):
+    subtotal = get_subtotal(chosens)
+    total = subtotal + SHIP_FEE
+    init_order(current_cart, subtotal, total)
+    
+def generate_order(user, checkboxes, quantities):
+    current_cart = user_current_cart(user)
+    # 1. update_all_cartship_quantity
+    all_cartshipes = Cartship.objects.filter(cart=current_cart)
+    update_quantities(all_cartshipes, quantities)
+    # 2. update_cartship_is_chosen 3. undeleted
+    chosens = get_chosen_cartshipes(checkboxes)
+    if not chosens:
+        raise errors.EmptyCartError("Choose at least one item.")
+    else:
+        # 4. mark cart archived
+        archive_cart(current_cart)
+        # 5. create new cart with unchosen cartshipes
+        unchosens = get_unchosen_cartshipes(all_cartshipes, chosens)
+        new_cart_with_unchosens(user, unchosens)
+        # 6. create order
+        create_order_by_chosen(current_cart, chosens)
