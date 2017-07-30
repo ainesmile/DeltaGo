@@ -15,6 +15,7 @@ class Cartship(models.Model):
     commodity = models.ForeignKey(Commodity)
     cart = models.ForeignKey(Cart)
     quantity = models.IntegerField(default=0)
-    is_choosed = models.BooleanField(default=False)
+    is_chosen = models.BooleanField(default=False)
+    is_deleted = models.BooleanField(default=False)
     created_date = models.DateTimeField(default=timezone.now)
     updated_date = models.DateTimeField(default=timezone.now)
