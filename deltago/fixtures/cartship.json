@@ -6,7 +6,8 @@
     "commodity": 1,
     "cart": 1,
     "quantity": 1,
-    "is_choosed": false,
+    "is_chosen": false,
+    "is_deleted": false,
     "created_date": "2017-07-27T05:07:19.638Z",
     "updated_date": "2017-07-27T05:07:19.638Z"
   }
@@ -18,7 +19,8 @@
     "commodity": 2,
     "cart": 1,
     "quantity": 2,
-    "is_choosed": false,
+    "is_chosen": false,
+    "is_deleted": true,
     "created_date": "2017-07-27T05:07:32.657Z",
     "updated_date": "2017-07-27T05:07:32.657Z"
   }
