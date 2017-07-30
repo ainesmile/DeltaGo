@@ -28,7 +28,9 @@ def create_cartship(commodity, cart, quantity):
     new_cartship.save()
     return new_cartship
 
-def update_cartship_quantity(cartship, quantity):
+
+
+def incre_cartship_quantity(cartship, quantity):
     cartship.quantity += quantity
     cartship.updated_date = timezone.now()
     cartship.save()
@@ -37,7 +39,7 @@ def update_cartship_quantity(cartship, quantity):
 def update_or_create_cartship(cart, commodity, quantity):
     try:
         cartship = Cartship.objects.get(cart=cart, commodity=commodity)
-        return update_cartship_quantity(cartship, quantity)
+        return incre_cartship_quantity(cartship, quantity)
     except ObjectDoesNotExist:
         return create_cartship(commodity, cart, quantity)
 

@@ -28,8 +28,8 @@ class CartViewTest(TestCase):
         self.page = request.GET.get('page', 1)
         
 
-    def test_get_user_current_cart(self):
-        user_cart = cart.get_user_current_cart(self.admin)
+    def test_user_current_cart(self):
+        user_cart = cart.user_current_cart(self.admin)
         self.assertEqual(user_cart.user, self.admin)
 
     def test_get_commodity(self):
@@ -41,8 +41,8 @@ class CartViewTest(TestCase):
             commodity = cart.get_commodity(product_id)
             self.assertEqual(commodity, e_commodity)
 
-    def test_update_cartship_quantity(self):
-        cart.update_cartship_quantity(self.cartship, 2)
+    def test_incre_cartship_quantity(self):
+        cart.incre_cartship_quantity(self.cartship, 2)
         self.assertEqual(self.cartship.quantity, 3)
 
     def test_update_or_create_cartship(self):
