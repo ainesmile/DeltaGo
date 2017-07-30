@@ -44,15 +44,15 @@ class Order(models.Model):
     user = models.ForeignKey(User)
     
 
-    # unpaind_time is order's created_time
-    unpaind_time = models.DateTimeField(default=timezone.now)
+    # unpaid_time is order's created_time
+    unpaid_time = models.DateTimeField(default=timezone.now)
     archived_time = models.DateTimeField(null = True, blank = True)
     processing_time = models.DateTimeField(null = True, blank = True)
     canceling_time = models.DateTimeField(null = True, blank = True)
     finished_time = models.DateTimeField(null = True, blank = True)
 
     class Meta:
-        ordering = ['-unpaind_time']
+        ordering = ['-unpaid_time']
 
 class Ship(models.Model):
     SEND = 'S'
