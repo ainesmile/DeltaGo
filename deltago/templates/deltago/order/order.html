@@ -1,0 +1,21 @@
+{% extends 'deltago/base/base.html' %}
+{% block main %}
+<section>
+    <div class="container">
+    <div class="col-md-12">
+        {% if orders %}
+            <ul class="list-unstyled">
+                {% for order in orders %}
+                    <li>
+                        {% include 'deltago/order/basic.html' %}
+                    </li>
+                    <hr>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>{{empty_tips}}</p>
+        {% endif %}
+    </div>
+    </div>
+</section>
+{% endblock %}
