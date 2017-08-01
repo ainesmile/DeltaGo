@@ -14,6 +14,7 @@ class OrderViewTest(TestCase):
         'deltago/fixtures/commodity.json',
         'deltago/fixtures/cart.json',
         'deltago/fixtures/cartship.json',
+        'deltago/fixtures/order.json',
     ]
 
     def setUp(self):
@@ -27,6 +28,8 @@ class OrderViewTest(TestCase):
 
         self.checkboxes = [1]
         self.quantities = [5, 10]
+
+        self.order = Order.objects.get(pk=1)
 
 
     def test_undelete_cartship(self):
@@ -55,9 +58,9 @@ class OrderViewTest(TestCase):
             quantity = quantities[index]
             self.assertEqual(cartship.quantity, quantity)
 
-    # def test_archive_cart(self):
-    #     order.archive_cart(self.cart)
-    #     self.assertTrue(self.cart.is_archived)
+    def test_archive_cart(self):
+        order.archive_cart(self.cart)
+        self.assertTrue(self.cart.is_archived)
 
     def test_new_cart_with_unchosens(self):
         unchosens = [self.cartship2]
@@ -78,8 +81,7 @@ class OrderViewTest(TestCase):
     def test_init_order(self):
         subtotal = 209*3
         total = 209*3+500
-        order.init_order(self.cart, subtotal, total)
-        new_order = Order.objects.get(cart=self.cart)
+        new_order = order.init_order(self.cart, subtotal, total)
         self.assertEqual(new_order.user, self.admin)
         self.assertEqual(new_order.subtotal, subtotal)
         self.assertEqual(new_order.total, total)
@@ -88,8 +90,7 @@ class OrderViewTest(TestCase):
         chosens = [self.cartship1]
         subtotal = 209
         total = 209 + 500
-        order.create_order_by_chosen(self.cart, chosens)
-        new_order = Order.objects.get(cart=self.cart)
+        new_order = order.create_order_by_chosen(self.cart, chosens)
         self.assertEqual(new_order.user, self.cart.user)
         self.assertEqual(new_order.cart, self.cart)
         self.assertEqual(new_order.subtotal, subtotal)
@@ -101,16 +102,9 @@ class OrderViewTest(TestCase):
         checkboxes_data = [self.checkboxes, []]
         for checkboxes in checkboxes_data:
             try:
-                order.generate_order(user, checkboxes, quantities)
-                updated_cart = Cart.objects.get(pk=1)
+                new_order = order.generate_order(user, checkboxes, quantities)
+                updated_cart = new_order.cart
                 self.assertTrue(updated_cart.is_archived)
-                new_order = Order.objects.last()
                 self.assertEqual(new_order.user, user)
-                self.assertEqual(new_order.cart, updated_cart)
             except errors.EmptyCartError as e:
                 self.assertTrue(isinstance(e, errors.EmptyCartError))
-
-
-
-        
-

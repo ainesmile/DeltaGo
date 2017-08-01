@@ -1,0 +1,21 @@
+[
+{
+  "model": "deltago.order",
+  "pk": 1,
+  "fields": {
+    "cart": 2,
+    "state": "U",
+    "payment_method": null,
+    "ship_address": null,
+    "exchange_rate": 500,
+    "subtotal": 836,
+    "total": 1336,
+    "user": 1,
+    "unpaid_time": "2017-07-30T10:55:41.479Z",
+    "archived_time": null,
+    "processing_time": null,
+    "canceling_time": null,
+    "finished_time": null
+  }
+}
+]

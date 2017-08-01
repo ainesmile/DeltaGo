@@ -77,11 +77,13 @@ def init_order(cart, subtotal, total):
         subtotal=subtotal,
         total=total)
     new_order.save()
+    return new_order
 
 def create_order_by_chosen(current_cart, chosens):
     subtotal = get_subtotal(chosens)
     total = subtotal + SHIP_FEE
-    init_order(current_cart, subtotal, total)
+    new_order = init_order(current_cart, subtotal, total)
+    return new_order
     
 def generate_order(user, checkboxes, quantities):
     current_cart = user_current_cart(user)
@@ -99,7 +101,9 @@ def generate_order(user, checkboxes, quantities):
         unchosens = get_unchosen_cartshipes(all_cartshipes, chosens)
         new_cart_with_unchosens(user, unchosens)
         # 6. create order
-        create_order_by_chosen(current_cart, chosens)
+        new_order = create_order_by_chosen(current_cart, chosens)
+        return new_order
+        
 
 
 
