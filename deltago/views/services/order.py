@@ -149,13 +149,13 @@ def get_commodity_table_item(cartship):
     }
 
 def get_commodity_info_table(order):
-    commodity_info_table = []
+    table = []
     cart = order.cart
     cartshipes = Cartship.objects.filter(cart=cart)
     for cartship in cartshipes:
-        table_item = get_commodity_info_table_item(cartship)
-        commodity_info_table.append(table_item)
-    return commodity_info_table
+        item = get_commodity_table_item(cartship)
+        table.append(item)
+    return table
 
 def get_order_details(order_id):
     order = Order.objects.get(pk=order_id)

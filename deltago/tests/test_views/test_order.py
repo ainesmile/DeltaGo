@@ -138,6 +138,19 @@ class OrderViewTest(TestCase):
         item = order.get_commodity_table_item(self.cartship1)
         self.assertEqual(item, self.e_commodity_table_item)
 
+    def test_get_commodity_info_table(self):
+        data = [
+            (1, 2.09, 1, 2.09),
+            (2, 2.09, 2, 4.18)
+        ]
+        table = order.get_commodity_info_table(self.order)
+        for index, item in enumerate(table):
+            data_item = data[index]
+            self.assertEqual(item["commodity"].pk, data_item[0])
+            self.assertEqual(item["price"], data_item[1])
+            self.assertEqual(item["quantity"], data_item[2])
+            self.assertEqual(item["commodity_total"], data_item[3])
+
 
         
 
