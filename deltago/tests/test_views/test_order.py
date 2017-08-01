@@ -7,6 +7,7 @@ from deltago.models import Cartship, Cart, Commodity, Order
 
 from deltago.views.services import order
 
+SHIP_FEE = 500
 
 class OrderViewTest(TestCase):
     fixtures = [
@@ -17,7 +18,9 @@ class OrderViewTest(TestCase):
         'deltago/fixtures/order.json',
     ]
 
+
     def setUp(self):
+
         self.admin = User.objects.get(pk=1)
         self.cart = Cart.objects.get(pk=1)
         self.all_cartshipes = Cartship.objects.all()
@@ -30,6 +33,14 @@ class OrderViewTest(TestCase):
         self.quantities = [5, 10]
 
         self.order = Order.objects.get(pk=1)
+
+
+        self.e_fee = {
+            "subtotal": 8.36,
+            "total": 13.36,
+            "ship_fee": 5.0,
+            "exchange_rate": 5.0
+        }
 
 
     def test_undelete_cartship(self):
@@ -108,3 +119,12 @@ class OrderViewTest(TestCase):
                 self.assertEqual(new_order.user, user)
             except errors.EmptyCartError as e:
                 self.assertTrue(isinstance(e, errors.EmptyCartError))
+
+
+
+
+    def test_get_order_fee(self):
+        fee = order.get_order_fee(self.order)
+        self.assertEqual(fee, self.e_fee)
+        
+

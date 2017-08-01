@@ -120,3 +120,21 @@ def order_list(user, page, per_page):
         "paginations": orders,
         "empty_tips": empty_tips
     }
+
+def get_order_fee(order):
+    subtotal = order.subtotal / float(100)
+    total = order.total / float(100)
+    ship_fee = total - subtotal
+    exchange_rate = order.exchange_rate / float(100)
+    return {
+        "subtotal": subtotal,
+        "total": total,
+        "ship_fee": ship_fee,
+        "exchange_rate": exchange_rate
+    }
+
+def get_order_details(order_id):
+    order = Order.objects.get(pk=order_id)
+    order.fee = get_order_fee(order)
+    return order
+
