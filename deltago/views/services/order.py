@@ -121,11 +121,15 @@ def order_list(user, page, per_page):
         "empty_tips": empty_tips
     }
 
+
+def convert_fee(amount):
+    return amount / float(100)
+
 def get_order_fee(order):
-    subtotal = order.subtotal / float(100)
-    total = order.total / float(100)
+    subtotal = convert_fee(order.subtotal)
+    total = convert_fee(order.total)
     ship_fee = total - subtotal
-    exchange_rate = order.exchange_rate / float(100)
+    exchange_rate = convert_fee(order.exchange_rate)
     return {
         "subtotal": subtotal,
         "total": total,
@@ -133,8 +137,29 @@ def get_order_fee(order):
         "exchange_rate": exchange_rate
     }
 
+def get_commodity_table_item(cartship):
+    price = get_price(cartship.commodity)
+    show_price = convert_fee(price)
+    commodity_total = convert_fee(price * cartship.quantity)
+    return {
+        "commodity": cartship.commodity,
+        "price": show_price,
+        "quantity": cartship.quantity,
+        "commodity_total": commodity_total
+    }
+
+def get_commodity_info_table(order):
+    commodity_info_table = []
+    cart = order.cart
+    cartshipes = Cartship.objects.filter(cart=cart)
+    for cartship in cartshipes:
+        table_item = get_commodity_info_table_item(cartship)
+        commodity_info_table.append(table_item)
+    return commodity_info_table
+
 def get_order_details(order_id):
     order = Order.objects.get(pk=order_id)
     order.fee = get_order_fee(order)
+    order.commodity_info_table = get_commodity_info_table(order)
     return order
 

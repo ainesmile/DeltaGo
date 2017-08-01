@@ -42,6 +42,13 @@ class OrderViewTest(TestCase):
             "exchange_rate": 5.0
         }
 
+        self.e_commodity_table_item = {
+            "commodity": self.commodity,
+            "price": 2.09,
+            "quantity": 1,
+            "commodity_total": 2.09
+        }
+
 
     def test_undelete_cartship(self):
         cartshipes = [self.cartship1, self.cartship2]
@@ -126,5 +133,11 @@ class OrderViewTest(TestCase):
     def test_get_order_fee(self):
         fee = order.get_order_fee(self.order)
         self.assertEqual(fee, self.e_fee)
+
+    def test_get_commodity_table_item(self):
+        item = order.get_commodity_table_item(self.cartship1)
+        self.assertEqual(item, self.e_commodity_table_item)
+
+
         
 
