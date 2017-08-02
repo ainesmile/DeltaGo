@@ -16,7 +16,7 @@
                                 {% include 'deltago/share/price.html' with product=cartship.commodity %}
                                 <span>{{cartship.commodity.volume_size}}</span>
                             </p>
-                            <input type="number" min="0" name="quantity" value="{{cartship.quantity}}" style="width:2em;">
+                            <input type="number" min="1" name="quantity" value="{{cartship.quantity}}" style="width:2em;">
                             <input id="checkBox-{{product.pk}}" type="checkbox" name="checkbox" value="{{cartship.pk}}">
                         </li>
                         <hr class="star-light">
