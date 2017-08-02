@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.test import TestCase
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -150,6 +151,10 @@ class OrderViewTest(TestCase):
             self.assertEqual(item["price"], data_item[1])
             self.assertEqual(item["quantity"], data_item[2])
             self.assertEqual(item["commodity_total"], data_item[3])
+
+    def test_get_order_state_text(self):
+        text = order.get_order_state_text(self.order.state)
+        self.assertEqual(text, '未支付')
 
 
         

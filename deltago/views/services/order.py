@@ -157,9 +157,20 @@ def get_commodity_info_table(order):
         table.append(item)
     return table
 
+def get_order_state_text(state):
+    state_text = {
+        'U': '未支付',
+        'P': '正在处理',
+        'F': '已完成',
+        'C': '正在取消',
+        'A': '已取消',
+    }
+    return state_text[state]
+
 def get_order_details(order_id):
     order = Order.objects.get(pk=order_id)
     order.fee = get_order_fee(order)
     order.commodity_info_table = get_commodity_info_table(order)
+    order.state_text = get_order_state_text(order.state)
     return order
 

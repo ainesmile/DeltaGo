@@ -3,7 +3,7 @@
   "model": "deltago.order",
   "pk": 1,
   "fields": {
-    "cart": 2,
+    "cart": 1,
     "state": "U",
     "payment_method": null,
     "ship_address": null,
