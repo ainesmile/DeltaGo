@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
+import random
+
+
 from django.contrib.auth.models import User
 
 from deltago.exceptions import errors
@@ -10,7 +13,24 @@ from deltago.models import Order, Cart, Cartship
 from deltago.views.services.share import pagination
 from deltago.views.services.cart import user_current_cart
 
+from deltago.templatetags import date
+
+
+
 SHIP_FEE = 500
+
+def generate_order_serial_code(order):
+    serial_code = ''
+    unpaid_time = order.unpaid_time
+    dates = [
+        unpaid_time.year, unpaid_time.month, unpaid_time.day,
+        unpaid_time.second, unpaid_time.microsecond]
+    for item in dates:
+        serial_code += date.padding_date(item)
+    random_str = str(random.sample(xrange(9999), 1)[0])
+    length = 4 - len(random_str)
+    serial_code += random_str + '0' * length
+    return serial_code
 
 def undelete_cartship(cartship):
     if cartship.is_deleted:
@@ -76,6 +96,7 @@ def init_order(cart, subtotal, total):
         cart=cart,
         subtotal=subtotal,
         total=total)
+    new_order.serial_code = generate_order_serial_code(new_order)
     new_order.save()
     return new_order
 
@@ -166,6 +187,10 @@ def get_order_state_text(state):
         'A': '已取消',
     }
     return state_text[state]
+
+
+
+
 
 def get_order_details(order_id):
     order = Order.objects.get(pk=order_id)

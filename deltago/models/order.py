@@ -20,6 +20,7 @@ class Order(models.Model):
         (FINISHED, 'Finished')
     )
     
+    serial_code = models.CharField(max_length=20, null=True, blank=True)
     cart = models.ForeignKey(Cart)
     state = models.CharField(max_length=2, choices=STATES, default=UNPAID)
     
@@ -53,6 +54,10 @@ class Order(models.Model):
 
     class Meta:
         ordering = ['-unpaid_time']
+
+    def __getitem__(self, key):
+        return getattr(self, key)
+
 
 class Ship(models.Model):
     SEND = 'S'

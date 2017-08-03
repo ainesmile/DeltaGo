@@ -2,7 +2,6 @@
 from django.test import TestCase
 from django.utils import timezone
 from django.contrib.auth.models import User
-
 from deltago.exceptions import errors
 from deltago.models import Cartship, Cart, Commodity, Order
 
@@ -156,6 +155,7 @@ class OrderViewTest(TestCase):
         text = order.get_order_state_text(self.order.state)
         self.assertEqual(text, '未支付')
 
-
-        
+    def test_generate_order_serial_code(self):
+        serial_code = order.generate_order_serial_code(self.order)
+        self.assertEqual(len(serial_code), 20)
 
