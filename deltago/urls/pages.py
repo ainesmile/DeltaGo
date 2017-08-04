@@ -4,4 +4,5 @@ from deltago.views import pages
 urlpatterns = [
     url(r'^$', pages.index, name='index'),
     url(r'^search/$', pages.search, name='search'),
+    url(r'^privacy/$', pages.privacy, name='privacy'),
 ]

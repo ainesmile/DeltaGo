@@ -11,3 +11,6 @@ def search(request):
     page = request.GET.get('page', 1)
     data = search_results(content, page, 20)
     return render(request, 'deltago/share/search_results.html', data)
+
+def privacy(request):
+    return render(request, 'deltago/pages/privacy.html')
