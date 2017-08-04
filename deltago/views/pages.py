@@ -14,3 +14,6 @@ def search(request):
 
 def privacy(request):
     return render(request, 'deltago/pages/privacy.html')
+
+def about(request):
+    return render(request, 'deltago/pages/about.html')
