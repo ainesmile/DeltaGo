@@ -6,4 +6,5 @@ urlpatterns = [
     url(r'^search/$', pages.search, name='search'),
     url(r'^privacy/$', pages.privacy, name='privacy'),
     url(r'^about/$', pages.about, name='about'),
+    url(r'^guides/$', pages.guides, name='guides'),
 ]

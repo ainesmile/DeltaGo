@@ -1,0 +1,45 @@
+{% extends 'deltago/base/base.html' %}
+{% load static %}
+{% block main %}
+<section>
+    <div class="container">
+        <div class="col-md-12">
+            <div>
+                <h3>购物流程</h3>
+                <div class="center">
+                    <img src="{% static 'deltago/img/flow.png' %}" alt="购物流程图">
+                </div>
+                <p>
+                    <small>
+                        关于订单修改或取消：在支付成功之前，订单可以被修改或取消。在支付成功之后，订单不可以被修改，如需取消，需人工审核。当订单中的商品已经购买时，订单不可以被取消。
+                    </small>
+                </p>
+            </div>
+            <div>
+                <h3>支付方式</h3>
+                <p>我们支持的支付方式有：</p>
+                <ul>
+                    <li>信用卡支付</li>
+                    <li>微信支付</li>
+                    <li>支付宝支付</li>
+                </ul>
+            </div>
+            <div>
+                <h3>快递方式</h3>
+                <ul>
+                    <li>默认选择为平安快递，详情可参考<a href="http://www.efspost.com/" target="_blank">平安快递</a>官网。如有特殊需求，可联系我们。</li>
+                    <li>如无特殊情况，运费为每公斤NZ$5，不足1公斤部分按1公斤算。特殊情况，邮件告知。</li>
+                    <li>为降低包裹破损等风险，我们将严格按照快递公司的发货要求进行打包和发货。</li>
+                    <li>一般情况下，2~4周可到达。</li>
+                </ul>
+            </div>
+            <div>
+                <h3>汇率</h3>
+                <p>
+                    目前，本站汇率按5.0计算，参考<a href="http://www.boc.cn/sourcedb/whpj/" target="_blank">中国银行外汇牌价</a>。
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

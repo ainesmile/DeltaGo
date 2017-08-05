@@ -17,3 +17,6 @@ def privacy(request):
 
 def about(request):
     return render(request, 'deltago/pages/about.html')
+
+def guides(request):
+    return render(request, 'deltago/pages/guides.html')
