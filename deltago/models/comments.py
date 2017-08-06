@@ -7,10 +7,11 @@ class Comment(models.Model):
     author = models.ForeignKey(User)
     nickname = models.CharField(max_length=20, null=True, blank=True, default=None)
     content = models.TextField()
-    created_time = models.DateTimeField(default=timezone.now)
     useful_number = models.IntegerField(default=0)
     unuseful_number = models.IntegerField(default=0)
+    is_public = models.BooleanField(default=True)
     is_approved = models.BooleanField(default=True)
+    created_time = models.DateTimeField(default=timezone.now)
 
     def approve(self):
         self.is_approved = True
@@ -27,6 +28,7 @@ class Reply(models.Model):
     comment = models.ForeignKey(Comment)
     author = models.ForeignKey(User)
     content = models.TextField()
+    is_public = models.BooleanField(default=True)
     created_time = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.content
