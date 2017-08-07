@@ -4,12 +4,20 @@
     <section>
         <div class="container">
             <div class="col-md-12">
+                <p><a href="{% url 'add_comment' %}">去留言~</a></p>
                 {% if comments %}
                     {% for comment in comments %}
                         <div>
-                            <h4>{{comment.author}}</h4>
-                            <p>{{comment.text}}</p>
-                            <p>发表时间 {{comment.created_time|human_time_date}}</p>
+                            <p>
+                                {% if comment.nickname %}
+                                    <span>{{comment.nickname}}</span>
+                                {% else %}
+                                    <span>{{comment.author}}</span>
+                                {% endif %}
+                                &middot;
+                                发表于 {{comment.created_time|human_time_date}}
+                            </p>
+                            <p>{{comment.content}}</p>
                             <button class="btn btn-success" type="button">
                               有用 <span class="badge">{{comment.useful_number}}</span>
                             </button>
@@ -17,9 +25,10 @@
                               没用 <span class="badge">{{comment.unuseful_number}}</span>
                             </button>
                         </div>
+                        <hr />
                     {% endfor %}
                 {% else %}
-                    <p>暂无留言，去<a href="">添加</a>。</p>
+                    <p>暂无留言，去<a href="{% url 'add_comment' %}">添加</a>。</p>
                 {% endif %}
             </div>
         </div>

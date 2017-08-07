@@ -12,3 +12,12 @@ def get_comments(page, per_page):
         "comments": sorted_comments,
         "paginations": paginations,
     }
+
+def creat_comment(user, content, nickname, is_public):
+    new_comment = Comment(
+        author=user,
+        content=content,
+        nickname=nickname,
+        is_public=is_public)
+    new_comment.save()
+    return new_comment
