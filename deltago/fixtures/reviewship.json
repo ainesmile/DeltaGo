@@ -1,0 +1,22 @@
+[
+{
+  "model": "deltago.reviewship",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "comment": 1,
+    "is_useful": true,
+    "created_time": "2017-08-08T00:03:03.133Z"
+  }
+},
+{
+  "model": "deltago.reviewship",
+  "pk": 2,
+  "fields": {
+    "user": 2,
+    "comment": 1,
+    "is_useful": false,
+    "created_time": "2017-08-08T00:03:55.881Z"
+  }
+}
+]

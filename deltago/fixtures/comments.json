@@ -5,12 +5,9 @@
   "fields": {
     "author": 1,
     "nickname": "nickname_1",
-    "content": "content_1",
-    "useful_number": 1,
-    "unuseful_number": 0,
+    "content": "conetne_1",
     "is_public": true,
     "is_approved": true,
-    
     "created_time": "2017-08-06T23:10:19.964Z"
   }
 },
@@ -20,26 +17,10 @@
   "fields": {
     "author": 1,
     "nickname": "nickname_2",
-    "content": "content_2",
-    "useful_number": 2,
-    "unuseful_number": 0,
-    "is_public": false,
-    "is_approved": true,
-    "created_time": "2017-08-06T23:31:47.727Z"
-  }
-},
-{
-  "model": "deltago.comment",
-  "pk": 3,
-  "fields": {
-    "author": 1,
-    "nickname": "nickname_3",
-    "content": "content_3",
-    "useful_number": 3,
-    "unuseful_number": 3,
+    "content": "conetne_2",
     "is_public": false,
     "is_approved": false,
-    "created_time": "2017-08-07T00:46:54.975Z"
+    "created_time": "2017-08-06T23:31:47.727Z"
   }
 }
 ]

@@ -18,15 +18,11 @@
                                 发表于 {{comment.created_time|human_time_date}}
                             </p>
                             <p>{{comment.content}}</p>
-                            <button class="btn btn-success" type="button">
-                              有用 <span class="badge">{{comment.useful_number}}</span>
-                            </button>
-                            <button class="btn btn-default" type="button">
-                              没用 <span class="badge">{{comment.unuseful_number}}</span>
-                            </button>
+                            {% include 'deltago/comments/review.html' %}
                         </div>
                         <hr />
                     {% endfor %}
+                    {% include 'deltago/share/pagination.html' %}
                 {% else %}
                     <p>暂无留言，去<a href="{% url 'add_comment' %}">添加</a>。</p>
                 {% endif %}

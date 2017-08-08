@@ -4,4 +4,5 @@ from deltago.views import comments
 urlpatterns = [
     url(r'^comments/$', comments.comments, name='comments'),
     url(r'^comments/add$', comments.add_comment, name='add_comment'),
+    url(r'^comments/review/(?P<comment_id>\w+)/(?P<is_useful>\d)$', comments.review, name="review"),
 ]

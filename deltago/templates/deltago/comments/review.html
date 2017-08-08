@@ -1,0 +1,10 @@
+<a href="{% url 'review' comment_id=comment.pk is_useful=1 %}" class="btn btn-info btn-sm">
+    <span>
+       有用 {{comment.useful_number}}
+    </span>
+</a>
+<a href="{% url 'review' comment_id=comment.pk is_useful=0 %}" class="btn btn-default btn-sm">
+    <span>
+       没用 {{comment.unuseful_number}}
+    </span>
+</a>

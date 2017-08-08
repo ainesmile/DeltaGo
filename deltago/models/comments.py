@@ -7,8 +7,6 @@ class Comment(models.Model):
     author = models.ForeignKey(User)
     nickname = models.CharField(max_length=20, null=True, blank=True, default=None)
     content = models.TextField()
-    useful_number = models.IntegerField(default=0)
-    unuseful_number = models.IntegerField(default=0)
     is_public = models.BooleanField(default=True)
     is_approved = models.BooleanField(default=True)
     created_time = models.DateTimeField(default=timezone.now)
@@ -20,9 +18,6 @@ class Comment(models.Model):
     def __str__(self):
         return self.content
 
-    class Meta:
-        ordering = ['useful_number']
-
 # only superuser can reply
 class Reply(models.Model):
     comment = models.ForeignKey(Comment)
@@ -32,4 +27,11 @@ class Reply(models.Model):
     created_time = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.content
+
+
+class Reviewship(models.Model):
+    user = models.ForeignKey(User)
+    comment = models.ForeignKey(Comment)
+    is_useful = models.BooleanField(default=True)
+    created_time = models.DateTimeField(default=timezone.now)
 
