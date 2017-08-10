@@ -12,9 +12,9 @@ def login_view(request):
             login(request, user)
             return redirect('index')
         else:
-            return render(request, 'deltago/account/login.html', {"wrong": True}) 
+            return render(request, 'deltago/registration/login.html', {"wrong": True}) 
     else:
-        return render(request, 'deltago/account/login.html')
+        return render(request, 'deltago/registration/login.html')
 
 def password_reset_view(request):
     if request.method == 'POST':
