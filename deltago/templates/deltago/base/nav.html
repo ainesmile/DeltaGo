@@ -4,25 +4,36 @@
     </div>
     <ul class="nav navbar-nav navbar-left">
         <li><a href="{% url 'index' %}">首页</a></li>
-        <li><a href="{% url 'sub_category' categ_name='babycare' sub_categ_name='baby-food-from-4-mths' %}">婴幼儿专区</a></li>
-        <li><a href="">保健品</a></li>
-        <li><a href="">护肤</a></li>
-        <li><a href="">食品</a></li>
-        <li><a href="">特价专区</a></li>
+        <li>
+            <a href="">商品</a>
+        </li>
+        <li>
+            <a href="{% url 'guides' %}">购物指南</a>
+        </li>
+        <li>
+        <a href="{% url 'comments' %}">留言板</a>
+        </li>
     </ul>
 
     <ul class="nav navbar-nav navbar-right">
-
         <li>
-            <a href="{% url 'cart' %}">购物车<span class="glyphicon glyphicon-shopping-cart"></span></a>
+            <a href="{% url 'cart' %}">购物车</a>
         </li>
         {% if user.is_authenticated %}
-            <li><a href="">我的帐号</a></li>
-            <li><a href="">退出帐号</a></li>
+            <li>
+                <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    我的帐号<span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'order' %}">我的订单</a></li>
+                    <li><a href="">我的评论</a></li>
+                    <li><a href="">修改密码</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{% url 'logout' %}">退出</a></li>
+                  </ul>
+            </li>
         {% else %}
-            <li><a href="">登录</a></li>
+            <li><a href="{% url 'login' %}">登录</a></li>
         {% endif %}
     </ul>
-    {% include 'deltago/share/search.html' %}
-    
 </nav>
