@@ -9,8 +9,11 @@ def login_view(request):
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
+        remember_me = request.POST.get('remember', None)
         user = authenticate(username=username, password=password)
         if user is not None:
+            if remember_me:
+                request.session.set_expiry(60 * 60 * 24 * 30)
             login(request, user)
             return redirect('index')
         else:
