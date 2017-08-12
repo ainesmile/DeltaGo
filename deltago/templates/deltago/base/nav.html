@@ -22,12 +22,12 @@
         {% if user.is_authenticated %}
             <li>
                 <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    我的帐号<span class="caret"></span>
+                    {{request.user.username}}<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="{% url 'order' %}">我的订单</a></li>
                     <li><a href="">我的评论</a></li>
-                    <li><a href="">修改密码</a></li>
+                    <li><a href="{% url 'password_change' %}">修改密码</a></li>
                     <li role="separator" class="divider"></li>
                     <li><a href="{% url 'logout' %}">退出</a></li>
                   </ul>
