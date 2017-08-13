@@ -5,12 +5,14 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import password_reset
 from django.contrib.auth import update_session_auth_hash
 
+from deltago.views.services import account
+
 def login_view(request):
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
         remember_me = request.POST.get('remember', None)
-        user = authenticate(username=username, password=password)
+        user = account.check_user(username, password)
         if user is not None:
             if remember_me:
                 request.session.set_expiry(60 * 60 * 24 * 30)
