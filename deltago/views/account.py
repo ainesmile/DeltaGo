@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
 from django.contrib.auth.views import password_reset
 from django.contrib.auth import update_session_auth_hash
 
 from deltago.views.services import account
 
 def login_view(request):
+    redirect_to = request.GET.get('next', 'index')
+    wrong = False
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -17,12 +20,14 @@ def login_view(request):
             if remember_me:
                 request.session.set_expiry(60 * 60 * 24 * 30)
             login(request, user)
-            return redirect('index')
+            return redirect(redirect_to)
         else:
-            return render(request, 'deltago/registration/login.html', {"wrong": True})
-    else:
-        return render(request, 'deltago/registration/login.html')
+            wrong = True
+    return render(request, 'deltago/registration/login.html', {
+        "wrong": wrong,
+        "redirect_to": redirect_to})
 
+@login_required(login_url='login')
 def password_reset_view(request):
     if request.method == 'POST':
         request.session['password_reset_email'] = request.POST.get('email')
@@ -33,6 +38,7 @@ def password_reset_done_view(request):
     email = request.session['password_reset_email']
     return render(request, 'deltago/registration/password_reset_done.html', {'email': email})
 
+@login_required(login_url='login')
 def password_change_view(request):
     user = request.user
     error_message = ''
