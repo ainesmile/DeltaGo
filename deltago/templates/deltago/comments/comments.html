@@ -4,7 +4,11 @@
     <section>
         <div class="container">
             <div class="col-md-12">
-                <p><a href="{% url 'add_comment' %}">去留言~</a></p>
+            <button class="btn btn-default" style="float: right;">
+                <a href="{% url 'add_comment' %}">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </a>
+            </button>
                 {% if comments %}
                     {% for comment in comments %}
                         <div>
