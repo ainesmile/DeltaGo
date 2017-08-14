@@ -23,8 +23,14 @@
                     <span>&middot;</span>
                     <a href="{% url 'password_reset' %}"><span>忘记密码？</span></a>
                 </div>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">登录账户</button>
             </form>
+            <hr>
+            <div>
+                <p>
+                    还没有帐号？去<a href="{% url 'register' %}">注册</a>
+                </p>
+            </div>
         </div>
     </div>
 </section>

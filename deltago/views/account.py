@@ -19,7 +19,7 @@ def login_view(request):
             login(request, user)
             return redirect('index')
         else:
-            return render(request, 'deltago/registration/login.html', {"wrong": True}) 
+            return render(request, 'deltago/registration/login.html', {"wrong": True})
     else:
         return render(request, 'deltago/registration/login.html')
 
@@ -52,3 +52,14 @@ def password_change_view(request):
                     update_session_auth_hash(request, user)
                     return redirect('password_change_done')
     return render(request, 'deltago/registration/password_change_form.html', {"error_messages": error_messages})
+
+def register(request):
+    error_messages = ''
+    if request.method == 'POST':
+        (email, username, password, confirm_password) = account.set_register_session(request)
+        error_messages, new_user = account.register_service(email, username, password, confirm_password)
+        if new_user is not None:
+            login(request, new_user)
+            return redirect('index')
+    return render(request, 'deltago/registration/register.html', {'error_messages': error_messages})
+

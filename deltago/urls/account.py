@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^password/reset/done$', account.password_reset_done_view, name='password_reset_done'),
     url(r'^password/change$', account.password_change_view, name='password_change'),
     url(r'^password/change/done$', auth_views.password_change_done, {
-        'template_name': 'deltago/registration/password_change_done.html'}, name='password_change_done')
+        'template_name': 'deltago/registration/password_change_done.html'}, name='password_change_done'),
+    url(r'^register/$', account.register, name="register"),
 ]

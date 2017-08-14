@@ -1,0 +1,46 @@
+{% extends 'deltago/base/base.html' %}
+{% block main %}
+  <section>
+    <div class="container">
+      <div class="col-md-3 col-md-offset-3">
+        {% if error_messages %}
+            <p class="alert alert-warning" role="alert" style="line-height:0.6;">
+              {{error_messages}}
+            </p>
+        {% endif %}
+        <form name="RegistrationForm" method="post" action="{% url 'register' %}">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="email">邮箱地址</label>
+            <input name="email" type="email" id="email"  class="form-control" required="required" value="{{request.session.email}}">
+          </div>
+          <div class="form-group">
+            <label for="username">用户名</label>
+            <input name="username" id="username"  class="form-control" required="required" value="{{request.session.username}}">
+          </div>
+          <div class="form-group">
+            <label for="password">
+              密码
+              <a data-container="body" data-toggle="popover" data-placement="right" data-content="请至少包含一位数字、一位大写字母和一位小写字母，长度不少于14位。">
+              <span class="glyphicon glyphicon-info-sign"></span>
+              </a>
+            </label>
+            <input name="password" type="password" id="password"  class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{14,}" required="required">
+          </div>
+          
+          <div class="form-group">
+            <label for="confirm_password">确认密码</label>
+            <input name="confirm_password" type="password" id="confirm_password"  class="form-control" required="required">
+          </div>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">确认注册</button>
+        </form>
+      </div>
+      <div class="col-md-4 col-md-offset-2 alert alert-warning">
+          {% include 'deltago/registration/password_tips.html' %}
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+
+
