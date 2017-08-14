@@ -9,11 +9,7 @@
                     {% for comment in comments %}
                         <div>
                             <p>
-                                {% if comment.nickname %}
-                                    <span>{{comment.nickname}}</span>
-                                {% else %}
-                                    <span>{{comment.author}}</span>
-                                {% endif %}
+                                {% firstof comment.nickname comment.author %}
                                 &middot;
                                 发表于 {{comment.created_time|human_time_date}}
                             </p>
