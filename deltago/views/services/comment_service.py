@@ -5,7 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from deltago.models import Comment, Reviewship
 from deltago.exceptions import errors
 
-from deltago.views.services import share
+from deltago.views.services import share_service
 
 def get_comment_review_number(comment):
     reviews = Reviewship.objects.filter(comment=comment)
@@ -19,7 +19,7 @@ def get_comments(page, per_page):
         (useful, unuseful) = get_comment_review_number(comment)
         comment.useful_number = useful
         comment.unuseful_number = unuseful
-    paginations = share.pagination(comments, page, per_page)
+    paginations = share_service.pagination(comments, page, per_page)
     return {
         "comments": paginations,
         "paginations": paginations,
@@ -57,7 +57,7 @@ def review_comment(user, comment, is_useful):
 
 def get_user_comments(user, page, per_page):
     filter_comments = Comment.objects.filter(author=user)
-    paginations = share.pagination(filter_comments, page, per_page)
+    paginations = share_service.pagination(filter_comments, page, per_page)
     return {
         "comments": paginations,
         "paginations": paginations,

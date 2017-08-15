@@ -3,7 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
 
 from deltago.models import Commodity, Cart, Cartship
-from deltago.views.services.share import pagination
+from deltago.views.services import share_service
 
 def user_current_cart(user):
     try:
@@ -54,7 +54,7 @@ def add_to_cart(user, product_id, quantity):
 def cartship_list(user, page, per_page):
     cart = user_current_cart(user)
     data = Cartship.objects.filter(cart=cart)
-    cartshipes = pagination(data, page, per_page)
+    cartshipes = share_service.pagination(data, page, per_page)
     empty_tips = "购物车空啦~"
     return {
         "cartshipes": cartshipes,

@@ -10,8 +10,8 @@ from deltago.exceptions import errors
 
 from deltago.models import Order, Cart, Cartship
 
-from deltago.views.services.share import pagination
-from deltago.views.services.cart import user_current_cart
+from deltago.views.services import share_service
+from deltago.views.services import cart_service
 
 from deltago.templatetags import date
 
@@ -107,7 +107,7 @@ def create_order_by_chosen(current_cart, chosens):
     return new_order
     
 def generate_order(user, checkboxes, quantities):
-    current_cart = user_current_cart(user)
+    current_cart = cart_service.user_current_cart(user)
     # 1. update_all_cartship_quantity
     all_cartshipes = Cartship.objects.filter(cart=current_cart)
     update_quantities(all_cartshipes, quantities)
@@ -134,7 +134,7 @@ def generate_order(user, checkboxes, quantities):
 
 def order_list(user, page, per_page):
     data = Order.objects.filter(user=user)
-    orders = pagination(data, page, per_page)
+    orders = share_service.pagination(data, page, per_page)
     empty_tips = '还没有订单哦~'
     return {
         "orders": orders,

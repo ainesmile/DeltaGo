@@ -3,7 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 import json
 from deltago.models import Commodity, Details
 
-from .share import pagination
+from deltago.views.services import share_service
 
 def get_categ(categ_name):
     categs = {
@@ -76,7 +76,7 @@ def sub(categ_name, sub_categ_name, page, per_page):
         'sub_category': sub_categ
     }
     data = Commodity.objects.filter(**condition)
-    products = pagination(data, page, per_page)
+    products = share_service.pagination(data, page, per_page)
     empty_tips = "暂无商品，待上架。"
     sub_navs = get_sub_navs(categ_name)
     return {
