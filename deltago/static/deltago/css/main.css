@@ -1,28 +1,26 @@
+html {
+    height:100%;
+}
 body {
     font-family: Georgia, "Times New Roman", "KaiTi";
+    min-height:100%;
+    margin:0;
+    padding:0;
+    position:relative;
 }
-
-
-/*footer*/
-
-footer .footer-above {
-    padding-top: 10px;
+.main {
+    padding-top: 2em;
+    padding-bottom: 3em;
 }
-
-
-footer .footer-below {
-    padding: 0px;
-}
-ul.footer-nav > li {
-    display: inline-block;
-}
-ul.footer-nav > li > a {
-    color: white;
-    padding: 10px 15px;
-}
-ul.footer-nav li a:hover {
-    background-color: transparent;
-    color: #18BC9C;
+.footer {
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height: 2.5em;
+    padding-top: 0.5em;
+    color: #999;
+    overflow: hidden;
+    zoom:1;border-top: 1px dashed #ddd
 }
 
 .btn-delete {
