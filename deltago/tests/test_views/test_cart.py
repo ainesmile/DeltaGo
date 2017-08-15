@@ -3,7 +3,7 @@ from django.core.paginator import Page
 from django.contrib.auth.models import User
 from deltago.models import Commodity, Cart, Cartship
 
-from deltago.views.services import cart
+from deltago.views.services import cart_service
 
 class CartViewTest(TestCase):
     fixtures = [
@@ -29,7 +29,7 @@ class CartViewTest(TestCase):
         
 
     def test_user_current_cart(self):
-        user_cart = cart.user_current_cart(self.admin)
+        user_cart = cart_service.user_current_cart(self.admin)
         self.assertEqual(user_cart.user, self.admin)
 
     def test_get_commodity(self):
@@ -38,11 +38,11 @@ class CartViewTest(TestCase):
             (11, None)
         ]
         for product_id, e_commodity in data:
-            commodity = cart.get_commodity(product_id)
+            commodity = cart_service.get_commodity(product_id)
             self.assertEqual(commodity, e_commodity)
 
     def test_incre_cartship_quantity(self):
-        cart.incre_cartship_quantity(self.cartship, 2)
+        cart_service.incre_cartship_quantity(self.cartship, 2)
         self.assertEqual(self.cartship.quantity, 3)
 
     def test_update_or_create_cartship(self):
@@ -51,7 +51,7 @@ class CartViewTest(TestCase):
             (self.commodity3, 1, 1),
         ]
         for commodity, quantity, e_quantity in data:
-            cartship = cart.update_or_create_cartship(self.cart, commodity, quantity)
+            cartship = cart_service.update_or_create_cartship(self.cart, commodity, quantity)
             self.assertEqual(cartship.quantity, e_quantity)
 
     def test_add_to_cart(self):
@@ -60,9 +60,9 @@ class CartViewTest(TestCase):
             (13, 1, None)
         ]
         for product_id, quantity, e_result in data:
-            result = cart.add_to_cart(self.admin, product_id, quantity)
+            result = cart_service.add_to_cart(self.admin, product_id, quantity)
             self.assertEqual(result, e_result)
 
     def test_cart_list(self):
-        result = cart.cartship_list(self.admin, self.page, 20)
+        result = cart_service.cartship_list(self.admin, self.page, 20)
         self.assertTrue(isinstance(result["cartshipes"], Page))
