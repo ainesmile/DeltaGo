@@ -55,7 +55,7 @@ def cartship_list(user, page, per_page):
     cart = user_current_cart(user)
     data = Cartship.objects.filter(cart=cart)
     cartshipes = pagination(data, page, per_page)
-    empty_tips = "购物车空啦"
+    empty_tips = "购物车空啦~"
     return {
         "cartshipes": cartshipes,
         "paginations": cartshipes,
