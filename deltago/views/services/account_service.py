@@ -34,7 +34,7 @@ def verify_password(password, confirm_password):
             else:
                 return '', True
 
-def register_service(email, username, password, confirm_password):
+def register(email, username, password, confirm_password):
     (error_msgs, is_correct) = verify_password(password, confirm_password)
     if not is_correct:
         return error_msgs, None

@@ -2,7 +2,7 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
 import re
-from deltago.views.services import account
+from deltago.views.services import account_service
 
 class AccountViewTest(TestCase):
 
@@ -26,7 +26,7 @@ class AccountViewTest(TestCase):
             ('admin', 'wrongpassword', None),
         ]
         for username, password, e_result in data:
-            result = account.check_user(username, password)
+            result = account_service.check_user(username, password)
             self.assertEqual(result, e_result)
 
     def test_verify_password(self):
@@ -39,11 +39,11 @@ class AccountViewTest(TestCase):
             (self.register_password, self.register_password, '', True)
         ]
         for password, confirm_password, e_msg, e_result in data:
-            (msg, result) = account.verify_password(password, confirm_password)
+            (msg, result) = account_service.verify_password(password, confirm_password)
             self.assertEqual(msg, e_msg)
             self.assertEqual(result, e_result)
 
-    def test_register_service(self):
+    def test_register(self):
         data = [
             ('admin@example.com', 'admin', 'password', 'password', self.error_msgs_password, None),
             ('admin@example.com', 'admin', self.register_password, self.register_password, self.error_msgs_email, None),
@@ -51,6 +51,6 @@ class AccountViewTest(TestCase):
             ('1@1.com', '1', self.register_password, self.register_password, '', True)
         ]
         for email, username, password, confirm_password, e_msg, e_user in data:
-            (msg, user) = account.register_service(email, username, password, confirm_password)
+            (msg, user) = account_service.register(email, username, password, confirm_password)
             self.assertEqual(msg, e_msg)
             self.assertEqual(bool(user), bool(e_user))

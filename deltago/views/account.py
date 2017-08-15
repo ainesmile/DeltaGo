@@ -6,7 +6,7 @@ from django.contrib.auth import login
 from django.contrib.auth.views import password_reset
 from django.contrib.auth import update_session_auth_hash
 
-from deltago.views.services import account
+from deltago.views.services import account_service
 
 def login_view(request):
     redirect_to = request.GET.get('next', 'index')
@@ -15,7 +15,7 @@ def login_view(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         remember_me = request.POST.get('remember', None)
-        user = account.check_user(username, password)
+        user = account_service.check_user(username, password)
         if user is not None:
             if remember_me:
                 request.session.set_expiry(60 * 60 * 24 * 30)
@@ -45,7 +45,7 @@ def password_change_view(request):
     if request.method == 'POST':
         new_password1 = request.POST.get('new_password1')
         new_password2 = request.POST.get('new_password2')
-        error_message, is_verified = account.verify_password(new_password1, new_password2)
+        error_message, is_verified = account_service.verify_password(new_password1, new_password2)
         if is_verified:
             old_password = request.POST.get('old_password')
             if not user.check_password(old_password):
@@ -60,8 +60,8 @@ def password_change_view(request):
 def register(request):
     error_messages = ''
     if request.method == 'POST':
-        (email, username, password, confirm_password) = account.set_register_session(request)
-        error_messages, new_user = account.register_service(email, username, password, confirm_password)
+        (email, username, password, confirm_password) = account_service.set_register_session(request)
+        error_messages, new_user = account_service.register(email, username, password, confirm_password)
         if new_user is not None:
             login(request, new_user)
             return redirect('index')
