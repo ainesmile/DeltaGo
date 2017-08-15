@@ -8,7 +8,7 @@ from deltago.exceptions import errors
 
 from deltago.models import Comment, Reviewship
 
-from deltago.views.services import comments
+from deltago.views.services import comment_service
 
 class CommentViewTest(TestCase):
 
@@ -34,11 +34,11 @@ class CommentViewTest(TestCase):
         self.nickname = 'nickname'
 
     def test_get_comment_review_number(self):
-        result = comments.get_comment_review_number(self.comment_1)
+        result = comment_service.get_comment_review_number(self.comment_1)
         self.assertEqual((1, 1), result)
 
     def test_update_reviewship(self):
-        self.assertRaises(errors.DuplicateError, comments.update_reviewship, self.reviewship_1, True)
-        comments.update_reviewship(self.reviewship_2, True)
+        self.assertRaises(errors.DuplicateError, comment_service.update_reviewship, self.reviewship_1, True)
+        comment_service.update_reviewship(self.reviewship_2, True)
         self.assertEqual(self.reviewship_2.is_useful, True)
 

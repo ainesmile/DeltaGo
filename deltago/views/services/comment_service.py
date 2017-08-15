@@ -25,7 +25,7 @@ def get_comments(page, per_page):
         "paginations": paginations,
     }
 
-def creat_comment(user, content, nickname, is_public):
+def create_comment(user, content, nickname, is_public):
     new_comment = Comment(
         author=user,
         content=content,
