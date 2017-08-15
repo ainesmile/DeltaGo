@@ -54,3 +54,11 @@ def review_comment(user, comment, is_useful):
         update_reviewship(reviewship, is_useful)
     except ObjectDoesNotExist:
         create_reviewship(user, comment, is_useful)
+
+def get_user_comments(user, page, per_page):
+    filter_comments = Comment.objects.filter(author=user)
+    paginations = share.pagination(filter_comments, page, per_page)
+    return {
+        "comments": paginations,
+        "paginations": paginations,
+    }

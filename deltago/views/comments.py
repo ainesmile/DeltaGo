@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -9,7 +10,7 @@ from deltago.exceptions import errors
 
 from deltago.models import Comment
 
-from deltago.views.services.comments import get_comments, creat_comment, review_comment
+from deltago.views.services.comments import get_comments, creat_comment, review_comment, get_user_comments
 
 def comments(request):
     page = request.GET.get('page', 1)
@@ -54,6 +55,14 @@ def delete_comment(request, comment_id):
     return render(request, 'deltago/comments/delete_comment.html', {
         "comment": comment,
         "next_view": next_view})
+
+@login_required(login_url='login')
+def my_comments(request):
+    user = request.user
+    page = request.GET.get('page', 1)
+    render_data = get_user_comments(user, page, 20)
+    return render(request, 'deltago/comments/my_comments.html', render_data)
+
 
 
 
