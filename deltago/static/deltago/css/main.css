@@ -25,3 +25,9 @@ ul.footer-nav li a:hover {
     color: #18BC9C;
 }
 
+.btn-delete {
+    background-color: #e0245e;
+    border: 1px solid #e0245e;
+    color: #fff;
+}
+

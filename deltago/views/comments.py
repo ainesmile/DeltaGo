@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import resolve
+import urlparse
 
 from deltago.exceptions import errors
 
@@ -37,4 +39,22 @@ def review(request, comment_id, is_useful):
     except errors.DuplicateError as e:
         print e
     return redirect('comments')
+
+@login_required(login_url='login')
+def delete_comment(request, comment_id):
+    next_view = request.GET.get('next_view', 'index')
+    comment = Comment.objects.get(pk=comment_id)
+    if request.method == 'POST':
+        comment.delete()
+        return redirect(next_view)
+    else:
+        referer = request.META.get('HTTP_REFERER', '/')
+        parse_result = urlparse.urlparse(referer)
+        next_view = resolve(parse_result.path).url_name
+    return render(request, 'deltago/comments/delete_comment.html', {
+        "comment": comment,
+        "next_view": next_view})
+
+
+
 
