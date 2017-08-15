@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase, Client
 from django.core.paginator import Page
-from deltago.views.services import pages
+from deltago.views.services import page_service
 from deltago.models import Commodity
 
 class PagesViewTest(TestCase):
@@ -19,13 +19,13 @@ class PagesViewTest(TestCase):
 
     def test_search_results(self):
         content_normal = 'Heinz Organic'
-        results = pages.search_results(content_normal, self.page, 20)
+        results = page_service.search_results(content_normal, self.page, 20)
         self.assertTrue(isinstance(results["paginations"], Page))
         self.assertTrue(isinstance(results["products"], Page))
         self.assertEqual(results["empty_tips"], "暂无搜索结果，请尝试其他搜索关键词。")
 
         contents_special = ['', '$']
         for content in contents_special:
-            result_special = pages.search_results(content, self.page, 20)
+            result_special = page_service.search_results(content, self.page, 20)
             self.assertEqual(len(result_special["products"]), 0)
             self.assertEqual(len(result_special["paginations"]), 0)
