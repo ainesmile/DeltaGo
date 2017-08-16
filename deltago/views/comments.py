@@ -14,7 +14,7 @@ from deltago.views.services import comment_service
 
 def comments(request):
     page = request.GET.get('page', 1)
-    data = comment_service.get_comments(page, 20)
+    data = comment_service.get_comments(request.user, page, 20)
     return render(request, 'deltago/comments/comments.html', data)
 
 @login_required(login_url='login', redirect_field_name='next')
@@ -34,10 +34,12 @@ def review(request, comment_id, is_useful):
     user = request.user
     try:
         comment = Comment.objects.get(pk=comment_id)
-        comment_service.review_comment(user, comment, int(is_useful))
+        comment_service.review(user, comment, int(is_useful))
     except ObjectDoesNotExist as e:
         print e
     except errors.DuplicateError as e:
+        print e
+    except errors.OperationError as e:
         print e
     return redirect('comments')
 

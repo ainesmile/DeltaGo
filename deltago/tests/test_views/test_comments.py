@@ -19,11 +19,11 @@ class CommentViewTest(TestCase):
     ]
 
     def setUp(self):
-        self.user = User.objects.get(pk=1)
+        self.admin = User.objects.get(pk=1)
+        self.user_1 = User.objects.get(pk=2)
         self.comment_1 = Comment.objects.get(pk=1)
         self.reviewship_1 = Reviewship.objects.get(pk=1)
         self.reviewship_2 = Reviewship.objects.get(pk=2)
-        
 
         c = Client()
         response = c.get('comments')
@@ -33,12 +33,11 @@ class CommentViewTest(TestCase):
         self.content = 'content'
         self.nickname = 'nickname'
 
-    def test_get_comment_review_number(self):
-        result = comment_service.get_comment_review_number(self.comment_1)
+    def test_get_review_number(self):
+        result = comment_service.get_review_number(self.comment_1)
         self.assertEqual((1, 1), result)
 
     def test_update_reviewship(self):
         self.assertRaises(errors.DuplicateError, comment_service.update_reviewship, self.reviewship_1, True)
         comment_service.update_reviewship(self.reviewship_2, True)
         self.assertEqual(self.reviewship_2.is_useful, True)
-

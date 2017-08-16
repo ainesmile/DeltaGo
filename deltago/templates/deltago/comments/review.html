@@ -1,15 +1,28 @@
-<a href="{% url 'review' comment_id=comment.pk is_useful=1 %}" class="btn btn-info btn-sm">
-    <span>
-       有用 {{comment.useful_number}}
-    </span>
-</a>
-<a href="{% url 'review' comment_id=comment.pk is_useful=0 %}" class="btn btn-default btn-sm">
-    <span>
-       没用 {{comment.unuseful_number}}
-    </span>
-</a>
-{% if comment.author == request.user or request.user.is_superuser %}
-<a href="{% url 'delete_comment' comment.pk %}" class="btn btn-delete btn-sm">
-    <span>删除评论</span>
-</a>
-{% endif %}
+<div class="row">
+    <div class="col-sm-1">
+        <a href="{% url 'review' comment_id=comment.pk is_useful=1 %}" class="{% firstof comment.review_auth.useful 'disabled' %}">
+            <span class="glyphicon glyphicon-thumbs-up"></span>
+            <small>{{comment.useful_number}}</small>
+        </a>
+    </div>
+
+    <div class="col-sm-1">
+        <a href="{% url 'review' comment_id=comment.pk is_useful=0 %}" class="{% firstof comment.review_auth.unuseful 'disabled' %}">
+            <span class="glyphicon glyphicon-thumbs-down"></span>
+            <small>{{comment.unuseful_number}}</small>
+        </a>
+    </div>
+    
+        <div class="col-sm-1">
+            <a href="" class="{% firstof comment.review_auth.edit 'disabled' %}">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </a>
+        </div>
+        <div class="col-sm-1">
+            <a href="{% url 'delete_comment' comment.pk %}" class="{% firstof comment.review_auth.delete 'disabled' %}">
+                <span class="glyphicon glyphicon-trash"></span>
+            </a>
+        </div>
+    {% if comment.author == request.user or request.user.is_superuser %}
+    {% endif %}
+</div>

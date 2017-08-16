@@ -5,28 +5,12 @@
         <div class="container">
             <div class="col-md-12">
                 <div>
-                    <a href="{% url 'add_comment' %}" type="button" class="btn btn-default" style="float: right;">
-                        <span class="glyphicon glyphicon-pencil"></span>
+                    <a href="{% url 'add_comment' %}" type="button" class="btn btn-info" style="float: right;">
+                        <span class="glyphicon glyphicon-plus"></span>
                     </a>
                 </div>
                 <div>
-                {% if comments %}
-                    {% for comment in comments %}
-                        <div>
-                            <p>
-                                {% firstof comment.nickname comment.author %}
-                                &middot;
-                                发表于 {{comment.created_time|human_time_date}}
-                            </p>
-                            <p>{{comment.content}}</p>
-                            {% include 'deltago/comments/review.html' %}
-                        </div>
-                        <hr />
-                    {% endfor %}
-                    {% include 'deltago/share/pagination.html' %}
-                {% else %}
-                    <p>暂无留言，去<a href="{% url 'add_comment' %}">添加</a>。</p>
-                {% endif %}
+                    {% include 'deltago/comments/comment_list.html' %}
                 </div>
             </div>
         </div>

@@ -3,3 +3,6 @@ class EmptyCartError(Exception):
 
 class DuplicateError(Exception):
     pass
+
+class OperationError(Exception):
+    pass
