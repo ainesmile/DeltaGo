@@ -39,7 +39,7 @@ def get_comment_reply(user, comment, public_only):
     if user.is_superuser:
         return reply_filter
     if public_only:
-        return replies.filter(is_public=True)
+        return reply_filter.filter(is_public=True)
     else:
         return reply_filter
 
