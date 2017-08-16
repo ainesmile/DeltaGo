@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render, redirect
 from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
@@ -36,17 +37,20 @@ def review(request, comment_id, is_useful):
         comment = Comment.objects.get(pk=comment_id)
         comment_service.review(user, comment, int(is_useful))
     except ObjectDoesNotExist as e:
-        print e
+        raise Http404('该留言不存在。')
     except errors.DuplicateError as e:
-        print e
+        raise Http400(e)
     except errors.OperationError as e:
-        print e
+        raise Http400(e)
     return redirect('comments')
 
 @login_required(login_url='login')
 def delete_comment(request, comment_id):
     next_view = request.GET.get('next_view', 'index')
-    comment = Comment.objects.get(pk=comment_id)
+    try:
+        comment = Comment.objects.get(pk=comment_id)
+    except ObjectDoesNotExist as e:
+        raise Http404('该留言不存在。')
     if request.method == 'POST':
         comment.delete()
         return redirect(next_view)
@@ -64,8 +68,3 @@ def my_comments(request):
     page = request.GET.get('page', 1)
     render_data = comment_service.get_user_comments(user, page, 20)
     return render(request, 'deltago/comments/my_comments.html', render_data)
-
-
-
-
-
