@@ -10,6 +10,9 @@
             <p>{{comment.content}}</p>
             {% include 'deltago/comments/review.html' %}
         </div>
+        <div>
+            {% include 'deltago/comments/reply_list.html' %}
+        </div>
         <hr />
     {% endfor %}
     {% include 'deltago/share/pagination.html' %}

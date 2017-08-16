@@ -12,17 +12,19 @@
             <small>{{comment.unuseful_number}}</small>
         </a>
     </div>
-    
+
+    {% if request.user.is_superuser %}
         <div class="col-sm-1">
-            <a href="" class="{% firstof comment.review_auth.edit 'disabled' %}">
-                <span class="glyphicon glyphicon-pencil"></span>
+            <a href="{% url 'reply_comment' comment.pk %}">
+                <span class="glyphicon glyphicon-share-alt"></span>
             </a>
         </div>
-        <div class="col-sm-1">
-            <a href="{% url 'delete_comment' comment.pk %}" class="{% firstof comment.review_auth.delete 'disabled' %}">
-                <span class="glyphicon glyphicon-trash"></span>
-            </a>
-        </div>
+    {% endif %}
+    <div class="col-sm-1">
+        <a href="{% url 'delete_comment' comment.pk %}" class="{% firstof comment.review_auth.delete 'disabled' %}">
+            <span class="glyphicon glyphicon-trash"></span>
+        </a>
+    </div>
     {% if comment.author == request.user or request.user.is_superuser %}
     {% endif %}
 </div>

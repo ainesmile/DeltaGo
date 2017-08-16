@@ -1,0 +1,10 @@
+{% load date %}
+{% for reply in comment.replies %}
+    <p class="well well-sm">
+        <span>{{reply.author}}</span>
+        &middot;
+        <small>{{reply.created_time|human_time_date}}</small>
+        <br>
+        {{reply.content}}
+    </p>
+{% endfor %}

@@ -1,0 +1,34 @@
+{% extends 'deltago/base/base.html' %}
+{% load date %}
+{% block main %}
+    <section>
+        <div class="container">
+            <div class="col-md-12">
+                <div class="thumbnail">
+                    <p>
+                        {% firstof comment.nickname comment.author %}
+                        &middot;
+                        发表于 {{comment.created_time|human_time_date}}
+                    </p>
+                    <p>{{comment.content}}</p>
+                </div>
+                <hr>
+                <div>
+                    <form action="{% url 'reply_comment' comment.pk %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="content">回复内容</label>
+                            <textarea id="content" class="form-control" name="content" required="required"></textarea>
+
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" id="is_public" name="is_public" value=False>
+                            <label for="is_public">仅留言者可见</label>
+                        </div>
+                        <button type="submit" class="btn btn-info">提交</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

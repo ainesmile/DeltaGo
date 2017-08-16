@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, redirect
 from django.http import Http404
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied, SuspiciousOperation
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import resolve
@@ -9,7 +9,7 @@ import urlparse
 
 from deltago.exceptions import errors
 
-from deltago.models import Comment
+from deltago.models import Comment, Reply
 
 from deltago.views.services import comment_service
 
@@ -39,9 +39,9 @@ def review(request, comment_id, is_useful):
     except ObjectDoesNotExist as e:
         raise Http404('该留言不存在。')
     except errors.DuplicateError as e:
-        raise Http400(e)
+        raise SuspiciousOperation(e)
     except errors.OperationError as e:
-        raise Http400(e)
+        raise SuspiciousOperation(e)
     return redirect('comments')
 
 @login_required(login_url='login')
@@ -61,6 +61,25 @@ def delete_comment(request, comment_id):
     return render(request, 'deltago/comments/delete_comment.html', {
         "comment": comment,
         "next_view": next_view})
+
+@login_required(login_url='login')
+def reply_comment(request, comment_id):
+    user = request.user
+    if not user.is_superuser:
+        raise PermissionDenied
+    try:
+        comment = Comment.objects.get(pk=comment_id)
+    except ObjectDoesNotExist:
+        raise Http404('该留言不存在。')
+    if request.method == 'POST':
+        content = request.POST.get('content')
+        is_public = request.POST.get('is_public')
+        comment_service.create_reply(user, comment, content, is_public)
+        replies = Reply.objects.filter(author=user)
+        return redirect('comments')
+    else:
+        return render(request, 'deltago/comments/reply_comment.html', {
+            "comment": comment})
 
 @login_required(login_url='login')
 def my_comments(request):
