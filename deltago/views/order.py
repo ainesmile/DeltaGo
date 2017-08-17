@@ -19,7 +19,7 @@ def checkout(request):
     return redirect('order')
 
 @login_required(login_url='login')
-def order(request):
+def my_orders(request):
     user = request.user
     page = request.GET.get('page', 1)
     data = order_service.order_list(user, page, 20)
