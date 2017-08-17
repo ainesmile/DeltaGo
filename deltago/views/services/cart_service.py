@@ -53,7 +53,7 @@ def add_to_cart(user, product_id, quantity):
 
 def cartship_list(user, page, per_page):
     cart = user_current_cart(user)
-    data = Cartship.objects.filter(cart=cart)
+    data = Cartship.objects.filter(cart=cart, is_deleted=False)
     cartshipes = share_service.pagination(data, page, per_page)
     empty_tips = "购物车空啦~"
     return {
