@@ -135,15 +135,6 @@ def generate_order(user, checkboxes, quantities, checkbox_all):
 
 # Order display
 
-def order_list(user, page, per_page):
-    data = Order.objects.filter(user=user)
-    orders = share_service.pagination(data, page, per_page)
-    empty_tips = '还没有订单哦~'
-    return {
-        "orders": orders,
-        "paginations": orders,
-        "empty_tips": empty_tips
-    }
 
 
 def convert_fee(amount):
@@ -192,13 +183,31 @@ def get_order_state_text(state):
     return state_text[state]
 
 
-
-
-
 def get_order_details(order_id):
     order = Order.objects.get(pk=order_id)
-    order.fee = get_order_fee(order)
+    order = get_order_basic_info(order)
     order.commodity_info_table = get_commodity_info_table(order)
+    return order
+
+# order list page
+
+def get_order_basic_info(order):
+    order.fee = get_order_fee(order)
     order.state_text = get_order_state_text(order.state)
     return order
 
+def get_orders_basic_info(orders):
+    for order in orders:
+        get_order_basic_info(order)
+    return orders
+
+def order_list(user, page, per_page):
+    order_filter = Order.objects.filter(user=user)
+    data = get_orders_basic_info(order_filter)
+    orders = share_service.pagination(data, page, per_page)
+    empty_tips = '还没有订单哦~'
+    return {
+        "orders": orders,
+        "paginations": orders,
+        "empty_tips": empty_tips
+    }

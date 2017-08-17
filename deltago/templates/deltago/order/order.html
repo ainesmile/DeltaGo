@@ -7,7 +7,9 @@
             <ul class="list-unstyled">
                 {% for order in orders %}
                     <li>
-                        {% include 'deltago/order/basic.html' %}
+                        <div>
+                            {% include 'deltago/order/basic.html' %}
+                        </div>
                     </li>
                     <hr>
                 {% endfor %}
