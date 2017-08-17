@@ -41,7 +41,10 @@ def choose_cartship(cartship):
     cartship.is_chosen = True
     cartship.save()
 
-def get_chosen_cartshipes(checkboxes):
+def get_chosen_cartshipes(checkboxes, checkbox_all, current_cart):
+    if checkbox_all:
+        return Cartship.objects.filter(cart=current_cart)
+
     chosens = []
     for checkbox in checkboxes:
         cartship = Cartship.objects.get(pk=checkbox)
@@ -106,13 +109,13 @@ def create_order_by_chosen(current_cart, chosens):
     new_order = init_order(current_cart, subtotal, total)
     return new_order
     
-def generate_order(user, checkboxes, quantities):
+def generate_order(user, checkboxes, quantities, checkbox_all):
     current_cart = cart_service.user_current_cart(user)
     # 1. update_all_cartship_quantity
     all_cartshipes = Cartship.objects.filter(cart=current_cart)
     update_quantities(all_cartshipes, quantities)
     # 2. update_cartship_is_chosen 3. undeleted
-    chosens = get_chosen_cartshipes(checkboxes)
+    chosens = get_chosen_cartshipes(checkboxes, checkbox_all, current_cart)
     if not chosens:
         raise errors.EmptyCartError("Choose at least one item.")
     else:

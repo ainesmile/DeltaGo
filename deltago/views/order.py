@@ -11,8 +11,9 @@ def checkout(request):
     if request.method == 'POST':
         quantities = request.POST.getlist('quantity')
         checkboxes = request.POST.getlist('checkbox')
+        checkbox_all = request.POST.getlist('checkbox_all')
         try:
-            order_service.generate_order(user, checkboxes, quantities)
+            order_service.generate_order(user, checkboxes, quantities, checkbox_all)
         except errors.EmptyCartError:
             print 'please choose at least one item'
     return redirect('order')

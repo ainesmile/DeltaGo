@@ -61,8 +61,15 @@ class OrderViewTest(TestCase):
         self.assertTrue(self.cartship1.is_chosen)
 
     def test_get_chosen_cartshipes(self):
-        chosens = order_service.get_chosen_cartshipes(self.checkboxes)
-        self.assertEqual(chosens, [self.cartship1])
+
+        data = [
+            (self.checkboxes, False, self.cart, [self.cartship1]),
+            (self.checkboxes, True, self.cart, [self.cartship1, self.cartship2]),
+        ]
+
+        for checkboxes, checkbox_all, cart, e_result in data:
+            chosens = order_service.get_chosen_cartshipes(checkboxes, checkbox_all, cart)
+            self.assertEqual(list(chosens), e_result)
 
     def test_get_unchosen_cartshipes(self):
         chosens = [self.cartship1]
@@ -117,18 +124,20 @@ class OrderViewTest(TestCase):
     def test_generate_order(self):
         user = self.admin
         quantities = self.quantities
-        checkboxes_data = [self.checkboxes, []]
-        for checkboxes in checkboxes_data:
+        data = [
+            (self.checkboxes, False),
+            (self.checkboxes, True),
+            ([], True),
+            ([], False),
+        ]
+        for checkboxes, checkbox_all in data:
             try:
-                new_order = order_service.generate_order(user, checkboxes, quantities)
+                new_order = order_service.generate_order(user, checkboxes, quantities, checkbox_all)
                 updated_cart = new_order.cart
                 self.assertTrue(updated_cart.is_archived)
                 self.assertEqual(new_order.user, user)
             except errors.EmptyCartError as e:
                 self.assertTrue(isinstance(e, errors.EmptyCartError))
-
-
-
 
     def test_get_order_fee(self):
         fee = order_service.get_order_fee(self.order)
