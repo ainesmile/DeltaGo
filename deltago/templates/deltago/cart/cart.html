@@ -23,7 +23,8 @@
             {% for cartship in cartshipes %}
                 <tr>
                     <td>
-                        <input id="checkBox-{{product.pk}}" type="checkbox" name="checkbox" value="{{cartship.pk}}">
+                        
+                        <input id="checkBox-{{cartship.commodity.pk}}" type="checkbox" name="checkbox" value="{{cartship.pk}}" {{cartship.is_chosen|yesno:"checked, , "}}>
                     </td>
                     <td>
                         <a href="{% url 'details' cartship.commodity.pk %}">{{cartship.commodity.name}}</a>
