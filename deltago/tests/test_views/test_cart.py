@@ -65,4 +65,4 @@ class CartViewTest(TestCase):
 
     def test_cart_list(self):
         result = cart_service.cartship_list(self.admin, self.page, 20)
-        self.assertTrue(isinstance(result["cartshipes"], Page))
+        self.assertTrue(isinstance(result["cartships"], Page))

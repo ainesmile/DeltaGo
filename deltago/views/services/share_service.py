@@ -24,9 +24,9 @@ def get_cartship_subtotal(cartship):
     quantity = cartship.quantity
     return price * quantity
 
-def get_cartshipes_subtotal(cartshipes):
+def get_cartships_subtotal(cartships):
     subtotal = 0
-    for cartship in cartshipes:
+    for cartship in cartships:
         subtotal += get_cartship_subtotal(cartship)
     return subtotal
 

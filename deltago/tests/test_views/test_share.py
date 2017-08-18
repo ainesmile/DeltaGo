@@ -39,10 +39,10 @@ class ShareServiceTest(TestCase):
             subtotal = share_service.get_cartship_subtotal(cartship)
             self.assertEqual(subtotal, e_subtotal)
 
-    def test_get_cartshipes_subtotal(self):
-        cartshipes = [self.cartship1, self.cartship2]
+    def test_get_cartships_subtotal(self):
+        cartships = [self.cartship1, self.cartship2]
         e_subtotal = 209 + 209*2
-        subtotal = share_service.get_cartshipes_subtotal(cartshipes)
+        subtotal = share_service.get_cartships_subtotal(cartships)
         self.assertEqual(subtotal, e_subtotal)
         
         

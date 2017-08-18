@@ -22,9 +22,9 @@ SHIP_FEE = 500
 # A1 generate order help functions
 
 # 1. update_quantities_checked_deleted_states_based_on_current_cart
-def update_cartshipes(current_cart, checkboxes, quantities, checkbox_all):
-    cartshipes = Cartship.objects.filter(cart=current_cart)
-    for index, cartship in enumerate(cartshipes):
+def update_cartships(current_cart, checkboxes, quantities, checkbox_all):
+    cartships = Cartship.objects.filter(cart=current_cart)
+    for index, cartship in enumerate(cartships):
         is_chosen = checkbox_all or (cartship.pk in checkboxes)
         cartship.is_chosen = is_chosen
         if is_chosen and cartship.is_deleted:
@@ -32,7 +32,7 @@ def update_cartshipes(current_cart, checkboxes, quantities, checkbox_all):
         cartship.quantity = quantities[index]
         cartship.updated_date = timezone.now()
         cartship.save()
-    return cartshipes
+    return cartships
 
 def archive_cart(cart):
     cart.is_archived = True
@@ -51,7 +51,7 @@ def generate_order_serial_code(order):
     serial_code += random_str + '0' * length
     return serial_code
 
-# create new order with chosen cartshipes
+# create new order with chosen cartships
 def init_order(cart, subtotal, total):
     user = cart.user
     new_order = Order(
@@ -64,12 +64,12 @@ def init_order(cart, subtotal, total):
     return new_order
 
 def new_order_with_chosen(current_cart, chosens):
-    subtotal = share_service.get_cartshipes_subtotal(chosens)
+    subtotal = share_service.get_cartships_subtotal(chosens)
     total = subtotal + SHIP_FEE
     new_order = init_order(current_cart, subtotal, total)
     return new_order
 
-# create new cart with unchosen cartshipes
+# create new cart with unchosen cartships
 def new_cart_with_unchosens(user, unchosens):
     new_cart = Cart(user=user)
     new_cart.save()
@@ -131,8 +131,8 @@ def get_commodity_info_table_item(cartship):
 def get_commodity_info_table(order):
     table = []
     cart = order.cart
-    cartshipes = Cartship.objects.filter(cart=cart)
-    for cartship in cartshipes:
+    cartships = Cartship.objects.filter(cart=cart)
+    for cartship in cartships:
         item = get_commodity_info_table_item(cartship)
         table.append(item)
     return table
@@ -142,7 +142,7 @@ def get_commodity_info_table(order):
 # B1 checkout view
 def generate_order(user, checkboxes, quantities, checkbox_all):
     current_cart = cart_service.user_current_cart(user)
-    update_cartshipes(current_cart, checkboxes, quantities, checkbox_all)
+    update_cartships(current_cart, checkboxes, quantities, checkbox_all)
     chosens = Cartship.objects.filter(cart=current_cart, is_chosen=True)
     if not chosens:
         raise errors.EmptyCartError("Choose at least one item.")

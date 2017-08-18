@@ -22,7 +22,7 @@ def checkout(request):
 def my_orders(request):
     user = request.user
     page = request.GET.get('page', 1)
-    data = order_service.order_list(user, page, 20)
+    data = order_service.get_order_list(user, page, 20)
     return render(request, 'deltago/order/order.html', data)
 
 @login_required(login_url='login')

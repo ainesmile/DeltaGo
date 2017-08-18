@@ -23,7 +23,7 @@ class OrderViewTest(TestCase):
 
         self.admin = User.objects.get(pk=1)
         self.cart = Cart.objects.get(pk=1)
-        self.all_cartshipes = Cartship.objects.all()
+        self.all_cartships = Cartship.objects.all()
         self.cartship1 = Cartship.objects.get(pk=1)
         self.cartship2 = Cartship.objects.get(pk=2)
         self.commodity = Commodity.objects.get(pk=1)
@@ -49,15 +49,15 @@ class OrderViewTest(TestCase):
         }
 
 
-    def test_update_cartshipes(self):
+    def test_update_cartships(self):
         data = [
             ([1], False),
             ([1], True),
         ]
         for checkboxes, checkbox_all in data:
-            updated_cartshipes = order_service.update_cartshipes(
+            updated_cartships = order_service.update_cartships(
                 self.cart, checkboxes, self.quantities, checkbox_all)
-            for index, updated in enumerate(updated_cartshipes):
+            for index, updated in enumerate(updated_cartships):
                 self.assertEqual(updated.quantity, self.quantities[index])
                 if (updated.pk in checkboxes) or checkbox_all:
                     self.assertEqual(updated.is_deleted, False)
