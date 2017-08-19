@@ -1,20 +1,23 @@
-<footer class="footer custom-footer">
+<footer class="footer">
     <div class="container">
         <div class="row">
-            <ul class="col-lg-12 list-unstyled">
-                <li class="col-lg-2">
-                    <a href="{% url 'about' %}">关于我们</a>
-                </li>
-                <li class="col-lg-2">
-                    <a href="{% url 'privacy' %}">隐私政策</a>
-                </li>
-                <li class="col-lg-2">
-                    <a href="{% url 'guides' %}">购物指南</a>
-                </li>
-                <li class="col-lg-2">
-                    <a href="">©DeltaGo 2017</a>
-                </li>
-            </ul>
+            <div class="col-md-12">
+                <ul class="nav navbar-nav footer-nav">
+                    <li>
+                        <a href="{% url 'about' %}">关于我们</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'privacy' %}">隐私政策</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'guides' %}">购物指南</a>
+                    </li>
+                    <li>
+                        <a href="">©DeltaGo 2017</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </footer>
+

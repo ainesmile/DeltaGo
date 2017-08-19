@@ -6,17 +6,19 @@
         <meta name="renderer" content="webkit">
         <meta name="referrer" content="always">
         <meta content="代购 daigou" name="description"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>DeltaGo</title>
         <link rel="shortcut icon" type="image/png" href="{% static 'deltago/img/favicon.png' %}"/>
         <link rel="stylesheet" type="text/css" href="{% static 'deltago/libs/bootstrap/dist/css/bootstrap.min.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'deltago/css/main.css' %}">
     </head>
     <body>
-        {% include './nav.html' %}
+
+        {% include 'deltago/base/nav.html' %}
 
         <div class="main">{% block main %}{% endblock %}</div>
 
-        {% include './footer.html' %}
+        {% include 'deltago/base/footer.html' %}
 
     </body>
     <script type="text/javascript" src="{% static 'deltago/libs/jquery/dist/jquery.min.js' %}"></script>

@@ -16,12 +16,19 @@ body {
     position:absolute;
     bottom:0;
     width:100%;
-    height: 2.5em;
-    padding-top: 0.5em;
+    height: 3.5em;
     color: #999;
     overflow: hidden;
     zoom: 1;
-    
+    font-size: 1em;
+    z-index: 1001;
+}
+
+ul.footer-nav {
+    display: table;
+}
+ul.footer-nav > li {
+    display: table-cell;
 }
 
 .btn-delete {
