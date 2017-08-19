@@ -29,6 +29,11 @@ body {
     border: 1px solid #e0245e;
     color: #fff;
 }
+.btn-pink {
+    color: #fff;
+    background-color: pink;
+    border-color: pink;
+}
 
 a.disabled {
    pointer-events: none;

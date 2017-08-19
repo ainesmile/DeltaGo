@@ -7,7 +7,7 @@
             <ul class="list-unstyled">
                 {% for order in orders %}
                     <li>
-                        <a href="" type="button" class="btn btn-success btn-sm pull-right">再次购买</a>
+                        <a href="{% url 'order_details' order.pk %}" type="button" class="btn btn-pink btn-sm pull-right">查看详情</a>
                         <div>
                             {% include 'deltago/order/basic.html' %}
 
