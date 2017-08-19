@@ -19,6 +19,8 @@ def check_review_useful_available(comment, user):
         return (True, True)
 
 def get_review_auth(comment, user):
+    if user.is_anonymous:
+        return {'useful': False,'unuseful': False,'edit': False,'delete': False}
     if user.is_superuser:
         return {'useful': True,'unuseful': True,'edit': True,'delete': True}
     if comment.author == user:
