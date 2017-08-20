@@ -47,3 +47,7 @@ a.disabled {
    cursor: default;
    color: #999999;
 }
+
+ul.list-review > li {
+    padding-right: 30px;
+}

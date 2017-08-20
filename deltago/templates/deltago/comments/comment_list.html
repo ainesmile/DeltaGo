@@ -8,8 +8,12 @@
                 发表于 {{comment.created_time|human_time_date}}
             </p>
             <p>{{comment.content}}</p>
-            {% include 'deltago/comments/review.html' %}
+
+            <div>
+                {% include 'deltago/comments/review.html' %}
+            </div>
         </div>
+        
         <div>
             {% include 'deltago/comments/reply_list.html' %}
         </div>
