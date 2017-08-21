@@ -1,9 +1,9 @@
-<div class="col-md-3">
-    <p>商品金额：NZD${{order.fee.subtotal}}</p>
-    <p>运费：NZD${{order.fee.ship_fee}} </p>
-    <p>订单金额：NZD${{order.fee.total}} </p>
-    <p>汇率：{{order.fee.exchange_rate}}</p>
-    {% if order.payment_method %}
-        <p>支付方式：{{order.payment_method}}</p>
-    {% endif %}
-</div>
+<ul class="list-inline">
+    <li class="list-inline-item">
+        商品金额：${{order.fee.subtotal}}
+    </li>
+    <li class="list-inline-item">运费：${{order.fee.ship_fee}}</li>
+    <li class="list-inline-item">订单金额：${{order.fee.total}}</li>
+    <li class="list-inline-item">汇率：{{order.fee.exchange_rate}}</li>
+    <li class="list-inline-item">支付方式：{{order.payment_method|default:'未支付'}}</li>
+</ul>

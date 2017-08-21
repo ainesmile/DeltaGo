@@ -20,7 +20,7 @@ body {
     color: #999;
     overflow: hidden;
     zoom: 1;
-    font-size: 1em;
+    font-size: 0.8em;
     z-index: 1001;
 }
 
@@ -50,4 +50,8 @@ a.disabled {
 
 ul.list-review > li {
     padding-right: 30px;
+}
+
+.order-details >div > h4 {
+    color: #40e0d0;
 }

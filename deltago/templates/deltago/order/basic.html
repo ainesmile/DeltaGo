@@ -1,9 +1,10 @@
 {% load date %}
-
-    <p>
+<ul class="list-inline">
+    <li class="list-inline-item">
         <a href="{% url 'order_details' order.pk %}">订单号：{{order.serial_code}}</a>
-    </p>
-    <p>订单状态：{{order.state_text}}</p>
-    <p>订单金额：NZ${{order.fee.total}}</p>
-    <p>最近更新：{{order.unpaid_time|human_time_date}} {{order.unpaid_time|human_time_hour}}</p>
+    </li>
+    <li class="list-inline-item">订单状态：{{order.state_text}}</li>
+    <li class="list-inline-item">订单金额：${{order.fee.total}}</li>
+    <li class="list-inline-item">最近更新：{{order.unpaid_time|human_time_date}} {{order.unpaid_time|human_time_hour}}</li>
+</ul>
     
