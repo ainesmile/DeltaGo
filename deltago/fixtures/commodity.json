@@ -5,12 +5,9 @@
   "fields": {
       "name": "Heinz Organic Baby Food Apple, Banana Avocado",
       "volume_size": "pouch 120g",
-      "price": "2.09",
-      "was_price": "null",
-      "special_price": "null",
+      "price": 209,
+      "special_price": 209,
       "category": "B",
-      "sub_category": "F4",
-      "stockcode": "1",
       "online_date": "2017-07-09T08:58:10.898Z"
   }
 },
@@ -18,14 +15,11 @@
   "model": "deltago.commodity",
   "pk": 2,
   "fields": {
-    "stockcode": "2",
     "name": "Heinz Organic Baby Food Apple,raspbry, Blackbry",
     "volume_size": "pouch 120g",
-    "price": "2.09",
-    "was_price": "null",
-    "special_price": "null",
+    "price": 209,
+    "special_price": 100,
     "category": "B",
-    "sub_category": "F4",
     "online_date": "2017-07-09T08:58:10.901Z"
   }
 },
@@ -33,120 +27,96 @@
   "model": "deltago.commodity",
   "pk": 3,
   "fields": {
-    "stockcode": "3",
     "name": "Farex Breakfast On The Go Baby Food Apple Oatmeal 6month",
     "volume_size": "pouch 120g",
-    "price": "2.09",
-    "was_price": "null",
-    "special_price": "null",
+    "price": 209,
+    "special_price": 100,
     "category": "B",
-    "online_date": "2017-07-09T08:58:10.983Z",
-    "sub_category": "F6"
+    "online_date": "2017-07-09T08:58:10.983Z"
   }
 },
 {
   "model": "deltago.commodity",
   "pk": 4,
   "fields": {
-    "stockcode": "4",
     "name": "Watties Stage 2 Baby Food Vanilla Custard",
     "volume_size": "pouch 120g",
-    "price": "1.99",
-    "was_price": "null",
-    "special_price": "null",
+    "price": 199,
+    "special_price": 100,
     "category": "B",
-    "online_date": "2017-07-09T08:58:11.124Z",
-    "sub_category": "F6"
+    "online_date": "2017-07-09T08:58:11.124Z"
   }
 },
 {
   "model": "deltago.commodity",
   "pk": 5,
   "fields": {
-    "stockcode": "5",
     "name": "Little Bellies Baby Biscuits Animals 12 Month+",
     "volume_size": "100g",
-    "price": "3.99",
-    "was_price": "null",
-    "special_price": "null",
+    "price": 399,
+    "special_price": 100,
     "category": "B",
-    "online_date": "2017-07-09T08:58:11.127Z",
-    "sub_category": "F"
+    "online_date": "2017-07-09T08:58:11.127Z"
   }
 },
 {
   "model": "deltago.commodity",
   "pk": 6,
   "fields": {
-    "stockcode": "6",
     "name": "Watties Stage 3 Baby Food Creamy Tuna & Veg Pasta",
     "volume_size": "170g",
-    "price": "1.80",
-    "was_price": "null",
-    "special_price": "null",
+    "price": 180,
+    "special_price": 100,
     "category": "B",
-    "online_date": "2017-07-09T08:58:11.275Z",
-    "sub_category": "F9"
+    "online_date": "2017-07-09T08:58:11.275Z"
   }
 },
 {
   "model": "deltago.commodity",
   "pk": 7,
   "fields": {
-    "stockcode": "7",
     "name": "Betadine Antiseptic Ointment",
     "volume_size": "25g",
-    "price": "null",
-    "was_price": "5.99",
-    "special_price": "5.00",
+    "price": 500,
+    "special_price": 100,
     "category": "B",
-    "online_date": "2017-07-09T08:58:11.279Z",
-    "sub_category": "M"
+    "online_date": "2017-07-09T08:58:11.279Z"
   }
 },
 {
   "model": "deltago.commodity",
   "pk": 8,
   "fields": {
-    "stockcode": "8",
     "name": "Baby U Nappy Bags Sacks",
     "volume_size": "200pk",
-    "price": "4.99",
-    "was_price": "null",
-    "special_price": "null",
+    "price": 499,
+    "special_price": 100,
     "category": "B",
-    "online_date": "2017-07-09T08:58:11.323Z",
-    "sub_category": "N"
+    "online_date": "2017-07-09T08:58:11.323Z"
   }
 },
 {
   "model": "deltago.commodity",
   "pk": 9,
   "fields": {
-    "stockcode": "9",
     "name": "Johnsons Baby Talcum Powder",
     "volume_size": "400g",
-    "price": "4.50",
-    "was_price": "null",
-    "special_price": "null",
+    "price": 450,
+    "special_price": 100,
     "category": "B",
-    "online_date": "2017-07-09T08:58:11.880Z",
-    "sub_category": "T"
+    "online_date": "2017-07-09T08:58:11.880Z"
   }
 },
 {
   "model": "deltago.commodity",
   "pk": 10,
   "fields": {
-    "stockcode": "10",
     "name": "Watties Little Kids Stage 4 Toddler Food Spaghetti Bolognese",
     "volume_size": "220g",
-    "price": "2.15",
-    "was_price": "null",
-    "special_price": "null",
+    "price": 215,
+    "special_price": 100,
     "category": "B",
-    "online_date": "2017-07-09T08:58:11.950Z",
-    "sub_category": "F12"
+    "online_date": "2017-07-09T08:58:11.950Z"
   }
 }
 ]
