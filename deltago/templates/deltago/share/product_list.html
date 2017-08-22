@@ -1,10 +1,10 @@
 {% for product in products %}
     <li class="list-unstyled">
         <p>
-            <a href="{% url 'details' product.pk  %}">{{product.name}}</a>
+            <a href="">{{product.name}}</a>
         </p>
         <p>
-            {% include 'deltago/share/price.html' %}
+            <span>${{product.price}}</span>
             <span>{{product.volume_size}}</span>
         </p>
         {% include 'deltago/cart/add_to_cart.html' %}

@@ -1,9 +1,0 @@
-<div class="col-md-2">
-    <ul class="list-unstyled">
-        {% for nav in sub_navs %}
-            <li>
-                <a href="{% url 'sub_category' categ_name nav.name %}">{{nav.text}}</a>
-            </li>
-        {% endfor %}
-    </ul>
-</div>
