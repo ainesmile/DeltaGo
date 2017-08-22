@@ -1,25 +1,19 @@
-{% if details.description %}
-    <p>{{details.description}}</p>
-{% endif %}
 
-{% if ingredients %}
-    <p>
-        <b>Ingredient:</b> {{ingredients.text}} 
-        <small><b>Note:</b> {{ingredients.note}}</small>
-    </p>
-{% endif %}
 
-{% if nutritions %}
-<table class="table">
-    <thead>
+{% if details.nutrition_table %}
+<table class="table table-hover">
+    <caption>营养成分表</caption>
         <tr>
-            <th>Nutrient</th>
-            <th>Per Serving</th>
-            <th>Per 100g</th>
+            <th></th>
+            <th>Serving Size: {{details.serving_size}}</th>
+            <th>Servings: {{details.servings}}</th>
         </tr>
-    </thead>
-    <tbody>
-        {% for key, serving, gram in nutritions %}
+        <tr>
+            <th>营养成分</th>
+            <th>每份</th>
+            <th>每100g</th>
+        </tr>
+        {% for key, serving, gram in details.nutrition_table %}
             <tr>
                 <th scope="row">{{key}}</th>
                 <td>{{serving}}</td>
@@ -30,9 +24,3 @@
 </table>
 {% endif %}
 
-{% if details.claim %}
-<p><b>Claims:</b> {{details.claim}}</p>
-{% endif %}
-{% if details.endorsement %}
-<p><b>Endorsements:</b> {{details.endorsement}}</p>
-{% endif %}

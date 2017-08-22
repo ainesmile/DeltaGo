@@ -11,14 +11,14 @@
         "serving_size": "15g",
         "servings": "25",
         "nutritions": [
-            ["Energy", "370.5kJ", "2470kJ"],
-            ["Protein", "4.6g", "30.3g"],
-            ["Fat, total", "7.3g", "48.4g"],
-            ["-saturated", "1.0g", "6.3g"],
-            ["Carbohydrate", "1.4g", "9.6g"],
-            ["-sugars", "0.9g", "5.7g"],
-            ["Dietary fibre total", "1.2g", "7.7g"],
-            ["Sodium", "1.3mg", "9mg"]
+            ["能量", "370.5kJ", "2470kJ"],
+            ["蛋白质", "4.6g", "30.3g"],
+            ["脂肪", "7.3g", "48.4g"],
+            [" -饱和脂肪", "1.0g", "6.3g"],
+            ["碳水化合物", "1.4g", "9.6g"],
+            [" -糖", "0.9g", "5.7g"],
+            ["膳食纤维", "1.2g", "7.7g"],
+            ["钠", "1.3mg", "9mg"]
         ],
         "claims": "No Salt",
         "health_star_rating": "5"

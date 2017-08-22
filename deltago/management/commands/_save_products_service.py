@@ -7,9 +7,9 @@ def set_kwargs(item, fields):
     for field in fields:
         try:
             value = item[field]
-            if value == "null":
-                value = None
         except:
+            value = None
+        if value == "null":
             value = None
         kwargs[field] = value
     return kwargs
@@ -27,6 +27,7 @@ def save_commodity_and_details(items):
     for item in items:
         new_commodity = create(item, commodity_fields, Commodity)
         item["commodity"] = new_commodity
+        item["nutritions"] = json.dumps(item["nutritions"])
         create(item, details_fields, Details)
 
 def save_search():

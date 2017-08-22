@@ -4,129 +4,17 @@
   "pk": 1,
   "fields": {
     "commodity": 1,
-    "description": "Made in Australia",
-    "pic_url": "https://shop.countdown.co.nz/Content/ProductImages/large/9300657162061.jpg/Heinz-Organic-Baby-Food-Apple-Banana-Avocado.jpg",
-    "nutrition": "[\"385kJ\", \"320kJ\", \"0.7g\", \"0.6g\", \"1.4g\", \"1.2g\", \"17.8g\", \"14.8g\", \"16.9g\", \"14.1g\", \"3mg\", \"2mg\"]",
-    "ingredient": "{\"note\": \"1 Organic\", \"text\": \"Apples1 (81%), Banana (13.7%), Avocado (5%), Vitamin C\"}",
-    "claim": "No Added Colours or Flavours, No Preservatives, No Added Sugar",
-    "endorsement": "Australian Certified Organic"
-  }
-},
-{
-  "model": "deltago.details",
-  "pk": 2,
-  "fields": {
-    "commodity": 2,
-    "description": "Made in Australia",
-    "pic_url": "https://shop.countdown.co.nz/Content/ProductImages/large/9300657162061.jpg/Heinz-Organic-Baby-Food-Apple-Banana-Avocado.jpg",
-    "nutrition": "[\"385kJ\", \"320kJ\", \"0.7g\", \"0.6g\", \"1.4g\", \"1.2g\", \"17.8g\", \"14.8g\", \"16.9g\", \"14.1g\", \"3mg\", \"2mg\"]",
-    "ingredient": "{\"note\": \"1 Organic\", \"text\": \"Apples1 (81%), Banana (13.7%), Avocado (5%), Vitamin C\"}",
-    "claim": "No Added Colours or Flavours, No Preservatives, No Added Sugar",
-    "endorsement": "Australian Certified Organic"
-  }
-},
-{
-  "model": "deltago.details",
-  "pk": 3,
-  "fields": {
-    "commodity": 3,
-    "description": "Made in Australia",
-    "pic_url": "https://shop.countdown.co.nz/Content/ProductImages/large/9300657162061.jpg/Heinz-Organic-Baby-Food-Apple-Banana-Avocado.jpg",
-    "nutrition": "[\"385kJ\", \"320kJ\", \"0.7g\", \"0.6g\", \"1.4g\", \"1.2g\", \"17.8g\", \"14.8g\", \"16.9g\", \"14.1g\", \"3mg\", \"2mg\"]",
-    "ingredient": "{\"note\": \"1 Organic\", \"text\": \"Apples1 (81%), Banana (13.7%), Avocado (5%), Vitamin C\"}",
-    "claim": "No Added Colours or Flavours, No Preservatives, No Added Sugar",
-    "endorsement": "Australian Certified Organic"
-  }
-},
-{
-  "model": "deltago.details",
-  "pk": 4,
-  "fields": {
-    "commodity": 4,
-    "description": "Made in Australia",
-    "pic_url": "https://shop.countdown.co.nz/Content/ProductImages/large/9300657162061.jpg/Heinz-Organic-Baby-Food-Apple-Banana-Avocado.jpg",
-    "nutrition": "[\"385kJ\", \"320kJ\", \"0.7g\", \"0.6g\", \"1.4g\", \"1.2g\", \"17.8g\", \"14.8g\", \"16.9g\", \"14.1g\", \"3mg\", \"2mg\"]",
-    "ingredient": "{\"note\": \"1 Organic\", \"text\": \"Apples1 (81%), Banana (13.7%), Avocado (5%), Vitamin C\"}",
-    "claim": "No Added Colours or Flavours, No Preservatives, No Added Sugar",
-    "endorsement": "Australian Certified Organic"
-  }
-},
-{
-  "model": "deltago.details",
-  "pk": 5,
-  "fields": {
-    "commodity": 5,
-    "description": "Made in Australia",
-    "pic_url": "https://shop.countdown.co.nz/Content/ProductImages/large/9300657162061.jpg/Heinz-Organic-Baby-Food-Apple-Banana-Avocado.jpg",
-    "nutrition": "[\"385kJ\", \"320kJ\", \"0.7g\", \"0.6g\", \"1.4g\", \"1.2g\", \"17.8g\", \"14.8g\", \"16.9g\", \"14.1g\", \"3mg\", \"2mg\"]",
-    "ingredient": "{\"note\": \"1 Organic\", \"text\": \"Apples1 (81%), Banana (13.7%), Avocado (5%), Vitamin C\"}",
-    "claim": "No Added Colours or Flavours, No Preservatives, No Added Sugar",
-    "endorsement": "Australian Certified Organic"
-  }
-},
-{
-  "model": "deltago.details",
-  "pk": 6,
-  "fields": {
-    "commodity": 6,
-    "description": "Made in Australia",
-    "pic_url": "https://shop.countdown.co.nz/Content/ProductImages/large/9300657162061.jpg/Heinz-Organic-Baby-Food-Apple-Banana-Avocado.jpg",
-    "nutrition": "[\"385kJ\", \"320kJ\", \"0.7g\", \"0.6g\", \"1.4g\", \"1.2g\", \"17.8g\", \"14.8g\", \"16.9g\", \"14.1g\", \"3mg\", \"2mg\"]",
-    "ingredient": "{\"note\": \"1 Organic\", \"text\": \"Apples1 (81%), Banana (13.7%), Avocado (5%), Vitamin C\"}",
-    "claim": "No Added Colours or Flavours, No Preservatives, No Added Sugar",
-    "endorsement": "Australian Certified Organic"
-  }
-},
-{
-  "model": "deltago.details",
-  "pk": 7,
-  "fields": {
-    "commodity": 7,
-    "description": "Made in Australia",
-    "pic_url": "https://shop.countdown.co.nz/Content/ProductImages/large/9300657162061.jpg/Heinz-Organic-Baby-Food-Apple-Banana-Avocado.jpg",
-    "nutrition": "[\"385kJ\", \"320kJ\", \"0.7g\", \"0.6g\", \"1.4g\", \"1.2g\", \"17.8g\", \"14.8g\", \"16.9g\", \"14.1g\", \"3mg\", \"2mg\"]",
-    "ingredient": "{\"note\": \"1 Organic\", \"text\": \"Apples1 (81%), Banana (13.7%), Avocado (5%), Vitamin C\"}",
-    "claim": "No Added Colours or Flavours, No Preservatives, No Added Sugar",
-    "endorsement": "Australian Certified Organic"
-  }
-},
-{
-  "model": "deltago.details",
-  "pk": 8,
-  "fields": {
-    "commodity": 8,
-    "description": "Made in Australia",
-    "pic_url": "https://shop.countdown.co.nz/Content/ProductImages/large/9300657162061.jpg/Heinz-Organic-Baby-Food-Apple-Banana-Avocado.jpg",
-    "nutrition": "[\"385kJ\", \"320kJ\", \"0.7g\", \"0.6g\", \"1.4g\", \"1.2g\", \"17.8g\", \"14.8g\", \"16.9g\", \"14.1g\", \"3mg\", \"2mg\"]",
-    "ingredient": "{\"note\": \"1 Organic\", \"text\": \"Apples1 (81%), Banana (13.7%), Avocado (5%), Vitamin C\"}",
-    "claim": "No Added Colours or Flavours, No Preservatives, No Added Sugar",
-    "endorsement": "Australian Certified Organic"
-  }
-},
-{
-  "model": "deltago.details",
-  "pk": 9,
-  "fields": {
-    "commodity": 9,
-    "description": "Made in Australia",
-    "pic_url": "https://shop.countdown.co.nz/Content/ProductImages/large/9300657162061.jpg/Heinz-Organic-Baby-Food-Apple-Banana-Avocado.jpg",
-    "nutrition": "[\"385kJ\", \"320kJ\", \"0.7g\", \"0.6g\", \"1.4g\", \"1.2g\", \"17.8g\", \"14.8g\", \"16.9g\", \"14.1g\", \"3mg\", \"2mg\"]",
-    "ingredient": "{\"note\": \"1 Organic\", \"text\": \"Apples1 (81%), Banana (13.7%), Avocado (5%), Vitamin C\"}",
-    "claim": "No Added Colours or Flavours, No Preservatives, No Added Sugar",
-    "endorsement": "Australian Certified Organic"
-  }
-},
-{
-  "model": "deltago.details",
-  "pk": 10,
-  "fields": {
-    "commodity": 10,
-    "description": "Made in Australia",
-    "pic_url": "https://shop.countdown.co.nz/Content/ProductImages/large/9300657162061.jpg/Heinz-Organic-Baby-Food-Apple-Banana-Avocado.jpg",
-    "nutrition": "[\"385kJ\", \"320kJ\", \"0.7g\", \"0.6g\", \"1.4g\", \"1.2g\", \"17.8g\", \"14.8g\", \"16.9g\", \"14.1g\", \"3mg\", \"2mg\"]",
-    "ingredient": "{\"note\": \"1 Organic\", \"text\": \"Apples1 (81%), Banana (13.7%), Avocado (5%), Vitamin C\"}",
-    "claim": "No Added Colours or Flavours, No Preservatives, No Added Sugar",
-    "endorsement": "Australian Certified Organic"
+    "ingredient": "Peanuts (100%)",
+    "serving_size": "15g",
+    "servings": 25,
+    "nutritions": "[[\"Energy\", \"370.5kJ\", \"2470kJ\"], [\"Protein\", \"4.6g\", \"30.3g\"], [\"Fat, total\", \"7.3g\", \"48.4g\"], [\"-saturated\", \"1.0g\", \"6.3g\"], [\"Carbohydrate\", \"1.4g\", \"9.6g\"], [\"-sugars\", \"0.9g\", \"5.7g\"], [\"Dietary fibre total\", \"1.2g\", \"7.7g\"], [\"Sodium\", \"1.3mg\", \"9mg\"]]",
+    "claims": "No Salt",
+    "health_star_rating": 5,
+    "weight": "603",
+    "made_in": "New Zealand",
+    "pic_url": null,
+    "description": null,
+    "endorsement": null
   }
 }
 ]

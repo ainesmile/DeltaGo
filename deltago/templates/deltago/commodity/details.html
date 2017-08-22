@@ -9,9 +9,33 @@
     <section>
         <div class="container">
             <div class="col-md-6">
-                <h2>{{product.name}}</h2>
-                {% include 'deltago/share/price.html' %}
+                <h2>{{details.commodity.name}}</h2>
+                <p>价格：${{details.commodity.price}}</p>
+                <p class="{% firstof details.health_star_rating 'display-none' %}">
+                    <a href="https://www.mpi.govt.nz/food-safety/whats-in-our-food/food-labelling/health-star-ratings/how-health-star-ratings-work/" target="_blank">
+                    健康星级评分（Health Star Rating）</a>：
+                    {% for _ in  details.health_star_list %}
+                        <span class="glyphicon glyphicon-star star"></span>
+                    {% endfor %}
+
+                </p>
+                <p class="{% firstof details.made_in 'display-none' %}">
+                    产地： {{details.made_in}} 🇳🇿
+                </p>
+                <p class="{% firstof details.description 'display-none' %}">
+                    Description: {{details.description}}
+                </p>
+                <p class="{% firstof details.claims 'display-none' %}">
+                    声明： {{details.claims}}
+                </p>
+                <p class="{% firstof details.endorsement 'display-none' %}">
+                    Endorsement: {{details.endorsement}}
+                </p>
+                <p class="{% firstof details.ingredient 'display-none' %}">
+                    配料：{{details.ingredient}}
+                </p>
                 {% include 'deltago/commodity/nutrition.html' %}
+
             </div>
         </div>
         <hr class="star-light">

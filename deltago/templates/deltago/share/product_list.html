@@ -1,7 +1,7 @@
 {% for product in products %}
     <li class="list-unstyled">
         <p>
-            <a href="">{{product.name}}</a>
+            <a href="{% url 'product_details' product.pk %}">{{product.name}}</a>
         </p>
         <p>
             <span>${{product.price}}</span>

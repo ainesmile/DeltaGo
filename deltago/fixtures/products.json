@@ -1,0 +1,14 @@
+[
+{
+  "model": "deltago.commodity",
+  "pk": 1,
+  "fields": {
+    "name": "Pics Peanut Butter No Salt",
+    "price": 650,
+    "special_price": null,
+    "volume_size": "380g",
+    "category": "Food",
+    "online_date": "2017-08-22T10:00:09.040Z"
+  }
+}
+]
