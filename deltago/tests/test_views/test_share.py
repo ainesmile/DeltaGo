@@ -21,15 +21,6 @@ class ShareServiceTest(TestCase):
         self.cartship1 = Cartship.objects.get(pk=1)
         self.cartship2 = Cartship.objects.get(pk=2)
 
-    def test_get_commodity_price(self):
-        data = [
-            (self.commodity1, 209),
-            (self.commodity7, 599),
-        ]
-        for commodity, e_price in data:
-            price = share_service.get_commodity_price(commodity)
-            self.assertEqual(price, e_price)
-
     def test_get_cartship_subtotal(self):
         data = [
             (self.cartship1, 209),

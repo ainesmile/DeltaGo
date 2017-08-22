@@ -119,7 +119,7 @@ def get_order_list_basic_info(orders):
 
 # A3 display order details help functions
 def get_commodity_info_table_item(cartship):
-    price = convert_fee(share_service.get_commodity_price(cartship.commodity))
+    price = convert_fee(cartship.commodity.price)
     commodity_total = convert_fee(share_service.get_cartship_subtotal(cartship))
     return {
         "commodity": cartship.commodity,

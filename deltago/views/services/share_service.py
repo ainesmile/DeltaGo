@@ -11,16 +11,9 @@ def pagination(items, page, paginate_by):
         text = paginator.page(paginator.num_pages)
     return text
 
-def get_commodity_price(commodity):
-    if commodity.price and commodity.price != "null":
-        price = commodity.price
-    else:
-        price = commodity.was_price
-    return float(price) * 100
-
 def get_cartship_subtotal(cartship):
     commodity = cartship.commodity
-    price = get_commodity_price(commodity)
+    price = commodity.price
     quantity = cartship.quantity
     return price * quantity
 
