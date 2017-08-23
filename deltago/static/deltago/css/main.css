@@ -66,3 +66,9 @@ ul.list-review > li {
 table > caption {
     text-align: center;
 }
+.carousel-control.left {
+    background-image: none;
+}
+.carousel-control.right {
+    background-image: none;
+}
