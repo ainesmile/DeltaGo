@@ -1,15 +1,15 @@
 [
     {
-        "name": "Pics Peanut Butter No Salt",
-        "stockcode": "360257",
+        "name": "Pic's Peanut Butter Crunchy No Salt 380g",
+        "code": 1,
         "price": 650,
         "volume_size": "380g",
         "category": "Food",
-        "weight": "603",
+        "weight": 603,
         "made_in": "New Zealand",
         "ingredient": "Peanuts (100%)",
         "serving_size": "15g",
-        "servings": "25",
+        "servings": 25,
         "nutritions": [
             ["能量", "370.5kJ", "2470kJ"],
             ["蛋白质", "4.6g", "30.3g"],
@@ -21,6 +21,107 @@
             ["钠", "1.3mg", "9mg"]
         ],
         "claims": "No Salt",
-        "health_star_rating": "5"
+        "health_star_rating": 5,
+        "pic_url": "pics-peanut-butter-crunchy-no-salt-380"
+    },
+    {
+        "name": "Pic's Peanut Butter Crunchy No Salt 1kg",
+        "code": 2,
+        "price": 1849,
+        "volume_size": "1kg",
+        "category": "Food",
+        "weight": 1144,
+        "made_in": "New Zealand",
+        "ingredient": "Peanuts (100%)",
+        "serving_size": "15g",
+        "servings": 66,
+        "nutritions": [
+            ["能量", "370kJ", "2470kJ"],
+            ["蛋白质", "4.6g", "30.3g"],
+            ["脂肪", "7.3g", "48.4g"],
+            [" -饱和脂肪", "1.0g", "6.3g"],
+            ["碳水化合物", "1.4g", "9.6g"],
+            [" -糖", "0.9g", "5.7g"],
+            ["膳食纤维", "1.2g", "7.7g"],
+            ["钠", "1.3mg", "9mg"]
+        ],
+        "claims": "No Salt",
+        "health_star_rating": 5,
+        "pic_url": "pics-peanut-butter-crunchy-no-salt-1000"
+    },
+    {
+        "name": "Pic's Peanut Butter Crunchy 380g",
+        "code": 3,
+        "price": 650,
+        "volume_size": "380g",
+        "category": "Food",
+        "weight": 603,
+        "made_in": "New Zealand",
+        "ingredient": "Peanuts (99.5%), Salt",
+        "serving_size": "15g",
+        "servings": 25,
+        "nutritions": [
+            ["能量", "370.5kJ", "2470kJ"],
+            ["蛋白质", "4.6g", "30.3g"],
+            ["脂肪", "7.3g", "48.4g"],
+            [" -饱和脂肪", "1.0g", "6.3g"],
+            ["碳水化合物", "1.4g", "9.6g"],
+            [" -糖", "0.9g", "5.7g"],
+            ["膳食纤维", "1.2g", "7.7g"],
+            ["钠", "30mg", "200mg"]
+        ],
+        "claims": "",
+        "health_star_rating": 5,
+        "pic_url": "pics-peanut-butter-crunchy-380"
+    },
+    {
+        "name": "Pic's Peanut Butter Smooth 380g",
+        "code": 4,
+        "price": 650,
+        "volume_size": "380g",
+        "category": "Food",
+        "weight": "603",
+        "made_in": "New Zealand",
+        "ingredient": "Peanuts, Salt",
+        "serving_size": "15g",
+        "servings": "25",
+        "nutritions": [
+            ["能量", "358kJ", "2380kJ"],
+            ["蛋白质", "3.7g", "24.7g"],
+            ["脂肪", "7.9g", "52.5g"],
+            [" -饱和脂肪", "0.8g", "5.4g"],
+            [" -反式脂肪", "0.1g", "0.1g"],
+            ["碳水化合物", "1.4g", "9g"],
+            [" -糖", "0.8g", "5g"],
+            ["钠", "30mg", "200mg"]
+        ],
+        "claims": "",
+        "health_star_rating": 5,
+        "pic_url": "pics-peanut-butter-smooth-380"
+    },
+    {
+        "name": "Pic's Peanut Butter Crunchy 1kg",
+        "code": 5,
+        "price": 1849,
+        "volume_size": "1kg",
+        "category": "Food",
+        "weight": 1144,
+        "made_in": "New Zealand",
+        "ingredient": "Peanuts, Salt",
+        "serving_size": "15g",
+        "servings": 66,
+        "nutritions": [
+            ["能量", "358kJ", "2380kJ"],
+            ["蛋白质", "3.7g", "24.7g"],
+            ["脂肪", "7.3g", "48.5g"],
+            [" -饱和脂肪", "0.8g", "5.4g"],
+            [" -反式脂肪", "<0.1g", "<0.1g"],
+            ["碳水化合物", "1.4g", "9g"],
+            [" -糖", "0.8g", "5g"],
+            ["钠", "30mg", "200mg"]
+        ],
+        "claims": "",
+        "health_star_rating": 5,
+        "pic_url": "pics-peanut-butter-crunchy-1000"
     }
 ]

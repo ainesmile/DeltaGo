@@ -3,3 +3,5 @@ db.sqlite3
 libs/
 .cache/
 .DS_Store
+img/products/
+deltago/static/deltago/img/products/
