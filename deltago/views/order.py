@@ -11,12 +11,12 @@ def checkout(request):
     if request.method == 'POST':
         quantities = request.POST.getlist('quantity')
         checkboxes = request.POST.getlist('checkbox')
-        checkbox_all = request.POST.getlist('checkbox_all')
+        checkbox_all = bool(request.POST.get('checkbox_all'))
         try:
             order_service.generate_order(user, checkboxes, quantities, checkbox_all)
         except errors.EmptyCartError:
             print 'please choose at least one item'
-    return redirect('order')
+    return redirect('my_orders')
 
 @login_required(login_url='login')
 def my_orders(request):
@@ -28,5 +28,5 @@ def my_orders(request):
 @login_required(login_url='login')
 def order_details(request, order_id):
     user = request.user
-    order_details = order_service.get_order_details(order_id)
-    return render(request, 'deltago/order/details.html', {"order": order_details})
+    details = order_service.get_order_details(order_id)
+    return render(request, 'deltago/order/details.html', {"order": details})
