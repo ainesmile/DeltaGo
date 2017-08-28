@@ -88,4 +88,8 @@ table > caption {
 }
 
 
+.min-width {
+    width: 4em;
+}
+
 

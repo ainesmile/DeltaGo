@@ -81,14 +81,12 @@ def new_cart_with_unchosens(user, unchosens):
     return new_cart
 
 # A2 display order list help functions
-def convert_fee(amount):
-    return amount / float(100)
 
 def get_order_show_fee(order):
-    subtotal = convert_fee(order.subtotal)
-    total = convert_fee(order.total)
+    subtotal = order.subtotal
+    total = order.total
     ship_fee = total - subtotal
-    exchange_rate = convert_fee(order.exchange_rate)
+    exchange_rate = order.exchange_rate
     return {
         "subtotal": subtotal,
         "total": total,
@@ -119,8 +117,8 @@ def get_order_list_basic_info(orders):
 
 # A3 display order details help functions
 def get_commodity_info_table_item(cartship):
-    price = convert_fee(cartship.commodity.price)
-    commodity_total = convert_fee(share_service.get_cartship_subtotal(cartship))
+    price = cartship.commodity.price
+    commodity_total = share_service.get_cartship_subtotal(cartship)
     return {
         "commodity": cartship.commodity,
         "price": price,

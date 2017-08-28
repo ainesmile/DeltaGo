@@ -1,10 +1,12 @@
 {% load date %}
+{% load price %}
+
 <ul class="list-inline">
     <li class="list-inline-item">
         <a href="{% url 'order_details' order.pk %}">订单号：{{order.serial_code}}</a>
     </li>
     <li class="list-inline-item">订单状态：{{order.state_text}}</li>
-    <li class="list-inline-item">订单金额：${{order.fee.total}}</li>
+    <li class="list-inline-item">订单金额：${{order.fee.total|human_price}}</li>
     <li class="list-inline-item">最近更新：{{order.unpaid_time|human_time_date}} {{order.unpaid_time|human_time_hour}}</li>
 </ul>
     

@@ -35,17 +35,17 @@ class OrderViewTest(TestCase):
         self.order = Order.objects.get(pk=1)
 
         self.e_fee = {
-            "subtotal": 8.36,
-            "total": 13.36,
-            "ship_fee": 5.0,
-            "exchange_rate": 5.0
+            "subtotal": 836,
+            "total": 1336,
+            "ship_fee": 500,
+            "exchange_rate": 500
         }
 
         self.e_commodity_info_table_item = {
             "commodity": self.commodity,
-            "price": 2.09,
+            "price": 209,
             "quantity": 1,
-            "commodity_total": 2.09
+            "commodity_total": 209
         }
 
 
@@ -94,10 +94,6 @@ class OrderViewTest(TestCase):
         new_cart = order_service.new_cart_with_unchosens(self.admin, unchosens)
         self.assertEqual(self.cartship2.cart, new_cart)
 
-    def test_convert_fee(self):
-        amount = order_service.convert_fee(209)
-        self.assertEqual(amount, 2.09)
-
     def test_get_order_show_fee(self):
         fee = order_service.get_order_show_fee(self.order)
         self.assertEqual(fee, self.e_fee)
@@ -117,8 +113,8 @@ class OrderViewTest(TestCase):
 
     def test_get_commodity_info_table(self):
         data = [
-            (1, 2.09, 1, 2.09),
-            (2, 2.09, 2, 4.18)
+            (1, 209, 1, 209),
+            (2, 209, 2, 418)
         ]
         table = order_service.get_commodity_info_table(self.order)
         for index, item in enumerate(table):
