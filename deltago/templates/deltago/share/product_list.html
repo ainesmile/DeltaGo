@@ -1,7 +1,8 @@
+{% load price %}
 <div class="container">
 <div id="products" class="row list-group">
     {% for product in products %}
-        <form action="{% url 'addcart' product.pk %}" method="post" class="cart-form">
+        <form action="{% url 'addcart' product.pk %}" method="post" >
             {% csrf_token %}
                 <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
@@ -12,9 +13,9 @@
                                     {{product.name}}
                                 </a>
                             </p>
-                            <div class="display-inline-block-">
+                            <div>
                             <p>
-                                <span>价格：${{product.price}}</span>
+                                <span>价格：${{product.price|human_price}}</span>
                                 &nbsp;&nbsp;
                                 <span>规格：{{product.volume_size}}</span>
                             </p>

@@ -1,5 +1,5 @@
 {% extends 'deltago/base/base.html' %}
-
+{% load price %}
 {% block main %}
 <section>
 <div class="container">
@@ -27,10 +27,10 @@
                         <input id="checkBox-{{cartship.commodity.pk}}" type="checkbox" name="checkbox" value="{{cartship.pk}}" {{cartship.is_chosen|yesno:"checked, , "}}>
                     </td>
                     <td>
-                        <a href="{% url 'details' cartship.commodity.pk %}">{{cartship.commodity.name}}</a>
+                        <a href="{% url 'product_details' cartship.commodity.pk %}">{{cartship.commodity.name}}</a>
                     </td>
                     <td>
-                        {% include 'deltago/share/price.html' with product=cartship.commodity %}
+                        ${{cartship.commodity.price|human_price}}
                     </td>
                     <td>
                         <input type="number" min="1" name="quantity" value="{{cartship.quantity}}" style="width:2em;">

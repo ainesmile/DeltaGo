@@ -1,9 +1,10 @@
+{% load price %}
 <ul class="list-inline">
     <li class="list-inline-item">
-        商品金额：${{order.fee.subtotal}}
+        商品金额：${{order.fee.subtotal|human_price}}
     </li>
-    <li class="list-inline-item">运费：${{order.fee.ship_fee}}</li>
-    <li class="list-inline-item">订单金额：${{order.fee.total}}</li>
-    <li class="list-inline-item">汇率：{{order.fee.exchange_rate}}</li>
+    <li class="list-inline-item">运费：${{order.fee.ship_fee|human_price}}</li>
+    <li class="list-inline-item">订单金额：${{order.fee.total|human_price}}</li>
+    <li class="list-inline-item">汇率：{{order.fee.exchange_rate|human_price}}</li>
     <li class="list-inline-item">支付方式：{{order.payment_method|default:'未支付'}}</li>
 </ul>

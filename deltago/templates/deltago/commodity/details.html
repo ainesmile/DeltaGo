@@ -1,5 +1,6 @@
 {% extends 'deltago/base/base.html' %}
 {% load static %}
+{% load price %}
 
 {% block main %}
 <section>
@@ -11,7 +12,7 @@
     </div>
     <div class="col-md-6">
         <h2>{{details.commodity.name}}</h2>
-        <p>价格：${{details.commodity.price}}</p>
+        <p>价格：${{details.commodity.price|human_price}}</p>
         <p class="{% firstof details.health_star_rating 'display-none' %}">
             <a href="https://www.mpi.govt.nz/food-safety/whats-in-our-food/food-labelling/health-star-ratings/how-health-star-ratings-work/" target="_blank">
             健康星级评分（Health Star Rating）</a>：
