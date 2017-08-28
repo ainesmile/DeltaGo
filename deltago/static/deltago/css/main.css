@@ -41,6 +41,17 @@ ul.footer-nav > li {
     background-color: pink;
     border-color: pink;
 }
+.btn-blank-green {
+    color: #40c9bd;
+    background-color: white;
+    border-color: #40c9bd;
+}
+.btn-blank-pink {
+    color: #fba3b2;
+    background-color: white;
+    border-color: #fba3b2;
+}
+
 
 a.disabled {
    pointer-events: none;
@@ -52,12 +63,15 @@ ul.list-review > li {
     padding-right: 30px;
 }
 
-.order-details >div > h4 {
+.order-details > div > h4 {
     color: #40e0d0;
 }
 
 .display-none {
     display: none;
+}
+.display-inline-block {
+    display: inline-block;
 }
 
 .star {
@@ -72,3 +86,6 @@ table > caption {
 .carousel-control.right {
     background-image: none;
 }
+
+
+
