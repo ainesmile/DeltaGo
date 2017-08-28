@@ -12,21 +12,25 @@ class SaveProductsServiceTest(TestCase):
 
         self.items = product_data
         self.item = product_data[0]
+        self.name = "Pic's Peanut Butter Crunchy No Salt 380g"
 
     def test_set_kwargs(self):
         fields = ["name", "price", "field_does_not_exit"]
+
         e_kwargs = {
-            "name": "Pics Peanut Butter No Salt",
+            "name": self.name,
             "price": 650,
             "field_does_not_exit": None
         }
+
+
         kwargs = _save_products_service.set_kwargs(self.item, fields)
         self.assertEqual(kwargs, e_kwargs)
 
     def test_create(self):
         commodity_fields = ["name", "price", "special_price", "volume_size", "category"]
         new_commodity = _save_products_service.create(self.item, commodity_fields, Commodity)
-        self.assertEqual(new_commodity.name, "Pics Peanut Butter No Salt")
+        self.assertEqual(new_commodity.name, self.name)
         self.assertEqual(new_commodity.price, 650)
 
     def test_save_commodity_and_details(self):
