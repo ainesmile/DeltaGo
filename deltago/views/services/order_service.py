@@ -15,8 +15,6 @@ from deltago.views.services import cart_service, share_service
 from deltago.templatetags import date
 
 
-SHIP_FEE = 500
-
 # A. help functions
 
 # A1 generate order help functions
@@ -65,7 +63,8 @@ def init_order(cart, subtotal, total):
 
 def new_order_with_chosen(current_cart, chosens):
     subtotal = share_service.get_cartships_subtotal(chosens)
-    total = subtotal + SHIP_FEE
+    ship_fee = share_service.cal_ship_fee(chosens)
+    total = subtotal + ship_fee
     new_order = init_order(current_cart, subtotal, total)
     return new_order
 

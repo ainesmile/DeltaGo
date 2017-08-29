@@ -3,12 +3,20 @@
   "model": "deltago.commodity",
   "pk": 1,
   "fields": {
-    "name": "Pics Peanut Butter No Salt",
-    "price": 650,
-    "special_price": null,
-    "volume_size": "380g",
-    "category": "Food",
-    "online_date": "2017-08-22T10:00:09.040Z"
-  }
+        "name": "Pic's Peanut Butter Crunchy No Salt 380g",
+        "price": 650,
+        "volume_size": "380g",
+        "category": "Food"
+    }
+},
+{
+  "model": "deltago.commodity",
+  "pk": 2,
+  "fields": {
+        "name": "Pic's Peanut Butter Crunchy No Salt 1kg",
+        "price": 1849,
+        "volume_size": "1kg",
+        "category": "Food"
+    }
 }
 ]

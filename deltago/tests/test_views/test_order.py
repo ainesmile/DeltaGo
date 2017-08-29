@@ -7,12 +7,12 @@ from deltago.models import Cartship, Cart, Commodity, Order
 
 from deltago.views.services import order_service
 
-SHIP_FEE = 500
 
 class OrderViewTest(TestCase):
     fixtures = [
         'deltago/fixtures/user.json',
-        'deltago/fixtures/commodity.json',
+        'deltago/fixtures/products.json',
+        'deltago/fixtures/details.json',
         'deltago/fixtures/cart.json',
         'deltago/fixtures/cartship.json',
         'deltago/fixtures/order.json',
@@ -27,7 +27,7 @@ class OrderViewTest(TestCase):
         self.cartship1 = Cartship.objects.get(pk=1)
         self.cartship2 = Cartship.objects.get(pk=2)
         self.commodity = Commodity.objects.get(pk=1)
-        self.price = 209
+        self.price = 650
 
         self.checkboxes = [1]
         self.quantities = [5, 10]
@@ -43,9 +43,9 @@ class OrderViewTest(TestCase):
 
         self.e_commodity_info_table_item = {
             "commodity": self.commodity,
-            "price": 209,
+            "price": 650,
             "quantity": 1,
-            "commodity_total": 209
+            "commodity_total": 650
         }
 
 
@@ -72,8 +72,8 @@ class OrderViewTest(TestCase):
         self.assertEqual(len(serial_code), 20)
 
     def test_init_order(self):
-        subtotal = 209*3
-        total = 209*3+500
+        subtotal = 650*3
+        total = 650*3+500
         new_order = order_service.init_order(self.cart, subtotal, total)
         self.assertEqual(new_order.user, self.admin)
         self.assertEqual(new_order.subtotal, subtotal)
@@ -81,8 +81,11 @@ class OrderViewTest(TestCase):
 
     def test_new_order_with_chosen(self):
         chosens = [self.cartship1]
-        subtotal = 209
-        total = 209 + 500
+        subtotal = 650 * 1
+        weight = max((float(603 * 1 + 200)/1000), 1.0)
+        ship_fee = round(500 * weight, 2)
+        total = subtotal + ship_fee
+
         new_order = order_service.new_order_with_chosen(self.cart, chosens)
         self.assertEqual(new_order.user, self.cart.user)
         self.assertEqual(new_order.cart, self.cart)
@@ -113,8 +116,8 @@ class OrderViewTest(TestCase):
 
     def test_get_commodity_info_table(self):
         data = [
-            (1, 209, 1, 209),
-            (2, 209, 2, 418)
+            (1, 650, 1, 650),
+            (2, 1849, 2, 3698)
         ]
         table = order_service.get_commodity_info_table(self.order)
         for index, item in enumerate(table):
