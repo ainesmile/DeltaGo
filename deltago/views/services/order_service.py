@@ -23,7 +23,7 @@ from deltago.templatetags import date
 def update_cartships(current_cart, checkboxes, quantities, checkbox_all):
     cartships = Cartship.objects.filter(cart=current_cart)
     for index, cartship in enumerate(cartships):
-        is_chosen = checkbox_all or (cartship.pk in checkboxes)
+        is_chosen = checkbox_all or (unicode(cartship.pk) in checkboxes)
         cartship.is_chosen = is_chosen
         if is_chosen and cartship.is_deleted:
             cartship.is_deleted = False

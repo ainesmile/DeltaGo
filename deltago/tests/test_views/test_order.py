@@ -51,8 +51,8 @@ class OrderViewTest(TestCase):
 
     def test_update_cartships(self):
         data = [
-            ([1], False),
-            ([1], True),
+            ([u'1'], False),
+            ([u'1'], True),
         ]
         for checkboxes, checkbox_all in data:
             updated_cartships = order_service.update_cartships(
