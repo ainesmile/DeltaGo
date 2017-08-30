@@ -104,6 +104,7 @@ hr.greyblue {
     border-top: 1px dashed #c5d7f0;
 }
 
-hr.star {
+.star {
     color: #ff6e4e;
 }
+
