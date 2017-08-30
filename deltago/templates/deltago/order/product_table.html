@@ -17,7 +17,7 @@
                         {% for item in order.commodity_info_table %}
                             <tr>
                                 <td>
-                                    <a href="{% url 'order_details' item.commodity.pk %}">{{item.commodity.name}}</a>
+                                    <a href="{% url 'product_details' item.commodity.pk %}">{{item.commodity.name}}</a>
                                 </td>
                                 <td>${{item.price|human_price}}</td>
                                 <td>{{item.quantity}}</td>
