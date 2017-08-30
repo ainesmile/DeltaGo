@@ -1,13 +1,19 @@
-{% if order.ship_details %}
-    <ul class="list-inline">
-        <li class="list-inline-item">
-            收货人：
-        </li>
-        <li class="list-inline-item">收货地址：</li>
-        <li class="list-inline-item">联系电话：</li>
-        <li class="list-inline-item">快递名称：</li>
-        <li class="list-inline-item">快递单号：</li>
-    </ul>
-{% else %}
-    <p>暂无。</p>
-{% endif %}
+<div>
+    <h4>快递详情</h4>
+    {% if order.ship_details %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="col-md-4 col-sm-2 no-padding">收货人：</p>
+                    <p class="col-md-6 col-sm-8 no-padding">收货地址：</p>
+                </div>
+                <div class="col-md-12">
+                    <p class="col-md-4 col-sm-2 no-padding">联系电话：</p>
+                    <p class="col-md-6 col-sm-8 no-padding">快递单号：</p>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <p class="col-md-12">暂无。</p>
+    {% endif %}
+</div>

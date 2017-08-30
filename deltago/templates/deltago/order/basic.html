@@ -1,12 +1,28 @@
 {% load date %}
 {% load price %}
 
-<ul class="list-inline">
-    <li class="list-inline-item">
-        <a href="{% url 'order_details' order.pk %}">订单号：{{order.serial_code}}</a>
-    </li>
-    <li class="list-inline-item">订单状态：{{order.state_text}}</li>
-    <li class="list-inline-item">订单金额：${{order.fee.total|human_price}}</li>
-    <li class="list-inline-item">最近更新：{{order.unpaid_time|human_time_date}} {{order.unpaid_time|human_time_hour}}</li>
-</ul>
-    
+<div>
+<h4>基本信息</h4>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <p class="col-md-4 col-sm-2 no-padding">
+                订单号：{{order.serial_code}}
+            </p>
+            <p class="col-md-6 col-sm-8 no-padding">
+                订单状态：{{order.state_text}}
+            </p>
+        </div>
+        <div class="col-md-12">
+            <p class="col-md-4 col-sm-2 no-padding">
+                订单金额：${{order.fee.total|human_price}}
+            </p>
+            <p class="col-md-6 col-sm-8 no-padding">
+                最近更新：{{order.unpaid_time|human_time_date}} {{order.unpaid_time|human_time_hour}}
+            </p>
+        </div>
+
+    </div>
+</div>
+</div>
+

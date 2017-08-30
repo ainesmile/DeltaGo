@@ -12,6 +12,11 @@ body {
     padding-top: 2em;
     padding-bottom: 3em;
 }
+
+h4 {
+    color: #34bec9;
+}
+
 .footer {
     position:absolute;
     bottom:0;
@@ -30,6 +35,10 @@ ul.footer-nav {
 ul.footer-nav > li {
     display: table-cell;
 }
+ul.list-review > li {
+    padding-right: 30px;
+}
+
 
 .btn-delete {
     background-color: #e0245e;
@@ -59,13 +68,7 @@ a.disabled {
    color: #999999;
 }
 
-ul.list-review > li {
-    padding-right: 30px;
-}
 
-.order-details > div > h4 {
-    color: #40e0d0;
-}
 
 .display-none {
     display: none;
@@ -74,9 +77,7 @@ ul.list-review > li {
     display: inline-block;
 }
 
-.star {
-    color: #ff6e4e;
-}
+
 table > caption {
     text-align: center;
 }
@@ -92,4 +93,17 @@ table > caption {
     width: 4em;
 }
 
+.no-padding {
+    padding: 0;
+}
+hr.greyblue {
+    width:100%; 
+    margin:10px;
+    padding-bottom: 10px;
+    border:0px none white; 
+    border-top: 1px dashed #c5d7f0;
+}
 
+hr.star {
+    color: #ff6e4e;
+}

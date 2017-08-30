@@ -1,29 +1,18 @@
 {% extends 'deltago/base/base.html' %}
 {% load date %}
+{% load price %}
+
 {% block main %}
     <section>
         <div class="container">
             <div class="col-md-12 order-details">
-                <div>
-                    <h4>基本信息</h4>
-                    {% include 'deltago/order/basic.html' %}
-                    <hr>
-                </div>
-                <div>
-                    <h4>快递详情</h4>
-                    {% include 'deltago/order/ship.html' %}
-                    <hr>
-                </div>
-                <div>
-                    <h4>金额详情</h4>
-                    {% include 'deltago/order/fee.html' %}
-                    <hr>
-                </div>
-                <div>
-                    <h4>商品详情</h4>
-                    {% include 'deltago/order/product_table.html' %}
-                    <hr>
-                </div>
+                {% include 'deltago/order/basic.html' %}
+                <hr class="greyblue">
+                {% include 'deltago/order/ship.html' %}
+                <hr class="greyblue">
+                {% include 'deltago/order/fee.html' %}
+                <hr class="greyblue">
+                {% include 'deltago/order/product_table.html' %}
             </div>
         </div>
     </section>

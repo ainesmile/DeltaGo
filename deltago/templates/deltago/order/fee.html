@@ -1,10 +1,24 @@
 {% load price %}
-<ul class="list-inline">
-    <li class="list-inline-item">
-        商品金额：${{order.fee.subtotal|human_price}}
-    </li>
-    <li class="list-inline-item">运费：${{order.fee.ship_fee|human_price}}</li>
-    <li class="list-inline-item">订单金额：${{order.fee.total|human_price}}</li>
-    <li class="list-inline-item">汇率：{{order.fee.exchange_rate|human_price}}</li>
-    <li class="list-inline-item">支付方式：{{order.payment_method|default:'未支付'}}</li>
-</ul>
+<div>
+<h4>金额详情</h4>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <p class="col-md-4 col-sm-2 no-padding">
+                商品金额：${{order.fee.subtotal|human_price}}
+            </p>
+            <p class="col-md-6 col-sm-8 no-padding">
+                运费：${{order.fee.ship_fee|human_price}}
+            </p>
+        </div>
+        <div class="col-md-12">
+            <p class="col-md-4 col-sm-2 no-padding">
+                汇率：{{order.fee.exchange_rate|human_price}}
+            </p>
+            <p class="col-md-6 col-sm-8 no-padding">
+                支付方式：{{order.payment_method|default:'未支付'}}
+            </p>
+        </div>
+    </div>
+</div>
+</div>

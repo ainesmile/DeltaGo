@@ -1,23 +1,32 @@
 {% load price %}
-<table class="table">
-    <thead>
-        <tr>
-            <th>名称</th>
-            <th>单价</th>
-            <th class="min-width">数量</th>
-            <th>小计</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in order.commodity_info_table %}
-            <tr>
-                <td>
-                    <a href="{% url 'order_details' item.commodity.pk %}">{{item.commodity.name}}</a>
-                </td>
-                <td>${{item.price|human_price}}</td>
-                <td>{{item.quantity}}</td>
-                <td>${{item.commodity_total|human_price}}</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div>
+    <h4>商品详情</h4>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>单价</th>
+                            <th class="min-width">数量</th>
+                            <th>小计</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order.commodity_info_table %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'order_details' item.commodity.pk %}">{{item.commodity.name}}</a>
+                                </td>
+                                <td>${{item.price|human_price}}</td>
+                                <td>{{item.quantity}}</td>
+                                <td>${{item.commodity_total|human_price}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
