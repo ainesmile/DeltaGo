@@ -21,7 +21,7 @@ def create(item, fields, model):
     return new_record
 
 def save_commodity_and_details(items):
-    commodity_fields = ["name", "price", "special_price", "volume_size", "category"]
+    commodity_fields = ["name", "price", "special_price", "volume_size", "pic_url", "category"]
     details_fields = ["commodity", "weight", "ingredient", "serving_size", "servings", "nutritions", "claims",
         "health_star_rating", "made_in", "pic_url", "description", "endorsement"]
     for item in items:

@@ -8,6 +8,7 @@ class Commodity(models.Model):
     price = models.IntegerField(default = 0, null = True, blank = True)
     special_price = models.IntegerField(default = 0, null = True, blank = True)
     volume_size = models.CharField(max_length = 128, null = True, blank = True)
+    pic_url = models.URLField(blank = True, null = True, default=None)
     category = models.CharField(max_length = 20)
     online_date = models.DateTimeField(default = timezone.now)
 
