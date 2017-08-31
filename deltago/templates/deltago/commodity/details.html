@@ -7,9 +7,9 @@
 <div class="container">
     <div class="col-md-4">
         {% static 'deltago/img/products/' as baseUrl %}
-        <div class="">
+        <p class="text-center">
             <img src="{{baseUrl}}{{details.pic_url}}/details.png" alt="">
-        </div>
+        </p>
         <br>
         <form action="{% url 'addcart' details.commodity.pk %}" method="post">
             {% csrf_token %}
