@@ -66,23 +66,21 @@ class Ship(models.Model):
     DELIVERED = 'D'
 
     STATES = (
-        (SEND, 'Send'),
         (PROCESSING, 'Processing'),
         (DELIVERED, 'Delivered')
     )
-
     order = models.ForeignKey('Order')
-    number = models.CharField(max_length=128)
-    express = models.CharField(max_length=128)
-    linker = models.URLField()
-    fee = models.IntegerField(default=500)
+    state = models.CharField(max_length=4, choices=STATES, default=PROCESSING)
+    contact_number = models.CharField(max_length=128)
+    express_name = models.CharField(max_length=128)
+    express_number = models.CharField(max_length=128, null=True, blank=True)
+    linker = models.URLField(null=True, blank=True)
     address = models.CharField(max_length=128)
     receiver = models.CharField(max_length=128)
-    signer = models.CharField(max_length=128)
+    signer = models.CharField(max_length=128, null=True, blank=True)
 
-    send_time = models.DateTimeField(default=timezone.now)
     processing_time = models.DateTimeField(default=timezone.now)
-    delivered_time = models.DateTimeField(default=timezone.now)
+    delivered_time = models.DateTimeField(null=True, blank=True)
     def __str__(self):
         return self.number
 
@@ -90,12 +88,9 @@ class Ship(models.Model):
 class Payment(models.Model):
     order = models.ForeignKey('Order')
     name = models.CharField(max_length=128)
-    number = models.CharField(max_length=200)
+    number = models.CharField(max_length=200, null=True, blank=True)
     method = models.CharField(max_length=128)
-    ship_fee = models.IntegerField()
-    subtotal = models.IntegerField()
-    currency_unit = models.CharField(max_length=128)
-    exchange_rate = models.IntegerField()
+    total = models.IntegerField(default=0)
     created_time = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.order
