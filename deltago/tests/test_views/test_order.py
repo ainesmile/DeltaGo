@@ -34,11 +34,15 @@ class OrderViewTest(TestCase):
 
         self.order = Order.objects.get(pk=1)
 
+        self.service_charge = 1000
+
         self.e_fee = {
             "subtotal": 836,
-            "total": 1336,
+            "service": self.service_charge, 
+            "total": 2336,
             "ship_fee": 500,
-            "exchange_rate": 500
+            "exchange_rate": 500,
+            "rmb": 11680,
         }
 
         self.e_commodity_info_table_item = {
@@ -73,8 +77,8 @@ class OrderViewTest(TestCase):
 
     def test_init_order(self):
         subtotal = 650*3
-        total = 650*3+500
-        new_order = order_service.init_order(self.cart, subtotal, total)
+        total = 650*3 + 500 + self.service_charge
+        new_order = order_service.init_order(self.cart, subtotal, 500)
         self.assertEqual(new_order.user, self.admin)
         self.assertEqual(new_order.subtotal, subtotal)
         self.assertEqual(new_order.total, total)
@@ -84,7 +88,7 @@ class OrderViewTest(TestCase):
         subtotal = 650 * 1
         weight = max((float(603 * 1 + 200)/1000), 1.0)
         ship_fee = round(500 * weight, 2)
-        total = subtotal + ship_fee
+        total = subtotal + ship_fee + self.service_charge
 
         new_order = order_service.new_order_with_chosen(self.cart, chosens)
         self.assertEqual(new_order.user, self.cart.user)
