@@ -7,7 +7,14 @@
             <ul class="list-unstyled">
                 {% for order in orders %}
                     <li>
-                        <a href="{% url 'order_details' order.pk %}" type="button" class="btn btn-blank-pink btn-sm pull-right">查看详情</a>
+                        <div class="pull-right pull-down">
+                            <a href="{% url 'order_details' order.pk %}" type="button" class="btn btn-blank-pink btn-sm ">查看详情</a>
+
+                            {% if order.state == 'U' %}
+                                <a href="{% url 'order_pay' order.pk %}" class="btn btn-blank-purple btn-sm">去支付</a>
+                            {% endif %}
+                        </div>
+
                         <div>
                             {% include 'deltago/order/basic.html' %}
                         </div>

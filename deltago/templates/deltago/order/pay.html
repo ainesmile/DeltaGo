@@ -1,0 +1,52 @@
+{% extends 'deltago/base/base.html' %}
+{% load static %}
+{% load date %}
+{% load price %}
+{% block main %}
+<section>
+<div class="container">
+<div class="col-md-12">
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        请扫码支付，支付时请务必在微信留言说明订单号、用户名。
+    </div>
+
+    <div>
+        <h4>订单信息</h4>
+        <p class="col-md-4 col-sm-2 no-padding">
+            订单号：<a href="{% url 'order_details' order.pk %}" >{{order.serial_code}}</a>
+        </p>
+        <p class="col-md-8 col-sm-8 no-padding">
+            订单金额：NZ${{order.total|human_price}}
+        </p>
+        <p class="col-md-4 col-sm-2 no-padding">
+            当前汇率：{{order.exchange_rate|human_price}}
+        </p>
+        <p class="col-md-8 col-sm-8 no-padding">
+            人民币金额：{{order.rmb|human_price}}
+        </p>
+    </div>
+
+
+    <div>
+        <p class="text-center">
+            {% static 'deltago/img/' as baseUrl %}
+            <img src="{{baseUrl}}/wechat-pay.png">
+        </p>
+    </div>
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <p>
+            当您支付完成时，我们会尽可能的更新订单状态，尽早发货，请您耐心等待。
+        </p>
+        <p>
+            如有任何问题，都可以发送邮件至 nz.deltago@gmail.com ，我们将尽可能及时回复。
+        </p>
+        <p>
+            很抱歉，给您带来的不便。感谢您的理解、包容。
+        </p>
+    </div>
+</div>
+</div>
+</section>
+{% endblock %}

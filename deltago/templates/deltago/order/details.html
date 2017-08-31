@@ -6,7 +6,11 @@
     <section>
         <div class="container">
             <div class="col-md-12 order-details">
+                {% if order.state == 'U' %}
+                    <a href="{% url 'order_pay' order.pk %}" class="btn btn-blank-red btn-sm pull-right">去支付</a>
+                {% endif %}
                 {% include 'deltago/order/basic.html' %}
+                    
                 <hr class="greyblue">
                 {% include 'deltago/order/ship.html' %}
                 <hr class="greyblue">

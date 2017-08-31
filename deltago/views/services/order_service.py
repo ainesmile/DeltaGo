@@ -19,6 +19,14 @@ from deltago.templatetags import date
 
 # A1 generate order help functions
 
+def get_order(order_id):
+    try:
+        order = Order.objects.get(pk=order_id)
+    except ObjectDoesNotExist:
+        raise Http404('该订单不存在')
+    return order
+
+
 # 1. update_quantities_checked_deleted_states_based_on_current_cart
 def update_cartships(current_cart, checkboxes, quantities, checkbox_all):
     cartships = Cartship.objects.filter(cart=current_cart)
@@ -165,11 +173,15 @@ def get_order_list(user, page, per_page):
 
 # B3 order_details view
 def get_order_details(order_id):
-    try:
-        order = Order.objects.get(pk=order_id)
-    except ObjectDoesNotExist:
-        raise Http404('该订单不存在')
-
+    order = get_order(order_id)
     order = get_order_basic_info(order)
     order.commodity_info_table = get_commodity_info_table(order)
     return order
+
+# B4 pay order view
+def get_pay_data(order_id):
+    order = get_order(order_id)
+    order.rmb = round(float(order.total * order.exchange_rate)/100, 2)
+    # order = get_order_basic_info(order)
+    return order
+

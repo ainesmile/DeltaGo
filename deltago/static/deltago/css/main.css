@@ -60,6 +60,17 @@ ul.list-review > li {
     background-color: white;
     border-color: #fba3b2;
 }
+.btn-blank-purple {
+    color: #ca83d3;
+    background-color: white;
+    border-color: #ca83d3;
+}
+.btn-blank-red {
+    color: red;
+    background-color: white;
+    border-color: red;
+}
+
 
 
 a.disabled {
