@@ -40,7 +40,8 @@ class Order(models.Model):
         null=True,
         blank=True,)
     subtotal = models.IntegerField()
-    total = models.IntegerField()
+    service_charge = models.IntegerField(default=1000)
+    total = models.IntegerField(default=0)
     
     user = models.ForeignKey(User)
     

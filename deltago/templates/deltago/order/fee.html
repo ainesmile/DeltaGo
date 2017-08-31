@@ -4,19 +4,26 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <p class="col-md-4 col-sm-2 no-padding">
-                商品金额：${{order.fee.subtotal|human_price}}
+            <p class="col-md-4 col-sm-4 no-padding">
+                订单金额：${{order.fee.total|human_price}}
             </p>
-            <p class="col-md-6 col-sm-8 no-padding">
-                运费：${{order.fee.ship_fee|human_price}}
+            <p class="col-md-4 col-sm-4 no-padding">
+                人民币金额：{{order.fee.rmb|human_price}}
             </p>
-        </div>
-        <div class="col-md-12">
-            <p class="col-md-4 col-sm-2 no-padding">
+            <p class="col-md-4 col-sm-4 no-padding">
                 汇率：{{order.fee.exchange_rate|human_price}}
             </p>
-            <p class="col-md-6 col-sm-8 no-padding">
-                支付方式：{{order.payment_method|default:'未支付'}}
+            
+        </div>
+        <div class="col-md-12">
+            <p class="col-md-4 col-sm-4 no-padding">
+                商品金额：${{order.fee.subtotal|human_price}}
+            </p>
+            <p class="col-md-4 col-sm-4 no-padding">
+                运费：${{order.fee.ship_fee|human_price}}
+            </p>
+            <p class="col-md-4 col-sm-4 no-padding">
+                代购费：${{order.fee.service|human_price}}
             </p>
         </div>
     </div>

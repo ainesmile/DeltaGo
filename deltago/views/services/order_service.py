@@ -44,6 +44,8 @@ def archive_cart(cart):
     cart.is_archived = True
     cart.save()
 
+
+# TODO
 def generate_order_serial_code(order):
     serial_code = ''
     unpaid_time = order.unpaid_time
@@ -58,13 +60,14 @@ def generate_order_serial_code(order):
     return serial_code
 
 # create new order with chosen cartships
-def init_order(cart, subtotal, total):
+def init_order(cart, subtotal, ship_fee):
     user = cart.user
     new_order = Order(
         user=user,
         cart=cart,
-        subtotal=subtotal,
-        total=total)
+        subtotal=subtotal)
+
+    new_order.total = subtotal + ship_fee + new_order.service_charge
     new_order.serial_code = generate_order_serial_code(new_order)
     new_order.save()
     return new_order
@@ -73,7 +76,7 @@ def new_order_with_chosen(current_cart, chosens):
     subtotal = share_service.get_cartships_subtotal(chosens)
     ship_fee = share_service.cal_ship_fee(chosens)
     total = subtotal + ship_fee
-    new_order = init_order(current_cart, subtotal, total)
+    new_order = init_order(current_cart, subtotal, ship_fee)
     return new_order
 
 # create new cart with unchosen cartships
@@ -92,13 +95,17 @@ def new_cart_with_unchosens(user, unchosens):
 def get_order_show_fee(order):
     subtotal = order.subtotal
     total = order.total
-    ship_fee = total - subtotal
+    service = order.service_charge
+    ship_fee = total - subtotal - service
     exchange_rate = order.exchange_rate
+    rmb = round(float(total * exchange_rate) / 100, 2)
     return {
         "subtotal": subtotal,
+        "service": service, 
         "total": total,
         "ship_fee": ship_fee,
-        "exchange_rate": exchange_rate
+        "exchange_rate": exchange_rate,
+        "rmb": rmb
     }
 
 def get_order_state_text(state):
