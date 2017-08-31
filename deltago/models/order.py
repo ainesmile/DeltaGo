@@ -84,3 +84,17 @@ class Ship(models.Model):
     delivered_time = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.number
+
+
+class Payment(models.Model):
+    order = models.ForeignKey('Order')
+    name = models.CharField(max_length=128)
+    number = models.CharField(max_length=200)
+    method = models.CharField(max_length=128)
+    ship_fee = models.IntegerField()
+    subtotal = models.IntegerField()
+    currency_unit = models.CharField(max_length=128)
+    exchange_rate = models.IntegerField()
+    created_time = models.DateTimeField(default=timezone.now)
+    def __str__(self):
+        return self.order
