@@ -123,5 +123,30 @@
         "claims": "",
         "health_star_rating": 5,
         "pic_url": "pics-peanut-butter-crunchy-1000"
+    },
+    {
+        "name": "Pic's Almond Butter 195g",
+        "code": 6,
+        "price": 1099,
+        "volume_size": "195g",
+        "category": "Food",
+        "weight": 345,
+        "made_in": "New Zealand from Australian almonds",
+        "ingredient": "Almonds (100%)",
+        "serving_size": "15g",
+        "servings": 13,
+        "nutritions": [
+            ["能量", "378kJ", "2520kJ"],
+            ["蛋白质", "3.4g", "26.5g"],
+            ["脂肪", "7.8g", "52.0g"],
+            [" -饱和脂肪", "0.5g", "4.1g"],
+            ["碳水化合物", "1.3g", "8.5g"],
+            [" -糖", "0.4g", "5.9g"],
+            ["膳食纤维", "1.2g", "7.9g"],
+            ["钠", "<1mg", "<2mg"]
+        ],
+        "claims": "No Salt",
+        "health_star_rating": 5,
+        "pic_url": "pics-almond-butter-195"
     }
 ]
