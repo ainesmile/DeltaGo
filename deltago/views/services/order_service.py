@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 
 from deltago.exceptions import errors
 
-from deltago.models import Order, Cart, Cartship
+from deltago.models import Order, Cart, Cartship, Ship, DeliverInfo
 
 from deltago.views.services import cart_service, share_service
 
@@ -25,6 +25,25 @@ def get_order(order_id):
     except ObjectDoesNotExist:
         raise Http404('该订单不存在')
     return order
+
+
+def create_ship_based_delivery(order, delivery_info_id):
+    try:
+        info_id = int(delivery_info_id)
+        info = DeliverInfo.objects.get(pk=info_id)
+    except ValueError:
+        return None
+    except ObjectDoesNotExist:
+        raise Http404()
+    new_ship = Ship(
+        order=order,
+        receiver=info.receiver,
+        contact_number=info.contact_number,
+        address=info.address)
+    new_ship.save()
+    return new_ship
+
+
 
 
 # 1. update_quantities_checked_deleted_states_based_on_current_cart
@@ -118,6 +137,20 @@ def get_order_state_text(state):
     }
     return state_text[state]
 
+def get_order_ship_details(order):
+    try:
+        ship = Ship.objects.get(order=order)
+        ship_details = {
+            "receiver": ship.receiver,
+            "address": ship.address,
+            "number": ship.number,
+            "express": ship.express
+        }
+        return ship_details
+    except:
+        return None
+    
+
 def get_order_basic_info(order):
     order.fee = get_order_show_fee(order)
     order.state_text = get_order_state_text(order.state)
@@ -152,15 +185,17 @@ def get_commodity_info_table(order):
 # B exported view functions
 
 # B1 checkout view
-def generate_order(user, checkboxes, quantities, checkbox_all):
+def generate_order(user, checkboxes, quantities, checkbox_all, delivery_info_id):
     current_cart = cart_service.user_current_cart(user)
     update_cartships(current_cart, checkboxes, quantities, checkbox_all)
     chosens = Cartship.objects.filter(cart=current_cart, is_chosen=True)
     if not chosens:
-        raise errors.EmptyCartError("Choose at least one item.")
+        # raise errors.EmptyCartError("Choose at least one item.")
+        raise Http404()
     else:
         archive_cart(current_cart)
         new_order = new_order_with_chosen(current_cart, chosens)
+        create_ship_based_delivery(new_order, delivery_info_id)
         unchosens = Cartship.objects.filter(cart=current_cart, is_chosen=False)
         if unchosens:
             new_cart_with_unchosens(user, unchosens)
@@ -183,12 +218,15 @@ def get_order_details(order_id):
     order = get_order(order_id)
     order = get_order_basic_info(order)
     order.commodity_info_table = get_commodity_info_table(order)
+    order.ship_details = get_order_ship_details(order)
     return order
 
 # B4 pay order view
 def get_pay_data(order_id):
     order = get_order(order_id)
     order.rmb = round(float(order.total * order.exchange_rate)/100, 2)
+
+
     # order = get_order_basic_info(order)
     return order
 

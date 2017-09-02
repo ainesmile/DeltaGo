@@ -2,7 +2,7 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
 
-from deltago.models import Commodity, Cart, Cartship
+from deltago.models import Commodity, Cart, Cartship, DeliverInfo
 from deltago.views.services import share_service
 
 def user_current_cart(user):
@@ -51,6 +51,8 @@ def add_to_cart(user, product_id, quantity):
     else:
         return update_or_create_cartship(cart, commodity, quantity)
 
+
+
 def cartship_list(user, page, per_page):
     cart = user_current_cart(user)
     data = Cartship.objects.filter(cart=cart, is_deleted=False)
@@ -61,3 +63,8 @@ def cartship_list(user, page, per_page):
         "paginations": cartships,
         "empty_tips": empty_tips
     }
+
+def get_cart_render_data(user, page, per_page):
+    render_data = cartship_list(user, page, per_page)
+    render_data["deliver_infos"] = DeliverInfo.objects.filter(user=user)
+    return render_data

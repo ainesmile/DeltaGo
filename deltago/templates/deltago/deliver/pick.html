@@ -1,0 +1,31 @@
+
+{% include 'deltago/deliver/alert.html' %}
+{% if deliver_infos %}
+    {% for deliver_info in deliver_infos %}
+    <div class="deliver-card col-md-3 col-sm-6">
+        <div class="deliver-card-block">
+
+            <h4 class="card-title inline">
+                收件人：{{deliver_info.receiver}}
+            </h4>
+            <label class="radio inline"> 
+                <input type="radio" name="delivery_info" value="{{deliver_info.pk}}">
+                <span></span> 
+            </label>
+            <hr>
+            <p class="card-text">联系电话：{{deliver_info.contact_number}}</p>
+            <p class="card-text">地址：{{deliver_info.address}}</p>
+            <a href="">编辑</a>
+            <a href="">删除</a>
+        </div>
+    </div>
+    {% endfor %}
+{% endif %}
+
+
+<div class="deliver-card col-md-3 col-sm-6">
+    <div class="deliver-card-block text-center- add-deliver-card">
+        <span class="glyphicon glyphicon-plus"></span>
+    </div>
+    </a>
+</div>

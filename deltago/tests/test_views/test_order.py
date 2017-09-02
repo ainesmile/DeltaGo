@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
 from django.utils import timezone
+from django.http import Http404
 from django.contrib.auth.models import User
 from deltago.exceptions import errors
-from deltago.models import Cartship, Cart, Commodity, Order
+from deltago.models import Cartship, Cart, Commodity, Order, DeliverInfo
 
 from deltago.views.services import order_service
 
@@ -16,6 +17,7 @@ class OrderViewTest(TestCase):
         'deltago/fixtures/cart.json',
         'deltago/fixtures/cartship.json',
         'deltago/fixtures/order.json',
+        'deltago/fixtures/delivery_info.json',
     ]
 
 
@@ -142,9 +144,9 @@ class OrderViewTest(TestCase):
         ]
         for checkboxes, checkbox_all in data:
             try:
-                new_order = order_service.generate_order(user, checkboxes, quantities, checkbox_all)
+                new_order = order_service.generate_order(user, checkboxes, quantities, checkbox_all, u'1')
                 updated_cart = new_order.cart
                 self.assertTrue(updated_cart.is_archived)
                 self.assertEqual(new_order.user, user)
-            except errors.EmptyCartError as e:
-                self.assertTrue(isinstance(e, errors.EmptyCartError))
+            except Http404:
+                print ''

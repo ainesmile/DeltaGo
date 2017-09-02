@@ -1,0 +1,12 @@
+[
+{
+  "model": "deltago.DeliverInfo",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "receiver": "receiver1",
+    "contact_number": "12345678910",
+    "address": "address-1"
+  }
+}
+]

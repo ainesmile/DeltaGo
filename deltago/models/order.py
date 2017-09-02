@@ -59,6 +59,14 @@ class Order(models.Model):
     def __getitem__(self, key):
         return getattr(self, key)
 
+class DeliverInfo(models.Model):
+    user = models.ForeignKey(User)
+    receiver = models.CharField(max_length=128)
+    contact_number = models.CharField(max_length=128)
+    address = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.receiver
 
 class Ship(models.Model):
     SEND = 'S'
@@ -77,7 +85,6 @@ class Ship(models.Model):
     linker = models.URLField(null=True, blank=True)
     address = models.CharField(max_length=128)
     receiver = models.CharField(max_length=128)
-    signer = models.CharField(max_length=128, null=True, blank=True)
 
     processing_time = models.DateTimeField(default=timezone.now)
     delivered_time = models.DateTimeField(null=True, blank=True)

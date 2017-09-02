@@ -8,7 +8,7 @@ from deltago.views.services import cart_service
 def cart(request):
     user = request.user
     page = request.GET.get('page', 1)
-    data = cart_service.cartship_list(user, page, 20)
+    data = cart_service.get_cart_render_data(user, page, 20)
     return render(request, 'deltago/cart/cart.html', data)
 
 @login_required(login_url='login')

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import Http404
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
@@ -12,11 +13,10 @@ def checkout(request):
         quantities = request.POST.getlist('quantity')
         checkboxes = request.POST.getlist('checkbox')
         checkbox_all = bool(request.POST.get('checkbox_all'))
-        try:
-            order_service.generate_order(user, checkboxes, quantities, checkbox_all)
-        except errors.EmptyCartError:
-            print 'please choose at least one item'
-    return redirect('my_orders')
+        delivery_info_id = request.POST.get('delivery_info')
+        new_order = order_service.generate_order(user, checkboxes, quantities, checkbox_all, delivery_info_id)
+    return redirect('order_pay', order_id=new_order.pk)
+
 
 @login_required(login_url='login')
 def my_orders(request):
