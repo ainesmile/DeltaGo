@@ -4,12 +4,20 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <p class="col-md-4 col-sm-2 no-padding">收货人：</p>
-                    <p class="col-md-6 col-sm-8 no-padding">收货地址：</p>
+                    <p class="col-md-4 col-sm-2 no-padding">
+                        收货人：{{order.ship_details.receiver}}
+                    </p>
+                    <p class="col-md-6 col-sm-8 no-padding">
+                        收货地址：{{order.ship_details.address}}
+                    </p>
                 </div>
                 <div class="col-md-12">
-                    <p class="col-md-4 col-sm-2 no-padding">联系电话：</p>
-                    <p class="col-md-6 col-sm-8 no-padding">快递单号：</p>
+                    <p class="col-md-4 col-sm-2 no-padding">
+                        联系电话：{{order.ship_details.contact_number}}
+                    </p>
+                    <p class="col-md-6 col-sm-8 no-padding">
+                        快递单号：{% firstof order.ship_details.express_number '暂无'%}
+                    </p>
                 </div>
             </div>
         </div>

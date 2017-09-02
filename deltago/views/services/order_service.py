@@ -140,16 +140,16 @@ def get_order_state_text(state):
 def get_order_ship_details(order):
     try:
         ship = Ship.objects.get(order=order)
-        ship_details = {
-            "receiver": ship.receiver,
-            "address": ship.address,
-            "number": ship.number,
-            "express": ship.express
-        }
-        return ship_details
     except:
-        return None
-    
+        raise Http404()
+    return {
+        "receiver": ship.receiver,
+        "address": ship.address,
+        "contact_number": ship.contact_number,
+        "express_name": ship.express_name,
+        "express_number": ship.express_number,
+        "state": ship.state
+    }
 
 def get_order_basic_info(order):
     order.fee = get_order_show_fee(order)
