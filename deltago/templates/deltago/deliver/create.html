@@ -1,0 +1,27 @@
+{% extends 'deltago/base/base.html' %}
+{% load price %}
+{% block main %}
+<section>
+    <div class="container">
+        <div class="col-md-3 col-md-offset-4">
+            <form action="{% url 'delivery_create' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="receiver">收件人</label>
+                    <input type="text" id="receiver" class="form-control" name="receiver">
+                </div>
+
+                <div class="form-group">
+                    <label for="contact_number">联系电话</label>
+                  <input type="text" id="contact_number" name="contact_number" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="address">收件地址</label>
+                    <textarea id="address" name="address" class="form-control"></textarea>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">确认提交</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock%}

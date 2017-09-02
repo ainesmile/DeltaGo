@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'', include('deltago.urls.order')),
     url(r'', include('deltago.urls.comments')),
     url(r'', include('deltago.urls.account')),
+    url(r'', include('deltago.urls.delivery')),
 ]
