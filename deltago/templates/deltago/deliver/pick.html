@@ -15,8 +15,8 @@
             <hr>
             <p class="card-text">联系电话：{{deliver_info.contact_number}}</p>
             <p class="card-text">地址：{{deliver_info.address}}</p>
-            <a href="">编辑</a>
-            <a href="">删除</a>
+            <a href="{% url 'delivery_edit' deliver_info.pk %}">编辑</a>
+            <a href="{% url 'delivery_delete' deliver_info.pk %}">删除</a>
         </div>
     </div>
     {% endfor %}
