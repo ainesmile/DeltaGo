@@ -225,8 +225,6 @@ def get_order_details(order_id):
 def get_pay_data(order_id):
     order = get_order(order_id)
     order.rmb = round(float(order.total * order.exchange_rate)/100, 2)
-
-
-    # order = get_order_basic_info(order)
+    order.ship_details = get_order_ship_details(order)
     return order
 

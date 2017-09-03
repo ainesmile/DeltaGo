@@ -26,14 +26,28 @@
             人民币金额：{{order.rmb|human_price}}
         </p>
     </div>
-
-
-    <div>
-        <p class="text-center">
-            {% static 'deltago/img/' as baseUrl %}
-            <img src="{{baseUrl}}/wechat-pay.png">
-        </p>
+    
+    {% if order.ship_details %}
+        <div >
+            <h4>快递信息</h4>
+            <p class="col-md-4 col-sm-2 no-padding">
+                收件人：{{order.ship_details.receiver}}</a>
+            </p>
+            <p class="col-md-8 col-sm-8 no-padding">
+                联系电话：{{order.ship_details.contact_number}}
+            </p>
+            <p class="col-md-8 col-sm-8 no-padding">
+                收货地址：{{order.ship_details.address}}
+            </p>
+            <p class="clearfix"></p>
+        </div>
+    {% endif %}
+    
+    <div class="text-center">
+        {% static 'deltago/img/' as baseUrl %}
+        <img src="{{baseUrl}}/wechat-pay.png">
     </div>
+
     <div class="alert alert-warning alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <p>
@@ -46,6 +60,7 @@
             很抱歉，给您带来的不便。感谢您的理解、包容。
         </p>
     </div>
+
 </div>
 </div>
 </section>
