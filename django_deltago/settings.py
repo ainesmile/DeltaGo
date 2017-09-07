@@ -19,13 +19,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'i!5fb)i+-wq^ur*_0v3s%y+847u($jl#9$x&r-j+p475n#bb9t'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'i!5fb)i+-wq^ur*_0v3s%y+847u($jl#9$x&r-j+p475n#bb9t')
+DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1',]
+ALLOWED_HOSTS = [u'localhost', u'127.0.0.1', u'deltago.ainesmile.com', u'172.104.73.110',]
 
 
 # Application definition
@@ -76,11 +74,14 @@ WSGI_APPLICATION = 'django_deltago.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'deltagodb',
+        'USER': 'deltagouser',
+        'PASSWORD': 'deltagopassword',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -119,6 +120,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
