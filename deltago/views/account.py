@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.contrib.auth.views import password_reset
 from django.contrib.auth import update_session_auth_hash
+from django.core.mail import send_mail
 
 from deltago.views.services import account_service
 

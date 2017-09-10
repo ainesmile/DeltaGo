@@ -10,6 +10,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'deltago',
+    'anymail',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +57,13 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+ANYMAIL = {
+    "MAILGUN_API_KEY": MAILGUN_API_KEY,
+    "MAILGUN_SENDER_DOMAIN": 'mail-deltago.ainesmile.com', 
+}
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+DEFAULT_FROM_EMAIL = "nz.deltago@gmail.com"
 
 
 # Internationalization
