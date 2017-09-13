@@ -23,3 +23,14 @@ class TokenTest(TestCase):
         token = token_service.token_generate(self.user)
         self.assertTrue(token_service.token_check(self.user, token))
 
+    def test_get_user(self):
+        uidb64 = token_service.uid_generate(self.user)
+        token = token_service.token_generate(self.user)
+        data = [
+            (uidb64, token, self.user),
+            ('uidb64', 'token', None)
+        ]
+        for uidb64, token, e_user in data:
+            user = token_service.get_user(uidb64, token)
+            self.assertEqual(user, e_user)
+
