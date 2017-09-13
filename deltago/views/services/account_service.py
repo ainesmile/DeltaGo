@@ -2,11 +2,11 @@
 from django.contrib.auth.models import User
 from django.db.models import Q
 import re
-
-from django.core.mail import EmailMultiAlternatives
-from anymail.message import attach_inline_image_file
-
 from django.core.mail import send_mail
+from django.template.loader import render_to_string
+
+from deltago.views.services import token_service
+
 
 def check_user(username, password):
     user_filter = User.objects.filter(Q(username=username)|Q(email=username))
@@ -40,18 +40,29 @@ def verify_password(password, confirm_password):
                 return '', True
 
 
-def send_email(email):
+def activate_url(user):
+    base_url = "http://deltago.ainesmile.com/activate"
+    token = token_service.token_generate(user)
+    uidb64 = token_service.uid_generate(user)
+    url = base_url + "/" + uidb64 + "/" + token
+    return url
+
+def generate_email_content(user):
+    url = activate_url(user)
     subject = "欢迎来到 DeltaGo"
-    message = '请点击以下链接地址激活您的账户 <a href="http://deltago.ainesmile.com/activate">http://deltago.ainesmile.com/activate</a>'
+    message = '<a href="%s">%s</a>' % (url, url)
+    html_message = render_to_string('deltago/registration/activate_email.html', {
+        "user": user,
+        "activate_url": url
+        })
+    return subject, message, html_message
+
+def send_email(user):
+    subject, message, html_message = generate_email_content(user)
     from_email = 'postmaster@mail-deltago.ainesmile.com'
-    recipient_list = [email, ]
-    html_message = """
-        <h4>欢迎您注册 DeltaGo 请激活您的账户</h4>
-        <p>请点击以下链接地址激活您的账户<a href="http://deltago.ainesmile.com/activate">http://deltago.ainesmile.com/activate</a></p>
-        <small>如果您并未注册，请无视。</small>
-        """
+    recipient_list = [user.email, ]
     send_mail(subject, message, from_email, recipient_list, html_message=html_message)
-    
+
 
 def register(email, username, password, confirm_password):
     (error_msgs, is_correct) = verify_password(password, confirm_password)
@@ -68,6 +79,21 @@ def register(email, username, password, confirm_password):
         is_active=False
     )
     new_user.save()
-    send_email(email)
+    send_email(new_user)
     return error_msgs, new_user
+
+
+def activate(uidb64, token):
+    try:
+        username = token_service.uid_decode(uidb64)
+        user = User.objects.get(username=username)
+    except:
+        return None
+
+    if token_service.token_check(user, token):
+        user.is_active = True
+        user.save()
+        return user
+    else:
+        return None
 

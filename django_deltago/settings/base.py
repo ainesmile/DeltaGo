@@ -59,7 +59,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 ANYMAIL = {
-    "MAILGUN_API_KEY": MAILGUN_API_KEY,
+    "MAILGUN_API_KEY": os.environ.get("MAILGUN_API_KEY"),
     "MAILGUN_SENDER_DOMAIN": 'mail-deltago.ainesmile.com', 
 }
 EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"

@@ -1,0 +1,11 @@
+{% autoescape off %}
+Hi {{ user.username }},
+
+<p>欢迎您注册 DeltaGo， 请激活您的账户</p>
+<p>
+    请点击以下链接地址激活您的账户
+    <a href="{{activate_url }}">{{activate_url}}</a>
+</p>
+
+<small>如果您并未注册，请无视。</small>
+{% endautoescape %}

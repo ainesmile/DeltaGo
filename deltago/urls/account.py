@@ -11,4 +11,6 @@ urlpatterns = [
     url(r'^password/change/done$', auth_views.password_change_done, {
         'template_name': 'deltago/registration/password_change_done.html'}, name='password_change_done'),
     url(r'^register/$', account.register, name="register"),
+    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        account.activate_view, name='activate'),
 ]

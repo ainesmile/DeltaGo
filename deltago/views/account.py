@@ -5,9 +5,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.contrib.auth.views import password_reset
 from django.contrib.auth import update_session_auth_hash
-from django.core.mail import send_mail
 
 from deltago.views.services import account_service
+
 
 def login_view(request):
     redirect_to = request.GET.get('next', 'index')
@@ -64,7 +64,16 @@ def register(request):
         (email, username, password, confirm_password) = account_service.set_register_session(request)
         error_messages, new_user = account_service.register(email, username, password, confirm_password)
         if new_user is not None:
-            login(request, new_user)
-            return redirect('index')
+            return render(request, 'deltago/registration/activate_tips.html', {"email": email})
     return render(request, 'deltago/registration/register.html', {'error_messages': error_messages})
+
+
+def activate_view(request, uidb64, token):
+    activated_user = account_service.activate(uidb64, token)
+    if activated_user is None:
+        return render(request, 'deltago/registration/activate_invalid.html')
+    else:
+        login(request, activated_user)
+        return redirect('index')
+
 
