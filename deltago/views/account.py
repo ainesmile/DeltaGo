@@ -66,23 +66,11 @@ def password_reset_token_view(request, uidb64, token):
                 user.set_password(new_password1)
                 user.save()
                 update_session_auth_hash(request, user)
+                return render(request, 'deltago/registration/password_reset_done.html')
                 return redirect('password_reset_done')
         return render(request, 'deltago/registration/password_reset_confirm.html', {"error_message": error_message})
     else:
         return render(request, 'deltago/registration/password_reset_invalid.html')
-
-
-def password_reset_done_view(request):
-    return render(request, 'deltago/registration/password_reset_done.html')
-
-
-
-
-
-
-
-
-
 
 @login_required(login_url='login')
 def password_change_view(request):
@@ -104,14 +92,23 @@ def password_change_view(request):
     return render(request, 'deltago/registration/password_change_form.html', {"error_message": error_message})
 
 def register(request):
-    error_messages = ''
+    errors = {}
+    user_id = None
     if request.method == 'POST':
-        (email, username, password, confirm_password) = account_service.set_register_session(request)
-        error_messages, new_user = account_service.register(email, username, password, confirm_password)
-        if new_user is not None:
-            return render(request, 'deltago/registration/activate_tips.html', {"email": email})
-    return render(request, 'deltago/registration/register.html', {'error_messages': error_messages})
+        email, username, password, confirm_password = account_service.set_register_session(request)
+        is_success, errors, new_user = account_service.register(email, username, password, confirm_password)
+        
+        if new_user:
+            user_id = new_user.pk
 
+        if is_success:
+            return render(request, 'deltago/registration/activate_tips.html', {
+                "email": email,
+                "user_id": user_id})
+
+    return render(request, 'deltago/registration/register.html', {
+        'errors': errors,
+        'user_id': user_id})
 
 def activate_view(request, uidb64, token):
     activated_user = account_service.activate(uidb64, token)
@@ -121,11 +118,19 @@ def activate_view(request, uidb64, token):
         login(request, activated_user)
         return redirect('index')
 
-
-
 def activate_email_view(request, user_id):
     user = account_service.activate_email(user_id)
     if user is not None:
-        return render(request, 'deltago/registration/activate_tips.html', {"email": user.email})
+        return render(request, 'deltago/registration/activate_tips.html', {
+            "email": user.email,
+            'user_id': user.pk})
+    else:
+        return redirect('index')
+
+def activate_email_repeat_view(request, user_id):
+    user = account_service.activate_email(user_id)
+    if user is not None:
+        return render(request, 'deltago/registration/activate_repeat_tips.html', {
+            "email": user.email})
     else:
         return redirect('index')

@@ -7,6 +7,13 @@ from django.template.loader import render_to_string
 
 from deltago.views.services import token_service, mail_service
 
+def check_user_exist(kwargs):
+    try:
+        user = User.objects.get(**kwargs)
+        return user
+    except:
+        return None
+
 
 def check_user(username, password):
     user_filter = User.objects.filter(Q(username=username)|Q(email=username))
@@ -26,16 +33,6 @@ def check_user(username, password):
     return error_message, need_activate, user
 
 
-def set_register_session(request):
-    email = request.POST.get('email')
-    username = request.POST.get('username')
-    password = request.POST.get('password')
-    confirm_password = request.POST.get('confirm_password')
-
-    request.session['email'] = email
-    request.session['username'] = username
-    return (email, username, password, confirm_password)
-
 def verify_password(password, confirm_password):
     if not password or not confirm_password:
         return '密码不正确', False
@@ -49,14 +46,46 @@ def verify_password(password, confirm_password):
             else:
                 return '', True
 
+def set_register_session(request):
+    email = request.POST.get('email')
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    confirm_password = request.POST.get('confirm_password')
+    request.session['email'] = email
+    request.session['username'] = username
+    return (email, username, password, confirm_password)
+
+
+
 def register(email, username, password, confirm_password):
-    (error_msgs, is_correct) = verify_password(password, confirm_password)
+    success = False
+    errors = {
+        "to_login": False,
+        "to_activate": False,
+        "username": False,
+        "password": False,
+        "password_message": '',
+    }
+
+    user_email = check_user_exist({"email": email})
+    if user_email:
+        if user_email.is_active:
+            errors["to_login"] = True
+        else:
+            errors["to_activate"] = True
+        return success, errors, user_email
+
+    user_name = check_user_exist({"username": username})
+    if user_name:
+        errors["username"] = True
+        return success, errors, user_name
+
+    (error_message, is_correct) = verify_password(password, confirm_password)
     if not is_correct:
-        return error_msgs, None
-    if User.objects.filter(email=email, is_active=True):
-        return '该邮箱已经被注册', None
-    if User.objects.filter(username=username):
-        return '用户名已存在', None
+        errors["password"] = True
+        errors["password_message"] = error_message
+        return success, errors, None
+
     new_user = User(
         username=username,
         email=email,
@@ -65,8 +94,8 @@ def register(email, username, password, confirm_password):
     )
     new_user.save()
     mail_service.send_activate_email(new_user)
-    return error_msgs, new_user
-
+    success = True
+    return success, errors, new_user
 
 def activate(uidb64, token):
     user = token_service.get_user(uidb64, token)

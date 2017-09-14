@@ -11,23 +11,26 @@ class AccountViewTest(TestCase):
     ]
 
     def setUp(self):
-        self.user = User.objects.get(pk=1)
+        self.user1 = User.objects.get(pk=1)
+        self.user2 = User.objects.get(pk=2)
         self.raw_password = '11111111'
+        self.error_msg_activate = '账户尚未激活'
+        self.error_msg_username = '用户名或密码不正确'
+
         self.register_password = '11111aaaaaAAAAA'
-        self.error_msgs_email = '该邮箱已经被注册'
-        self.error_msgs_username = '用户名已存在'
-        self.error_msgs_password = '密码格式不符合要求'
 
     def test_check_user(self):
         data = [
-            ('admin', self.raw_password, self.user),
-            ('admin@example.com', self.raw_password, self.user),
-            ('wrongusername', self.raw_password, None),
-            ('admin', 'wrongpassword', None),
+            (self.user1.username, self.raw_password, '', False, self.user1),
+            (self.user2.username, self.raw_password, self.error_msg_activate, True, self.user2),
+            (self.user1.email, 'wrongpassword', self.error_msg_username, False, self.user1),
+            ('wrongusername', 'wrongpassword', self.error_msg_username, None, None),
         ]
-        for username, password, e_result in data:
-            result = account_service.check_user(username, password)
-            self.assertEqual(result, e_result)
+        for username, password, e_msg, e_need, e_user in data:
+            msg, need, user = account_service.check_user(username, password)
+            self.assertEqual(msg, e_msg)
+            self.assertEqual(need, e_need)
+            self.assertEqual(user, e_user)
 
     def test_verify_password(self):
         data = [
@@ -43,14 +46,3 @@ class AccountViewTest(TestCase):
             self.assertEqual(msg, e_msg)
             self.assertEqual(result, e_result)
 
-    def test_register(self):
-        data = [
-            ('admin@example.com', 'admin', 'password', 'password', self.error_msgs_password, None),
-            ('admin@example.com', 'admin', self.register_password, self.register_password, self.error_msgs_email, None),
-            ('1@1.com', 'admin', self.register_password, self.register_password, self.error_msgs_username, None),
-            ('1@1.com', '1', self.register_password, self.register_password, '', True)
-        ]
-        for email, username, password, confirm_password, e_msg, e_user in data:
-            (msg, user) = account_service.register(email, username, password, confirm_password)
-            self.assertEqual(msg, e_msg)
-            self.assertEqual(bool(user), bool(e_user))

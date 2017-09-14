@@ -29,7 +29,7 @@
     "last_name": "",
     "email": "user1@example.com",
     "is_staff": false,
-    "is_active": true,
+    "is_active": false,
     "date_joined": "2017-08-08T23:21:30.937Z",
     "groups": [],
     "user_permissions": []

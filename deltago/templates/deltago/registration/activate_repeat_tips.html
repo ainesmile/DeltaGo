@@ -5,12 +5,14 @@
         <div class="col-md-12">
             <div class="alert alert-success alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                请前往邮箱<a href="mailto:{{email}}">{{email}}</a>
-                激活您的账户。如有问题请发送邮件至 <a href="mailto:nz.deltago@gmail.com">nz.deltago@gmail.com</a>。
+                <p>
+                    激活邮件已经重新发送，请前往邮箱<a href="mailto:{{email}}">{{email}}</a>查看。
+                    如果暂时没有收到，请您耐心等待或查看垃圾邮箱。
+                </p>
             </div>
             <div>
                 <p>
-                    茶都凉了，激活邮件还是没有收到？<a href="{% url 'activate_email_repeat' user_id %}">重新发送</a>
+                    如有问题请发送邮件至 <a href="mailto:nz.deltago@gmail.com">nz.deltago@gmail.com</a>。
                 </p>
             </div>
         </div>
