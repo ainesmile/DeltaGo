@@ -1,0 +1,27 @@
+{% extends 'deltago/base/base.html' %}
+{% block main %}
+<section>
+    <div class="container">
+        <div class="col-md-12">
+            <div class="col-md-3 col-md-offset-4">
+                {% if error_message %}
+                    <p class="alert alert-warning" style="line-height:0.6;">{{error_message}}</p>
+                {% endif %}
+                <form action="{% url 'activate_email_form' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                      <input type="email" class="form-control" placeholder="邮箱地址" name="email" required="required" value="{{request.session.email}}">
+
+                    </div>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">重新发送</button>
+                </form>
+                <br>
+                <p>
+                    还没有帐号？去<a href="{% url 'register' %}">注册？</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

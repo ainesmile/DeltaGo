@@ -26,7 +26,6 @@ def login_view(request):
                     request.session.set_expiry(60 * 60 * 24 * 30)
                 login(request, user)
                 return redirect(redirect_to)
-
     return render(request, 'deltago/registration/login.html', {
         "error_message": error_message,
         "need_activate": need_activate,
@@ -116,7 +115,7 @@ def activate_view(request, uidb64, token):
         return render(request, 'deltago/registration/activate_invalid.html')
     else:
         login(request, activated_user)
-        return redirect('index')
+        return render(request, 'deltago/registration/activate_done.html')
 
 def activate_email_view(request, user_id):
     user = account_service.activate_email(user_id)
@@ -134,3 +133,25 @@ def activate_email_repeat_view(request, user_id):
             "email": user.email})
     else:
         return redirect('index')
+
+def activate_email_form_view(request):
+    error_message = ''
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        request.session['email'] = email
+        error_message, user = account_service.activate_email_form(email)
+        if user is not None:
+            return render(request, 'deltago/registration/activate_tips.html', {
+                "email": user.email,
+                'user_id': user.pk})
+    return render(request, 'deltago/registration/activate_form.html', {
+        "error_message": error_message
+        })
+
+
+
+
+
+
+
+

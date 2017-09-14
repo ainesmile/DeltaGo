@@ -112,6 +112,14 @@ def activate_email(user_id):
     except:
         return None
     
+def activate_email_form(email):
+    user = check_user_exist({"email": email})
+    error_message = ''
+    if user:
+        mail_service.send_activate_email(user)
+    else:
+        error_message = '尚未注册'
+    return error_message, user
 
 def password_reset_email(email):
     try:

@@ -18,5 +18,6 @@ urlpatterns = [
         account.activate_view, name='activate'),
     url(r'^activate/(?P<user_id>\w+)/$', account.activate_email_view, name="activate_email"),
     url(r'^activate/repeat/(?P<user_id>\w+)/$', account.activate_email_repeat_view, name="activate_email_repeat"),
-
+    url(r'^activate/email/send$', account.activate_email_form_view, name="activate_email_form"),
+    
 ]
