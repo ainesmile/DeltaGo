@@ -7,7 +7,7 @@ urlpatterns = [
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
 
     url(r'^password/reset$', account.password_reset_view, name='password_reset'),
-    url(r'^password/reset/(?P<user_id>\w+)/$', account.password_reset_repeat, name='password_reset_repeat'),
+    url(r'^password/reset/(?P<user_id>\w+)/$', account.password_reset_repeat_view, name='password_reset_repeat'),
     url(r'^password/reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         account.password_reset_token_view, name='password_reset_token'),
     url(r'^password/reset/done$', account.password_reset_done_view, name='password_reset_done'),
@@ -17,4 +17,5 @@ urlpatterns = [
     url(r'^register/$', account.register, name="register"),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         account.activate_view, name='activate'),
+    url(r'^activate/(?P<user_id>\w+)/$', account.activate_email_view, name="activate_email")
 ]

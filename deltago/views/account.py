@@ -11,21 +11,26 @@ from deltago.views.services import account_service
 
 def login_view(request):
     redirect_to = request.GET.get('next', 'index')
-    wrong = False
+    error_message = ''
+    need_activate = None
+    user_id = None
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
         remember_me = request.POST.get('remember', None)
-        user = account_service.check_user(username, password)
+        error_message, need_activate, user = account_service.check_user(username, password)
         if user is not None:
-            if remember_me:
-                request.session.set_expiry(60 * 60 * 24 * 30)
-            login(request, user)
-            return redirect(redirect_to)
-        else:
-            wrong = True
+            user_id = user.pk
+            if not error_message:
+                if remember_me:
+                    request.session.set_expiry(60 * 60 * 24 * 30)
+                login(request, user)
+                return redirect(redirect_to)
+
     return render(request, 'deltago/registration/login.html', {
-        "wrong": wrong,
+        "error_message": error_message,
+        "need_activate": need_activate,
+        "user_id": user_id,
         "redirect_to": redirect_to})
 
 
@@ -41,7 +46,7 @@ def password_reset_view(request):
     return render(request, 'deltago/registration/password_reset_form.html', {"error_message": error_message})
 
 
-def password_reset_repeat(request, user_id):
+def password_reset_repeat_view(request, user_id):
     try:
         user = User.objects.get(pk=user_id)
         return render(request, 'deltago/registration/password_reset_repeat_tips.html', {"email": user.email})
@@ -117,3 +122,10 @@ def activate_view(request, uidb64, token):
         return redirect('index')
 
 
+
+def activate_email_view(request, user_id):
+    user = account_service.activate_email(user_id)
+    if user is not None:
+        return render(request, 'deltago/registration/activate_tips.html', {"email": user.email})
+    else:
+        return redirect('index')

@@ -10,11 +10,21 @@ from deltago.views.services import token_service, mail_service
 
 def check_user(username, password):
     user_filter = User.objects.filter(Q(username=username)|Q(email=username))
+    error_message = '用户名或密码不正确'
     if user_filter:
         user = user_filter[0]
-        if user.check_password(password):
-            return user
-    return None
+        if not user.is_active:
+            need_activate = True
+            error_message = '账户尚未激活'
+        else:
+            need_activate = False
+            if user.check_password(password):
+                error_message = ''
+    else:
+        need_activate = None
+        user = None
+    return error_message, need_activate, user
+
 
 def set_register_session(request):
     email = request.POST.get('email')
@@ -65,6 +75,14 @@ def activate(uidb64, token):
         user.save()
     return user
 
+def activate_email(user_id):
+    try:
+        user = User.objects.get(pk=user_id)
+        mail_service.send_activate_email(user)
+        return user
+    except:
+        return None
+    
 
 def password_reset_email(email):
     try:

@@ -3,9 +3,12 @@
 <section>
     <div class="container">
         <div class="col-md-3 col-md-offset-4">
-            {% if wrong %}
+            {% if error_message %}
             <p class="alert alert-warning" role="alert" style="line-height:0.6;">
-                用户名或密码不正确
+                {{error_message}}
+                {% if need_activate %}
+                    <a href="{% url 'activate_email' user_id %}">激活</a>
+                {% endif %}
             </p>
             {% endif %}
             <form action="{% url 'login' %}?next={{redirect_to}}" method="post">
