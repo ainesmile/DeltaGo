@@ -5,7 +5,7 @@ import re
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
-from deltago.views.services import token_service
+from deltago.views.services import token_service, mail_service
 
 
 def check_user(username, password):
@@ -39,36 +39,11 @@ def verify_password(password, confirm_password):
             else:
                 return '', True
 
-
-def activate_url(user):
-    base_url = "http://deltago.ainesmile.com/activate"
-    token = token_service.token_generate(user)
-    uidb64 = token_service.uid_generate(user)
-    url = base_url + "/" + uidb64 + "/" + token
-    return url
-
-def generate_email_content(user):
-    url = activate_url(user)
-    subject = "欢迎来到 DeltaGo"
-    message = '<a href="%s">%s</a>' % (url, url)
-    html_message = render_to_string('deltago/registration/activate_email.html', {
-        "user": user,
-        "activate_url": url
-        })
-    return subject, message, html_message
-
-def send_email(user):
-    subject, message, html_message = generate_email_content(user)
-    from_email = 'postmaster@mail-deltago.ainesmile.com'
-    recipient_list = [user.email, ]
-    send_mail(subject, message, from_email, recipient_list, html_message=html_message)
-
-
 def register(email, username, password, confirm_password):
     (error_msgs, is_correct) = verify_password(password, confirm_password)
     if not is_correct:
         return error_msgs, None
-    if User.objects.filter(email=email):
+    if User.objects.filter(email=email, is_active=True):
         return '该邮箱已经被注册', None
     if User.objects.filter(username=username):
         return '用户名已存在', None
@@ -79,21 +54,28 @@ def register(email, username, password, confirm_password):
         is_active=False
     )
     new_user.save()
-    send_email(new_user)
+    mail_service.send_activate_email(new_user)
     return error_msgs, new_user
 
 
 def activate(uidb64, token):
-    try:
-        username = token_service.uid_decode(uidb64)
-        user = User.objects.get(username=username)
-    except:
-        return None
-
-    if token_service.token_check(user, token):
+    user = token_service.get_user(uidb64, token)
+    if user:
         user.is_active = True
         user.save()
-        return user
-    else:
-        return None
+    return user
+
+
+def password_reset_email(email):
+    try:
+        user = User.objects.get(email=email)
+    except:
+        return '邮箱地址不存在。', None
+    mail_service.send_password_reset_email(user)
+    return '', user
+
+def password_reset_token(uidb64, token):
+    user = token_service.get_user(uidb64, token)
+    return user
+
 

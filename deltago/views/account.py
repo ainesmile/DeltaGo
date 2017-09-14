@@ -28,16 +28,56 @@ def login_view(request):
         "wrong": wrong,
         "redirect_to": redirect_to})
 
-@login_required(login_url='login')
+
 def password_reset_view(request):
+    error_message = ''
     if request.method == 'POST':
-        request.session['password_reset_email'] = request.POST.get('email')
-    template_name = 'deltago/registration/password_reset_form.html',
-    return password_reset(request, template_name=template_name)
+        email = request.POST.get('email')
+        error_message, user = account_service.password_reset_email(email)
+        if not error_message:
+            return render(request, 'deltago/registration/password_reset_tips.html', {
+                "email": user.email,
+                "user_id": user.pk})
+    return render(request, 'deltago/registration/password_reset_form.html', {"error_message": error_message})
+
+
+def password_reset_repeat(request, user_id):
+    try:
+        user = User.objects.get(pk=user_id)
+        return render(request, 'deltago/registration/password_reset_repeat_tips.html', {"email": user.email})
+    except:
+        return redirect('password_reset')
+    
+    
+def password_reset_token_view(request, uidb64, token):
+    user = account_service.password_reset_token(uidb64, token)
+    if user:
+        error_message = ''
+        if request.method == 'POST':
+            new_password1 = request.POST.get('new_password1')
+            new_password2 = request.POST.get('new_password2')
+            error_message, is_verified = account_service.verify_password(new_password1, new_password2)
+            if is_verified:
+                user.set_password(new_password1)
+                user.save()
+                update_session_auth_hash(request, user)
+                return redirect('password_reset_done')
+        return render(request, 'deltago/registration/password_reset_confirm.html', {"error_message": error_message})
+    else:
+        return render(request, 'deltago/registration/password_reset_invalid.html')
+
 
 def password_reset_done_view(request):
-    email = request.session['password_reset_email']
-    return render(request, 'deltago/registration/password_reset_done.html', {'email': email})
+    return render(request, 'deltago/registration/password_reset_done.html')
+
+
+
+
+
+
+
+
+
 
 @login_required(login_url='login')
 def password_change_view(request):
