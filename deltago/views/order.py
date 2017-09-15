@@ -7,20 +7,6 @@ from deltago.exceptions import errors
 from deltago.views.services import order_service
 
 @login_required(login_url='login')
-def checkout(request):
-    user = request.user
-    if request.method == 'POST':
-        quantities = request.POST.getlist('quantity')
-        checkboxes = request.POST.getlist('checkbox')
-        checkbox_all = bool(request.POST.get('checkbox_all'))
-        delivery_id = request.POST.get('delivery_id')
-        if delivery_id is None:
-            return redirect('delivery_create')
-        new_order = order_service.generate_order(user, checkboxes, quantities, checkbox_all, delivery_id)
-    return redirect('order_pay', order_id=new_order.pk)
-
-
-@login_required(login_url='login')
 def my_orders(request):
     user = request.user
     page = request.GET.get('page', 1)

@@ -5,8 +5,10 @@
 <div class="container">
 <div class="col-md-12">
 {% if cartships %}
-
-    <form action="{% url 'checkout' %}" method="post">
+    {% if check_fail %}
+        <p class="alert alert-warning">请至少选择一件商品。</p>
+    {% endif %}
+    <form action="{% url 'cart' %}" method="post">
         {% csrf_token %}
         {% include 'deltago/deliver/pick.html' %}
         <table class="table">
