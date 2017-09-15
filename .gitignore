@@ -6,4 +6,5 @@ libs/
 img/products/
 deltago/static/deltago/img/products/
 /static/
+errors.log
 
