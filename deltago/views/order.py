@@ -14,6 +14,8 @@ def checkout(request):
         checkboxes = request.POST.getlist('checkbox')
         checkbox_all = bool(request.POST.get('checkbox_all'))
         delivery_id = request.POST.get('delivery_id')
+        if delivery_id is None:
+            return redirect('delivery_create')
         new_order = order_service.generate_order(user, checkboxes, quantities, checkbox_all, delivery_id)
     return redirect('order_pay', order_id=new_order.pk)
 
