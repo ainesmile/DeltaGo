@@ -6,9 +6,8 @@
 <section>
 <div class="container">
     <div class="col-md-4">
-        {% static 'deltago/img/products/' as baseUrl %}
         <p class="text-center">
-            <img src="{{baseUrl}}{{details.pic_url}}/details.png" alt="">
+            <img src="https://raw.githubusercontent.com/ainesmile/rawdeltago/master/img/products/{{details.pic_url}}/details.png" alt="">
         </p>
         <br>
         <form action="{% url 'addcart' details.commodity.pk %}" method="post">
