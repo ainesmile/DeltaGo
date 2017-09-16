@@ -24,7 +24,7 @@ def add_comment(request):
     if request.method == "POST":
         content = request.POST.get('content')
         nickname = request.POST.get('nickname')
-        is_public = request.POST.get('is_public', False)
+        is_public = not bool(request.POST.get('keep_private'))
         new_comment = comment_service.create_comment(user, content, nickname, is_public)
         return redirect('comments')
     else:
@@ -73,8 +73,8 @@ def reply_comment(request, comment_id):
         raise Http404('该留言不存在。')
     if request.method == 'POST':
         content = request.POST.get('content')
-        is_public = request.POST.get('is_public')
-        comment_service.create_reply(user, comment, content, is_public)
+        keep_private = request.POST.get('keep_private')
+        comment_service.create_reply(user, comment, content, keep_private)
         replies = Reply.objects.filter(author=user)
         return redirect('comments')
     else:

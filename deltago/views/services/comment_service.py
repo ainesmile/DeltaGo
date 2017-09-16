@@ -36,27 +36,31 @@ def get_review_number(comment):
     unuseful = reviews.filter(is_useful=False).count()
     return useful, unuseful
 
-def get_comment_reply(user, comment, public_only):
-    reply_filter = Reply.objects.filter(comment=comment)
-    if user.is_superuser:
-        return reply_filter
-    if public_only:
-        return reply_filter.filter(is_public=True)
-    else:
-        return reply_filter
+def get_comment_reply(user, comment):
+    filter_condition = {
+        "comment": comment
+    }
+    if not (user.is_superuser or (user == comment.author)):
+        filter_condition["is_public"] = True
+    return Reply.objects.filter(**filter_condition)
 
-def get_comment_list(comments, user, public_only):
+def get_comment_list(comments, user):
     for comment in comments:
         (useful, unuseful) = get_review_number(comment)
         comment.useful_number = useful
         comment.unuseful_number = unuseful
         comment.review_auth = get_review_auth(comment, user)
-        comment.replies = get_comment_reply(user, comment, public_only)
+        comment.replies = get_comment_reply(user, comment)
     return comments
 
 def get_comments(user, page, per_page):
-    filter_comments = Comment.objects.filter(is_approved=True)
-    comments = get_comment_list(filter_comments, user, True)
+    filter_condition = {}
+    if not user.is_superuser:
+        filter_condition["is_approved"] = True
+        filter_condition["is_public"] = True
+
+    filter_comments = Comment.objects.filter(**filter_condition)
+    comments = get_comment_list(filter_comments, user)
     paginations = share_service.pagination(comments, page, per_page)
     return {
         "comments": paginations,
@@ -65,7 +69,7 @@ def get_comments(user, page, per_page):
 
 def get_user_comments(user, page, per_page):
     filter_comments = Comment.objects.filter(author=user)
-    user_comments = get_comment_list(filter_comments, user, False)
+    user_comments = get_comment_list(filter_comments, user)
     paginations = share_service.pagination(filter_comments, page, per_page)
     return {
         "comments": paginations,
@@ -105,12 +109,11 @@ def review(user, comment, is_useful):
         except ObjectDoesNotExist:
             create_reviewship(user, comment, is_useful)
 
-def create_reply(user, comment, content, is_public):
-    if is_public is None:
-        is_public = comment.is_public
+def create_reply(user, comment, content, keep_private):
+    if keep_private is not None:
+        is_public = False
     else:
-        is_public = bool(is_public)
-    print is_public
+        is_public = comment.is_public
     new_reply = Reply(
         comment=comment,
         author=user,
