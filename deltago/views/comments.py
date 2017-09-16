@@ -26,7 +26,7 @@ def add_comment(request):
         nickname = request.POST.get('nickname')
         is_public = not bool(request.POST.get('keep_private'))
         new_comment = comment_service.create_comment(user, content, nickname, is_public)
-        return redirect('comments')
+        return redirect('my_comments')
     else:
         return render(request, 'deltago/comments/add_comment.html')
 
