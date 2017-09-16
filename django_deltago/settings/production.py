@@ -1,7 +1,7 @@
 from .base import *
 
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
-DEBUG = bool(os.environ.get('DJANGO_DEBUG'))
+DEBUG = False
 
 ALLOWED_HOSTS = [u'deltago.ainesmile.com', u'172.104.73.110',]
 
