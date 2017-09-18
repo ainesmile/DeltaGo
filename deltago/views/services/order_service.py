@@ -26,6 +26,12 @@ def get_order(order_id):
         raise Http404('该订单不存在')
     return order
 
+def check_order_cancellable(user, order):
+    if (not user.is_authenticated) or (user != order.user):
+        raise PermissionDenied
+    else:
+        return bool(order.state == Order.UNPAID)
+
 
 def create_ship_based_delivery(order, delivery_info_id):
     try:
@@ -42,7 +48,6 @@ def create_ship_based_delivery(order, delivery_info_id):
         address=info.address)
     new_ship.save()
     return new_ship
-
 
 
 
@@ -227,4 +232,15 @@ def get_pay_data(order_id):
     order.rmb = round(float(order.total * order.exchange_rate)/100, 2)
     order.ship_details = get_order_ship_details(order)
     return order
+
+
+def cancel_order(user, order_id):
+    order = get_order(order_id)
+    is_cancellable = check_order_cancellable(user, order)
+    if is_cancellable:
+        order.state = Order.ARCHIVED
+        order.save()
+    return is_cancellable
+
+
 

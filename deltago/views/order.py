@@ -23,4 +23,14 @@ def order_pay(request, order_id):
     pay_data = order_service.get_pay_data(order_id)
     return render(request, 'deltago/order/pay.html', {"order": pay_data})
 
+@login_required(login_url='login')
+def order_cancel(request, order_id):
+    user = request.user
+    is_cancelled = order_service.cancel_order(user, order_id)
+    if is_cancelled:
+        return render(request, 'deltago/order/cancel_success.html')
+    else:
+        return render(request, 'deltago/order/cancel_fail.html')
+
+
 

@@ -6,9 +6,21 @@
     <section>
         <div class="container">
             <div class="col-md-12 order-details">
-                {% if order.state == 'U' %}
-                    <a href="{% url 'order_pay' order.pk %}" class="btn btn-blank-red btn-sm pull-right">去支付</a>
-                {% endif %}
+
+                <div class="pull-right">
+                    {% if order.state == 'U' %}
+                        <a href="{% url 'order_pay' order.pk %}" class="btn btn-blank-red btn-sm">去支付</a>
+
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'order_cancel' order.pk %}" class="btn btn-blank-blue btn-sm">取消订单</a>
+                        {% endif %}
+
+                        
+                    {% endif %}
+                </div>
+
+
+
                 {% include 'deltago/order/basic.html' %}
                     
                 <hr class="greyblue">
