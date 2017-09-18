@@ -1,4 +1,4 @@
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 from django.http import Http404, HttpResponseForbidden
 from deltago.models import DeliverInfo
 
@@ -15,7 +15,7 @@ def get_delivery(user, delivery_id):
     except ObjectDoesNotExist:
         raise Http404()
     if delivery.user != user:
-        raise HttpResponseForbidden()
+        raise PermissionDenied
     else:
         return delivery
 

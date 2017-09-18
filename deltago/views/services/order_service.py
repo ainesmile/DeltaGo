@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 from django.http import Http404
 from django.utils import timezone
 import random
@@ -31,6 +31,10 @@ def check_order_cancellable(user, order):
         raise PermissionDenied
     else:
         return bool(order.state == Order.UNPAID)
+
+def check_user_permission(user, order):
+    if user != order.user:
+        raise PermissionDenied
 
 
 def create_ship_based_delivery(order, delivery_info_id):
@@ -142,11 +146,12 @@ def get_order_state_text(state):
     }
     return state_text[state]
 
-def get_order_ship_details(order):
+def get_order_ship_details(user, order):
     try:
         ship = Ship.objects.get(order=order)
     except:
         raise Http404()
+    check_user_permission(user, order)
     return {
         "receiver": ship.receiver,
         "address": ship.address,
@@ -219,18 +224,20 @@ def get_order_list(user, page, per_page):
     }
 
 # B3 order_details view
-def get_order_details(order_id):
+def get_order_details(user, order_id):
     order = get_order(order_id)
+    check_user_permission(user, order)
     order = get_order_basic_info(order)
     order.commodity_info_table = get_commodity_info_table(order)
-    order.ship_details = get_order_ship_details(order)
+    order.ship_details = get_order_ship_details(user, order)
     return order
 
 # B4 pay order view
-def get_pay_data(order_id):
+def get_pay_data(user, order_id):
     order = get_order(order_id)
+    check_user_permission(user, order)
     order.rmb = round(float(order.total * order.exchange_rate)/100, 2)
-    order.ship_details = get_order_ship_details(order)
+    order.ship_details = get_order_ship_details(user, order)
     return order
 
 

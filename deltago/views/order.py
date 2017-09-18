@@ -16,11 +16,13 @@ def my_orders(request):
 @login_required(login_url='login')
 def order_details(request, order_id):
     user = request.user
-    details = order_service.get_order_details(order_id)
+    details = order_service.get_order_details(user, order_id)
     return render(request, 'deltago/order/details.html', {"order": details})
 
+@login_required(login_url='login')
 def order_pay(request, order_id):
-    pay_data = order_service.get_pay_data(order_id)
+    user = request.user
+    pay_data = order_service.get_pay_data(user, order_id)
     return render(request, 'deltago/order/pay.html', {"order": pay_data})
 
 @login_required(login_url='login')
