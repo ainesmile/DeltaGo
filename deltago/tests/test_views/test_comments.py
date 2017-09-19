@@ -1,7 +1,7 @@
 from django.test import TestCase, Client
 from django.utils import timezone
 from django.core.paginator import Page
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 from django.contrib.auth.models import User
 
 from deltago.exceptions import errors
@@ -36,8 +36,3 @@ class CommentViewTest(TestCase):
     def test_get_review_number(self):
         result = comment_service.get_review_number(self.comment_1)
         self.assertEqual((1, 1), result)
-
-    def test_update_reviewship(self):
-        self.assertRaises(errors.DuplicateError, comment_service.update_reviewship, self.reviewship_1, True)
-        comment_service.update_reviewship(self.reviewship_2, True)
-        self.assertEqual(self.reviewship_2.is_useful, True)

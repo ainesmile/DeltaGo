@@ -15,8 +15,16 @@ from deltago.views.services import comment_service
 
 def comments(request):
     page = request.GET.get('page', 1)
-    data = comment_service.get_comments(request.user, page, 20)
+    user = request.user
+    data = comment_service.get_comments(user, page, 20)
     return render(request, 'deltago/comments/comments.html', data)
+
+@login_required(login_url='login')
+def my_comments(request):
+    user = request.user
+    page = request.GET.get('page', 1)
+    render_data = comment_service.get_user_comments(user, page, 20)
+    return render(request, 'deltago/comments/my_comments.html', render_data)
 
 @login_required(login_url='login', redirect_field_name='next')
 def add_comment(request):
@@ -33,24 +41,27 @@ def add_comment(request):
 @login_required(login_url='login')
 def review(request, comment_id, is_useful):
     user = request.user
-    try:
-        comment = Comment.objects.get(pk=comment_id)
-        comment_service.review(user, comment, int(is_useful))
-    except ObjectDoesNotExist as e:
-        raise Http404('该留言不存在。')
-    except errors.DuplicateError as e:
-        raise SuspiciousOperation(e)
-    except errors.OperationError as e:
-        raise SuspiciousOperation(e)
+    comment_service.review(user, comment_id, int(is_useful))
     return redirect('comments')
+
+@login_required(login_url='login')
+def reply_comment(request, comment_id):
+    user = request.user
+    comment = comment_service.get_comment(comment_id)
+    if request.method == 'POST':
+        content = request.POST.get('content')
+        keep_private = request.POST.get('keep_private')
+        comment_service.reply(user, comment, content, keep_private)
+        return redirect('comments')
+    else:
+        return render(request, 'deltago/comments/reply_comment.html', {
+            "comment": comment})
 
 @login_required(login_url='login')
 def delete_comment(request, comment_id):
     next_view = request.GET.get('next_view', 'index')
-    try:
-        comment = Comment.objects.get(pk=comment_id)
-    except ObjectDoesNotExist as e:
-        raise Http404('该留言不存在。')
+    user = request.user
+    comment = comment_service.delete(user, comment_id)
     if request.method == 'POST':
         comment.delete()
         return redirect(next_view)
@@ -62,28 +73,5 @@ def delete_comment(request, comment_id):
         "comment": comment,
         "next_view": next_view})
 
-@login_required(login_url='login')
-def reply_comment(request, comment_id):
-    user = request.user
-    if not user.is_superuser:
-        raise PermissionDenied
-    try:
-        comment = Comment.objects.get(pk=comment_id)
-    except ObjectDoesNotExist:
-        raise Http404('该留言不存在。')
-    if request.method == 'POST':
-        content = request.POST.get('content')
-        keep_private = request.POST.get('keep_private')
-        comment_service.create_reply(user, comment, content, keep_private)
-        replies = Reply.objects.filter(author=user)
-        return redirect('comments')
-    else:
-        return render(request, 'deltago/comments/reply_comment.html', {
-            "comment": comment})
 
-@login_required(login_url='login')
-def my_comments(request):
-    user = request.user
-    page = request.GET.get('page', 1)
-    render_data = comment_service.get_user_comments(user, page, 20)
-    return render(request, 'deltago/comments/my_comments.html', render_data)
+

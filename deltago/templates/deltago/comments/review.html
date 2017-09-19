@@ -1,12 +1,12 @@
 <ul class="list-inline list-review">
     <li class="list-inline-item">
-        <a href="{% url 'review' comment_id=comment.pk is_useful=1 %}" class="{% firstof comment.review_auth.useful 'disabled' %}">
+        <a href="{% url 'review' comment_id=comment.pk is_useful=1 %}" class="{% firstof comment.auth.useful 'disabled' %}">
             <span class="glyphicon glyphicon-thumbs-up"></span>
             <small>{{comment.useful_number}}</small>
         </a>
     </li>
     <li class="list-inline-item">
-        <a href="{% url 'review' comment_id=comment.pk is_useful=0 %}" class="{% firstof comment.review_auth.unuseful 'disabled' %}">
+        <a href="{% url 'review' comment_id=comment.pk is_useful=0 %}" class="{% firstof comment.auth.unuseful 'disabled' %}">
             <span class="glyphicon glyphicon-thumbs-down"></span>
             <small>{{comment.unuseful_number}}</small>
         </a>
@@ -19,7 +19,7 @@
         </li>
     {% endif %}
     <li class="list-inline-item">
-        <a href="{% url 'delete_comment' comment.pk %}" class="{% firstof comment.review_auth.delete 'disabled' %}">
+        <a href="{% url 'delete_comment' comment.pk %}" class="{% firstof comment.auth.delete 'disabled' %}">
             <span class="glyphicon glyphicon-trash"></span>
         </a>
     </li>

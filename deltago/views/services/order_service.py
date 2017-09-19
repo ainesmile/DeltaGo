@@ -10,7 +10,7 @@ from deltago.exceptions import errors
 
 from deltago.models import Order, Cart, Cartship, Ship, DeliverInfo
 
-from deltago.views.services import cart_service, share_service
+from deltago.views.services import cart_service, share_service, delivery_service
 
 from deltago.templatetags import date
 
@@ -36,23 +36,14 @@ def check_user_permission(user, order):
     if user != order.user:
         raise PermissionDenied
 
-
-def create_ship_based_delivery(order, delivery_info_id):
-    try:
-        info_id = int(delivery_info_id)
-        info = DeliverInfo.objects.get(pk=info_id)
-    except ValueError:
-        return None
-    except ObjectDoesNotExist:
-        raise Http404()
+def create_ship_based_delivery(order, delivery):
     new_ship = Ship(
         order=order,
-        receiver=info.receiver,
-        contact_number=info.contact_number,
-        address=info.address)
+        receiver=delivery.receiver,
+        contact_number=delivery.contact_number,
+        address=delivery.address)
     new_ship.save()
     return new_ship
-
 
 
 # 1. update_quantities_checked_deleted_states_based_on_current_cart
@@ -195,7 +186,7 @@ def get_commodity_info_table(order):
 # B exported view functions
 
 # B1 checkout view
-def generate_order(user, checkboxes, quantities, checkbox_all, delivery_info_id):
+def generate_order(user, checkboxes, quantities, checkbox_all, delivery_id):
     current_cart = cart_service.user_current_cart(user)
     update_cartships(current_cart, checkboxes, quantities, checkbox_all)
     chosens = Cartship.objects.filter(cart=current_cart, is_chosen=True)
@@ -203,9 +194,11 @@ def generate_order(user, checkboxes, quantities, checkbox_all, delivery_info_id)
         # raise errors.EmptyCartError("Choose at least one item.")
         raise Http404()
     else:
+        delivery = delivery_service.get_delivery(user, delivery_id)
         archive_cart(current_cart)
         new_order = new_order_with_chosen(current_cart, chosens)
-        create_ship_based_delivery(new_order, delivery_info_id)
+
+        create_ship_based_delivery(new_order, delivery)
         unchosens = Cartship.objects.filter(cart=current_cart, is_chosen=False)
         if unchosens:
             new_cart_with_unchosens(user, unchosens)
