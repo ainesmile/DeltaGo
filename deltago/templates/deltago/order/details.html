@@ -17,6 +17,10 @@
 
                         
                     {% endif %}
+
+                    {% if order.state == 'A' %}
+                        <a href="{% url 'order_reorder' order.pk %}" type="button" class="btn btn-blank-pink btn-sm ">重新购买</a>
+                    {% endif %}
                 </div>
 
 

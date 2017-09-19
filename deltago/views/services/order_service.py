@@ -23,7 +23,7 @@ def get_order(order_id):
     try:
         order = Order.objects.get(pk=order_id)
     except ObjectDoesNotExist:
-        raise Http404('该订单不存在')
+        raise Http404()
     return order
 
 def check_order_cancellable(user, order):
@@ -242,5 +242,15 @@ def cancel_order(user, order_id):
         order.save()
     return is_cancellable
 
+
+def order_reorder(user, order_id):
+    order = get_order(order_id)
+    check_user_permission(user, order)
+    if order.state == Order.ARCHIVED:
+        order.state = Order.UNPAID
+        order.save()
+        return order
+    else:
+        raise PermissionDenied
 
 

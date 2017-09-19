@@ -34,5 +34,11 @@ def order_cancel(request, order_id):
     else:
         return render(request, 'deltago/order/cancel_fail.html')
 
+@login_required(login_url='login')
+def order_reorder(request, order_id):
+    user = request.user
+    order_service.order_reorder(user, order_id)
+    return redirect('order_pay', order_id=order_id)
+
 
 
