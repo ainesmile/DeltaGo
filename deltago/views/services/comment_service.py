@@ -118,6 +118,8 @@ def check_reviewship_exist(comment, user):
         return None
 
 def check_review_auth(comment, user):
+    if user.is_anonymous:
+        return (False, False)
     if comment.author == user:
         return (False, False)
     reviewship = check_reviewship_exist(comment, user)
