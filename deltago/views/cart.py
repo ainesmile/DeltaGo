@@ -5,13 +5,6 @@ from deltago.models import Cart
 from deltago.views.services import cart_service, order_service
 
 @login_required(login_url='login')
-def cart(request):
-    user = request.user
-    page = request.GET.get('page', 1)
-    data = cart_service.get_cart_render_data(user, page, 20)
-    return render(request, 'deltago/cart/cart.html', data)
-
-@login_required(login_url='login')
 def addcart(request, product_id):
     user = request.user
     if request.method == 'POST':
@@ -22,8 +15,6 @@ def addcart(request, product_id):
         else:
             return redirect('cart')
     
-
-
 @login_required(login_url='login')
 def cart(request):
     user = request.user
