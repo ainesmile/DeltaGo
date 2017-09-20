@@ -5,7 +5,15 @@ import re
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
+
+from deltago.models import Order
+
 from deltago.views.services import token_service, mail_service
+
+def check_delete_available(user):
+    orders = Order.objects.filter(user=user)
+    remain_orders = orders.filter(Q(state='P')|Q(state='C'))
+    return bool(not remain_orders)
 
 def check_user_exist(kwargs):
     try:

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from django.contrib.auth import logout
+from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.contrib.auth.views import password_reset
@@ -149,6 +151,20 @@ def activate_email_form_view(request):
         })
 
 
+def account_delete_view(request):
+    user = request.user
+    if user.is_anonymous:
+        raise PermissionDenied
+    if request.method == 'POST':
+        if account_service.check_delete_available(user):
+            logout(request)
+            user.delete()
+            return render(request, 'deltago/registration/delete_success.html')
+        else:
+            return render(request, 'deltago/registration/delete_tips.html')
+    else:
+        return render(request, 'deltago/registration/delete.html')
+    
 
 
 
